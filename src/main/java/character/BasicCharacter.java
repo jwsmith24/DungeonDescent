@@ -39,7 +39,7 @@ public class BasicCharacter implements Character {
        this.energy = GameConstants.BASE_ENERGY;
        this.speed = GameConstants.BASE_SPEED;
 
-       // Set bases kills
+       // Set base skills
        this.dungeoneering = GameConstants.BASE_DUNGEONEERING;
        this.lockPicking = GameConstants.BASE_LOCKPICKING;
        this.athletics = GameConstants.BASE_ATHLETICS;
@@ -149,9 +149,19 @@ public class BasicCharacter implements Character {
     }
 
     @Override
+    public String getPlayerRace() {
+       return race;
+    }
+    @Override
     public String getCharacterSheet() {
 
-       return 
+       return String.format("======================\n" +
+               "|\tCharacter Info\n" +
+               "======================\n" +
+               "| Name: %s\n" +
+               "| Experience: %s\n", getName(), getExperience());
+
+
     }
 
 

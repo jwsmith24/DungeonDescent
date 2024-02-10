@@ -1,23 +1,45 @@
-/*
 package character;
 
-public class Orc extends BasicCharacter {
 
-    BasicCharacter playerRef;
-    */
-/**
-     * An Orc gets a bonus to HP and has a unique racial ability.
-     * @param playerRef character name
-     *//*
+public class Orc extends ClassDecorator {
+
+    Character decoratedOrc;
+    /**
+     * An Orc gains a bonus to HP and has a unique racial ability.
+     *
+     * @param decoratedCharacter reference to next object in the decorator chain.
+     */
+    public Orc(Character decoratedCharacter) {
+        super(decoratedCharacter);
+        decoratedOrc = decoratedCharacter;
+    }
 
 
-    public Orc(BasicCharacter playerRef) {
+    @Override
+    public String getPlayerRace() {
 
-        this.playerRef = playerRef;
+        return GameConstants.ORC;
+    }
 
-        this.playerRef.race = GameConstants.ORC;
-        this.playerRef.hitPoints = getHitPoints() + 2;
-        this.playerRef.racialAbility = GameConstants.ORC_RACIAL;
+    @Override
+    public String getRacialAbility() {
+        return GameConstants.ORC_RACIAL;
+    }
+
+    /**
+     * Adds race and racial ability to character sheet.
+     * @return updated character sheet.
+     */
+    @Override
+    public String getCharacterSheet() {
+        return decoratedOrc.getCharacterSheet() + String.format(
+
+                "======================\n" +
+                "Race: %s\n" +
+                "Racial ability: %s\n"
+
+                , GameConstants.ORC, GameConstants.ORC_RACIAL
+        );
+
     }
 }
-*/

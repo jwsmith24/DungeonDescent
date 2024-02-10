@@ -16,17 +16,11 @@ public class Mage extends ClassDecorator {
 
         super(characterRef);
         decorated_mage = characterRef;
-        characterRef.setSpecialAbility(GameConstants.MAGE_SPECIAL);
-
-        characterRef.setAttackType(GameConstants.MAGE_ATTACK);
-        // need to override the getter methods instead, because updating them like this in the constructor doesn't work
-
-
     }
 
     @Override
     public String getAttackType() {
-        return decorated_mage.getAttackType() + GameConstants.MAGE_ATTACK;
+        return GameConstants.MAGE_ATTACK;
     }
 
     @Override
@@ -37,7 +31,19 @@ public class Mage extends ClassDecorator {
 
     @Override
     public String getSpecialAbility() {
-        return decorated_mage.getSpecialAbility() + GameConstants.MAGE_SPECIAL;
+        return GameConstants.MAGE_SPECIAL;
+    }
+
+    @Override
+    public String getCharacterSheet() {
+        return decorated_mage.getCharacterSheet() + String.format(
+                "======================\n" +
+                "Class: %s\n" +
+                "Attack Type: %s\n" +
+                "Special Ability: %s\n"
+
+                , GameConstants.MAGE, GameConstants.MAGE_ATTACK, GameConstants.MAGE_SPECIAL
+        );
     }
 
 

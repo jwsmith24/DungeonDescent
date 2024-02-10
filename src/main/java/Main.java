@@ -14,20 +14,24 @@ public class Main {
     public static void main(String[] args) {
 
 
-
-        System.out.println("Let's make a character!");
-
-        System.out.println("Here is bob");
-
+        // Make a base character Bob
         Character bob = new BasicCharacter("Bob");
+        System.out.println(bob.getCharacterSheet());
+        // Bob is an Orc
+        bob = new Orc(bob);
+        System.out.println(bob.getCharacterSheet());
+        // Bob wants to cast spells
+        bob = new Mage(bob);
+        System.out.println(bob.getCharacterSheet());
 
-       System.out.println(bob);
 
-        // Let's make Bob a Mage:
 
-        Character bobMage = new Mage(bob);
 
-        System.out.println(bobMage);
+
+        System.out.println("Bob's race is: " + bob.getPlayerRace());
+        System.out.println("Bob's name is: " + bob.getName());
+        System.out.println("Bob's class is: " + bob.getPlayerClass());
+
 
 
 

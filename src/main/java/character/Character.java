@@ -23,6 +23,7 @@ public interface Character {
 
     int getExperience();
 
+    String getPlayerRace();
     String getSpecialAbility();
     void setSpecialAbility(String specialAbility);
     String getRacialAbility();

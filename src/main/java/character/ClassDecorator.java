@@ -127,7 +127,10 @@ public abstract class ClassDecorator implements Character {
         decoratedCharacter.setAttackType(attackType);
     }
 
-
+    @Override
+    public String getPlayerRace() {
+        return decoratedCharacter.getPlayerRace();
+    }
 
 
 }
