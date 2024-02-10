@@ -37,6 +37,7 @@ public class Orc extends ClassDecorator {
      */
     @Override
     public String getCharacterSheet() {
+
         return decoratedOrc.getCharacterSheet() + String.format(
 
                 "======================\n" +

@@ -89,6 +89,11 @@ public abstract class ClassDecorator implements Character {
     }
 
     @Override
+    public int getHistory() {
+        return decoratedCharacter.getHistory();
+    }
+
+    @Override
     public int getExperience() {
         return decoratedCharacter.getExperience();
     }

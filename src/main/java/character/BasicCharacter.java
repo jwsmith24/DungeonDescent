@@ -18,6 +18,7 @@ public class BasicCharacter implements Character {
    int lockPicking;
    int athletics;
    int arcana;
+   int history;
 
    // Player Info
    String name;
@@ -47,6 +48,7 @@ public class BasicCharacter implements Character {
        this.lockPicking = GameConstants.BASE_LOCKPICKING;
        this.athletics = GameConstants.BASE_ATHLETICS;
        this.arcana = GameConstants.BASE_ARCANA;
+       this.history = GameConstants.BASE_HISTORY;
 
        // Set base player info
        this.name = name;
@@ -109,6 +111,11 @@ public class BasicCharacter implements Character {
     @Override
     public int getArcana() {
        return arcana;
+    }
+
+    @Override
+    public int getHistory() {
+       return history;
     }
 
     public int getExperience() {

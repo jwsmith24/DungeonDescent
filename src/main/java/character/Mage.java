@@ -7,7 +7,7 @@ package character;
  */
 public class Mage extends ClassDecorator {
 
-    Character decorated_mage;
+    Character decoratedMage;
     /**
      * A Mage gets a +2 bonus to Arcana and has a unique ability.
      * @param characterRef base player object.
@@ -15,7 +15,7 @@ public class Mage extends ClassDecorator {
     public Mage(Character characterRef) {
 
         super(characterRef);
-        decorated_mage = characterRef;
+        decoratedMage = characterRef;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class Mage extends ClassDecorator {
 
     @Override
     public int getArcana() {
-        return decorated_mage.getArcana() + GameConstants.STAT_BONUS;
+        return decoratedMage.getArcana() + GameConstants.STAT_BONUS;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Mage extends ClassDecorator {
 
     @Override
     public String getCharacterSheet() {
-        return decorated_mage.getCharacterSheet() + String.format(
+        return decoratedMage.getCharacterSheet() + String.format(
                 "======================\n" +
                 "| Class: %s\n" +
                 "| Attack Type: %s\n" +

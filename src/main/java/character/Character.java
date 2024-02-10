@@ -21,6 +21,7 @@ public interface Character {
     int getLockPicking();
     int getAthletics();
     int getArcana();
+    int getHistory();
 
     // Player Info
     int getExperience();

@@ -48,6 +48,7 @@ public class GameConstants {
     public static final String ORC_RACIAL = "+2 to Hit Points" ;
     public static final String HUMAN = "Human";
     public static final String DEMON = "Demon";
+    public static final String DEMON_RACIAL = "Become immune to all damage for 3 turns";
     public static final String ELF = "Elf";
     public  static final String GNOME = "Gnome";
 

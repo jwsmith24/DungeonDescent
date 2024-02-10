@@ -1,11 +1,50 @@
 package character;
 
-public class Priest extends BasicCharacter {
+public class Priest extends ClassDecorator {
+
+    Character decoratedPriest;
+
     /**
-     * A Priest has a unique special and gets a small bonus to HP and Defence.
+     * A Priest gets +2 to history and has a unique special ability
      */
-    public Priest(String name) {
-        super(name);
+    public Priest(Character characterRef) {
+        super(characterRef);
+        decoratedPriest = characterRef;
+    }
+
+    @Override
+    public String getPlayerClass() {
+        return GameConstants.PRIEST;
+    }
+    @Override
+    public String getAttackType() {
+
+        return GameConstants.PRIEST_ATTACK;
 
     }
+
+    @Override
+    public int getHistory() {
+
+        return decoratedPriest.getHistory() + GameConstants.STAT_BONUS;
+    }
+
+    @Override
+    public String getSpecialAbility() {
+
+        return GameConstants.PRIEST_SPECIAL;
+    }
+
+    @Override
+    public String getCharacterSheet() {
+        return decoratedPriest.getCharacterSheet() + String.format(
+                "======================\n" +
+                        "| Class: %s\n" +
+                        "| Attack Type: %s\n" +
+                        "| Special Ability: %s\n"
+
+                , this.getPlayerClass(), this.getAttackType(), this.getSpecialAbility()
+        );
+    }
+
 }

@@ -56,13 +56,21 @@ public class TestCharacterCreation {
     @Test
     void testDecoratingRaceThenClass() {
         Character bob = new BasicCharacter("Bob");
-        //todo
+
+        // Bob is a demon
+        bob = new Demon(bob);
+        // Bob is also a Priest
+        bob = new Priest(bob);
+
+        assertEquals(GameConstants.PRIEST, bob.getPlayerClass(), "Bob is no longer a priest");
+        assertEquals(GameConstants.DEMON, bob.getPlayerRace(), "Bob is no longer a demon");
+        assertEquals("Bob", bob.getName(), "Bob lost his name");
+        assertEquals(10, bob.getHitPoints(), "Bob's HP changed");
+
 
     }
 
-
-
-    // test decorating race and then class
+    
 
 
     // test decorating class and then race

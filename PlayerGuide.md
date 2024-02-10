@@ -43,7 +43,7 @@ A quick reference for how class, race, and background affect player stats.
  - +2 to Hit Points
 
 **Racial Feature**  
- *Berserker Rage* - Once per dungeon, gain a +10 to Attack.
+ *Berserker Rage* - Once per dungeon, gain a +10 to Attack for 3 turns.
 
 ### Human
 - +2 to Attack
@@ -55,7 +55,7 @@ A quick reference for how class, race, and background affect player stats.
 - +2 to Speed
 
 **Racial Feature**  
-*Berserker Rage* - Once per dungeon, gain a +10 to Attack.
+*Demonic Fury* - Once per dungeon, become immune to all damage for 3 turns.
 
 ### Elf
 - +2 to Energy
