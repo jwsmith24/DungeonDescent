@@ -2,6 +2,7 @@ plugins {
     id 'java'
 }
 
+//mainClassName = ''
 repositories {
     mavenCentral()
 }
@@ -15,6 +16,3 @@ test {
     useJUnitPlatform()
 }
 
-application {
-
-}
