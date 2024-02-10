@@ -1,6 +1,6 @@
 
 plugins {
-   // id "checkstyle"
+    id "checkstyle"
     id "com.github.spotbugs" version "5.0.12"
 }
 
@@ -9,6 +9,25 @@ apply plugin: 'jacoco'
 
 mainClassName = 'Main'
 
+apply plugin: 'checkstyle'
+
+checkstyle {
+    ignoreFailures = true
+    showViolations = false
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports{
+
+    }
+
+
+}
+checkstyle {
+    toolVersion = "8.8"
+
+
+}
 
 
 repositories {
