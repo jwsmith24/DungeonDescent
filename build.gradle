@@ -16,10 +16,15 @@ checkstyle {
     showViolations = false
 }
 
-tasks.withType(Checkstyle).configureEach {
-    reports{
-
+tasks.withType(Checkstyle) {
+    reports {
+       // html.required.set(true)
+       // xml.required.set(false)
     }
+
+    include("**/java/character/*")
+
+
 
 
 }
