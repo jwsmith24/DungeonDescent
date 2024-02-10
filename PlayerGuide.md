@@ -38,7 +38,7 @@ A quick reference for how class, race, and background affect player stats.
 
 ### Priest
 > **Base Stats**
-> - Hit Points - 10
+> - Hit Points - 11
 > - Defence - 11
 
 > **Special Ability**

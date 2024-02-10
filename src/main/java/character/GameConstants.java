@@ -31,6 +31,12 @@ public class GameConstants {
     static final String THIEF = "Thief";
     static final String PRIEST = "Thief";
 
+    // Class Stat Bonuses
+    static final int WARRIOR_BONUS = 5;
+    static final int THIEF_BONUS = 2;
+    static final int MAGE_BONUS = 0;
+    static final int PRIEST_BONUS = 1;
+
 
     // Attack Types
     static final String UNARMED_ATTACK = "Unarmed Strike";
