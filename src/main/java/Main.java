@@ -3,8 +3,15 @@
  */
 public class Main {
 
+    static int level;
 
+    /**
+     * Simple main method to test dev tools.
+     */
     public static void main(String[] args) {
-        System.out.println("Welcome to Dungeon Descent!");
+
+        level = 0;
+
+        System.out.println("Welcome to Dungeon Descent! You are on level " + level + ".");
     }
 }
