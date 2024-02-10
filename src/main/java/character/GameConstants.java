@@ -33,10 +33,7 @@ public class GameConstants {
     static final String PRIEST = "Thief";
 
     // Class Stat Bonuses
-    static final int WARRIOR_BONUS = 5;
-    static final int THIEF_BONUS = 2;
-    static final int MAGE_BONUS = 0;
-    static final int PRIEST_BONUS = 1;
+    static final int STAT_BONUS = 2;
 
 
     // Attack Types
@@ -48,7 +45,7 @@ public class GameConstants {
 
     // Races
     static final String ORC = "Orc";
-    static final String ORC_RACIAL = "Bonus to Athletics";
+    static final String ORC_RACIAL = "+2 to Hit Points" ;
     static final String HUMAN = "Human";
     static final String DEMON = "Demon";
     static final String ELF = "Elf";

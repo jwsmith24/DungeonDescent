@@ -4,8 +4,6 @@ package character;
  * Abstract class to define the base player character before its decorated by class, race, and background modifiers.
  */
 public class BasicCharacter implements Character {
-    String name;
-    String race;
 
    // Core Stats
    int attack;
@@ -13,16 +11,23 @@ public class BasicCharacter implements Character {
    int hitPoints;
    int energy;
    int speed;
+   int luck;
+
+   // Skills
    int dungeoneering;
    int lockPicking;
    int athletics;
    int arcana;
+
+   // Player Info
+   String name;
+   String race;
    int experience;
    String playerClass;
    String specialAbility;
    String racialAbility;
    String attackType;
-   String characterSheet;
+
 
     /**
      * A Player starts with all the base stats plus whatever they're named by the user.
@@ -30,9 +35,7 @@ public class BasicCharacter implements Character {
      */
    public BasicCharacter(String name) {
 
-       this.name = name;
-
-       // Set base core stats
+       // Set base stats
        this.attack = GameConstants.BASE_ATTACK;
        this.defence = GameConstants.BASE_DEF;
        this.hitPoints = GameConstants.BASE_HP;
@@ -45,12 +48,13 @@ public class BasicCharacter implements Character {
        this.athletics = GameConstants.BASE_ATHLETICS;
        this.arcana = GameConstants.BASE_ARCANA;
 
+       // Set base player info
+       this.name = name;
        this.playerClass = GameConstants.CLASSLESS;
        this.attackType = GameConstants.UNARMED_ATTACK;
        this.experience = 0;
        this.race = null;
    }
-
 
 
     @Override
@@ -83,7 +87,10 @@ public class BasicCharacter implements Character {
         return speed;
     }
 
-
+    @Override
+    public int getLuck() {
+       return luck;
+    }
     @Override
     public int getDungeoneering() {
        return dungeoneering;

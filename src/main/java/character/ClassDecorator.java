@@ -64,6 +64,11 @@ public abstract class ClassDecorator implements Character {
     }
 
     @Override
+    public int getLuck() {
+        return decoratedCharacter.getLuck();
+    }
+
+    @Override
     public int getDungeoneering() {
         return decoratedCharacter.getDungeoneering();
     }

@@ -8,19 +8,21 @@ public interface Character {
 
     String getName();
 
-    // Base core stats
+    // Stats
     int getAttack();
     int getDefense();
     int getHitPoints();
     int getEnergy();
     int getSpeed();
+    int getLuck();
 
-    // Base skills
+    // Skills
     int getDungeoneering();
     int getLockPicking();
     int getAthletics();
     int getArcana();
 
+    // Player Info
     int getExperience();
 
     String getPlayerRace();
@@ -31,7 +33,6 @@ public interface Character {
     String getPlayerClass();
 
     String getAttackType();
-
 
     String getCharacterSheet();
 

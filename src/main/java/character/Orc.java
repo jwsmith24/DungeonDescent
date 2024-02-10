@@ -22,6 +22,11 @@ public class Orc extends ClassDecorator {
     }
 
     @Override
+    public int getHitPoints(){
+        return decoratedOrc.getHitPoints() + GameConstants.STAT_BONUS;
+    }
+
+    @Override
     public String getRacialAbility() {
         return GameConstants.ORC_RACIAL;
     }
@@ -36,9 +41,19 @@ public class Orc extends ClassDecorator {
 
                 "======================\n" +
                 "| Race: %s\n" +
-                "| Racial ability: %s\n"
+                "| Racial ability: %s\n" +
+                "======================\n" +
+                "|\tStats\n" +
+                "======================\n" +
+                "| Attack: %s\n" +
+                "| Defence: %s\n" +
+                "| Hit Points: %s\n" +
+                "| Energy: %s\n" +
+                "| Speed: %s\n" +
+                "| Luck: %s\n"
 
-                , GameConstants.ORC, GameConstants.ORC_RACIAL
+                , GameConstants.ORC, GameConstants.ORC_RACIAL, decoratedOrc.getAttack(), decoratedOrc.getDefense(),
+                this.getHitPoints(), decoratedOrc.getEnergy(), decoratedOrc.getSpeed(), decoratedOrc.getLuck()
         );
 
     }
