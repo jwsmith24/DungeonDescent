@@ -45,4 +45,12 @@ public class GameConstants {
     static final String THIEF_ATTACK = "Dagger slash";
     static final String PRIEST_ATTACK = "Smite";
 
+    // Races
+    static final String ORC = "Orc";
+    static final String ORC_RACIAL = "Bonus to Athletics";
+    static final String HUMAN = "Human";
+    static final String DEMON = "Demon";
+    static final String ELF = "Elf";
+    static final String GNOME = "Gnome";
+
 }

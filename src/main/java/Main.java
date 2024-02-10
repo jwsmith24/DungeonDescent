@@ -1,4 +1,5 @@
 import character.*;
+import character.Character;
 
 /**
  * Basic main class to ensure everything is set up properly.
@@ -14,12 +15,24 @@ public class Main {
 
 
 
-        System.out.println("Let's make a Mage!");
+        System.out.println("Let's make a character!");
 
-        Player mageBob = new Mage("Bob the Mage");
-        System.out.println(mageBob);
+        System.out.println("Here is bob");
+
+        Character bob = new BasicCharacter("Bob");
+
+       System.out.println(bob);
+
+        // Let's make Bob a Mage:
+
+        Character bobMage = new Mage(bob);
+
+        System.out.println(bobMage);
 
 
+
+
+/*
         System.out.println("Let's make a Warrior!");
 
         Player warriorCraig = new Warrior("Craig the Warrior");
@@ -27,7 +40,9 @@ public class Main {
 
         System.out.println("Let's make a Thief!");
         Player thiefDoug = new Thief("Doug the Thief");
-        System.out.println(thiefDoug);
+        System.out.println(thiefDoug);*/
+
+
 
     }
 }

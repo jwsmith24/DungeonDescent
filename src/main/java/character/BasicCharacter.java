@@ -3,10 +3,9 @@ package character;
 /**
  * Abstract class to define the base player character before its decorated by class, race, and background modifiers.
  */
-public abstract class Player implements Character {
-
-    Character decoratedCharacter;
+public class BasicCharacter implements Character {
     String name;
+    String race;
 
    // Core Stats
    int attack;
@@ -18,17 +17,18 @@ public abstract class Player implements Character {
    int lockPicking;
    int athletics;
    int arcana;
-
+   int experience;
    String playerClass;
    String specialAbility;
-
+   String racialAbility;
    String attackType;
+   String characterSheet;
 
     /**
      * A Player starts with all the base stats plus whatever they're named by the user.
      * @param name character name
      */
-   public Player(String name) {
+   public BasicCharacter(String name) {
 
        this.name = name;
 
@@ -47,7 +47,11 @@ public abstract class Player implements Character {
 
        this.playerClass = GameConstants.CLASSLESS;
        this.attackType = GameConstants.UNARMED_ATTACK;
+       this.experience = 0;
+       this.race = null;
    }
+
+
 
     @Override
     public String getName() {
@@ -100,9 +104,28 @@ public abstract class Player implements Character {
        return arcana;
     }
 
+    public int getExperience() {
+       return experience;
+    }
+
     @Override
     public String getSpecialAbility() {
        return specialAbility;
+    }
+
+    @Override
+    public void setSpecialAbility(String specialAbility) {
+
+    }
+
+    @Override
+    public String getRacialAbility() {
+       return racialAbility;
+    }
+
+    @Override
+    public void setRacialAbility(String racialAbility) {
+
     }
 
     @Override
@@ -111,27 +134,26 @@ public abstract class Player implements Character {
     }
 
     @Override
+    public void setPlayerClass(String playerClass) {
+
+    }
+
+    @Override
     public String getAttackType() {
        return attackType;
     }
 
     @Override
-    public String toString() {
-        return String.format(
-                        "======================\n" +
-                        "|\tCharacter Info\n" +
-                        "======================\n" +
-                        "| Name: %s\n" +
-                        "| Class: %s\n" +
-                        "| Special Ability: %s\n" +
-                        "======================\n" +
-                        "| Attack Type: %s\n" +
-                        "| Attack Bonus: + %s\n" +
-                        "======================\n" +
-                        "|Stats\n\n",
-                getName(), getPlayerClass(), getSpecialAbility(), getAttackType(), getAttack()
-        );
+    public void setAttackType(String attackType) {
+
     }
+
+    @Override
+    public String getCharacterSheet() {
+
+       return 
+    }
+
 
 }
 

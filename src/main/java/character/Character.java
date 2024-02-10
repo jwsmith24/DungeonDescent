@@ -21,13 +21,17 @@ public interface Character {
     int getAthletics();
     int getArcana();
 
+    int getExperience();
+
     String getSpecialAbility();
-
+    void setSpecialAbility(String specialAbility);
+    String getRacialAbility();
+    void setRacialAbility(String racialAbility);
     String getPlayerClass();
-
+    void setPlayerClass(String playerClass);
     String getAttackType();
+    void setAttackType(String attackType);
 
-    @Override
-    String toString();
+    String getCharacterSheet();
 
 }

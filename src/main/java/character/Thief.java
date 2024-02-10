@@ -3,7 +3,7 @@ package character;
 /**
  * Thief decorator class.
  */
-public class Thief extends Player{
+public class Thief extends BasicCharacter {
 
     /**
      * A Thief has a unique special and gets a small bonus to HP and Defence.
