@@ -13,6 +13,8 @@ public class Mage extends Player {
 
         super(name);
         this.specialAbility = GameConstants.MAGE_SPECIAL;
+        this.playerClass = GameConstants.MAGE;
+        this.attackType = GameConstants.MAGE_ATTACK;
 
 
     }

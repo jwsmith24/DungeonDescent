@@ -23,6 +23,10 @@ public interface Character {
 
     String getSpecialAbility();
 
+    String getPlayerClass();
+
+    String getAttackType();
+
     @Override
     String toString();
 

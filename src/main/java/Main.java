@@ -16,12 +16,14 @@ public class Main {
 
         System.out.println("Let's make a mage!");
 
-        Player wizard = new Mage("bob");
+        Player mageBob = new Mage("Bob the Mage");
+        System.out.println(mageBob);
 
-        System.out.println("We want to see something that's specific to Mage " +
-                "AND something that comes from the base class");
 
-        System.out.println(wizard);
+        System.out.println("Let's make a Warrior!");
+
+        Player warriorCraig = new Warrior("Craig the Warrior");
+        System.out.println(warriorCraig);
 
 
 

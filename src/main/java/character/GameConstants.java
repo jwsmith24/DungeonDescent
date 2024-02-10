@@ -25,10 +25,18 @@ public class GameConstants {
     static final String PRIEST_SPECIAL = "Holy Spirit";
 
     // Classes
-    static final int CLASSLESS = 0;
-    static final int WARRIOR = 1;
-    static final int MAGE = 2;
-    static final int THIEF = 3;
-    static final int PRIEST = 4;
+    static final String CLASSLESS = null;
+    static final String WARRIOR = "Warrior";
+    static final String MAGE = "Mage";
+    static final String THIEF = "Thief";
+    static final String PRIEST = "Thief";
+
+
+    // Attack Types
+    static final String UNARMED_ATTACK = "Unarmed Strike";
+    static final String MAGE_ATTACK = "Fire bolt";
+    static final String WARRIOR_ATTACK = "Sword strike";
+    static final String THIEF_ATTACK = "Dagger slash";
+    static final String PRIEST_ATTACK = "Smite";
 
 }

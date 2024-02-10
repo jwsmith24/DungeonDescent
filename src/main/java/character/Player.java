@@ -19,8 +19,10 @@ public abstract class Player implements Character {
    int athletics;
    int arcana;
 
-   int playerClass;
+   String playerClass;
    String specialAbility;
+
+   String attackType;
 
     /**
      * A Player starts with all the base stats plus whatever they're named by the user.
@@ -44,6 +46,7 @@ public abstract class Player implements Character {
        this.arcana = GameConstants.BASE_ARCANA;
 
        this.playerClass = GameConstants.CLASSLESS;
+       this.attackType = GameConstants.UNARMED_ATTACK;
    }
 
     @Override
@@ -103,18 +106,32 @@ public abstract class Player implements Character {
     }
 
     @Override
+    public String getPlayerClass() {
+       return playerClass;
+    }
+
+    @Override
+    public String getAttackType() {
+       return attackType;
+    }
+    @Override
     public String toString() {
 
         return String.format("""
                ======================
-               \tChacter Info
+               \tCharacter Info
                ======================
                Name: %s
                Class: %s
                Special Ability: %s
                ======================
+               Attack Type: %s
+               Attack Bonus: + %s
+               ======================
+               \tStats
                
-               """, getName(), getSpecialAbility());
+               
+               """, getName(),getPlayerClass(), getSpecialAbility(),getAttackType(), getAttack());
 
     }
 
