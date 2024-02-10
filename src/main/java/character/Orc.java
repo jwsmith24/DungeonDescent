@@ -14,7 +14,7 @@ public class Orc extends ClassDecorator {
         decoratedOrc = decoratedCharacter;
     }
 
-
+    // Orc overrides
     @Override
     public String getPlayerRace() {
 
@@ -35,8 +35,8 @@ public class Orc extends ClassDecorator {
         return decoratedOrc.getCharacterSheet() + String.format(
 
                 "======================\n" +
-                "Race: %s\n" +
-                "Racial ability: %s\n"
+                "| Race: %s\n" +
+                "| Racial ability: %s\n"
 
                 , GameConstants.ORC, GameConstants.ORC_RACIAL
         );

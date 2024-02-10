@@ -25,13 +25,13 @@ public interface Character {
 
     String getPlayerRace();
     String getSpecialAbility();
-    void setSpecialAbility(String specialAbility);
+
     String getRacialAbility();
-    void setRacialAbility(String racialAbility);
+
     String getPlayerClass();
-    void setPlayerClass(String playerClass);
+
     String getAttackType();
-    void setAttackType(String attackType);
+
 
     String getCharacterSheet();
 

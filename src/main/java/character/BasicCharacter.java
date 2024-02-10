@@ -113,40 +113,27 @@ public class BasicCharacter implements Character {
        return specialAbility;
     }
 
-    @Override
-    public void setSpecialAbility(String specialAbility) {
 
-    }
 
     @Override
     public String getRacialAbility() {
        return racialAbility;
     }
 
-    @Override
-    public void setRacialAbility(String racialAbility) {
 
-    }
 
     @Override
     public String getPlayerClass() {
        return playerClass;
     }
 
-    @Override
-    public void setPlayerClass(String playerClass) {
-
-    }
 
     @Override
     public String getAttackType() {
        return attackType;
     }
 
-    @Override
-    public void setAttackType(String attackType) {
 
-    }
 
     @Override
     public String getPlayerRace() {

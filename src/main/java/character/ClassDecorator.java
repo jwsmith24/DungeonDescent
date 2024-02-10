@@ -31,7 +31,7 @@ public abstract class ClassDecorator implements Character {
 
 
 
-   // Getters & Setters Follow
+   // Getters & Setters
 
     @Override
     public String getName() {
@@ -93,39 +93,25 @@ public abstract class ClassDecorator implements Character {
         return decoratedCharacter.getSpecialAbility();
     }
 
-    @Override
-    public void setSpecialAbility(String specialAbility) {
-        decoratedCharacter.setSpecialAbility(specialAbility);
-    }
 
     @Override
     public String getRacialAbility() {
         return decoratedCharacter.getRacialAbility();
     }
-    @Override
-    public void setRacialAbility(String racialAbility) {
-        decoratedCharacter.setRacialAbility(racialAbility);
-    }
+
 
     @Override
     public String getPlayerClass() {
         return decoratedCharacter.getPlayerClass();
     }
 
-    @Override
-    public void setPlayerClass(String playerClass) {
-        decoratedCharacter.setPlayerClass(playerClass);
-    }
+
 
     @Override
     public String getAttackType() {
         return decoratedCharacter.getAttackType();
     }
 
-    @Override
-    public void setAttackType(String attackType) {
-        decoratedCharacter.setAttackType(attackType);
-    }
 
     @Override
     public String getPlayerRace() {

@@ -38,9 +38,9 @@ public class Mage extends ClassDecorator {
     public String getCharacterSheet() {
         return decorated_mage.getCharacterSheet() + String.format(
                 "======================\n" +
-                "Class: %s\n" +
-                "Attack Type: %s\n" +
-                "Special Ability: %s\n"
+                "| Class: %s\n" +
+                "| Attack Type: %s\n" +
+                "| Special Ability: %s\n"
 
                 , GameConstants.MAGE, GameConstants.MAGE_ATTACK, GameConstants.MAGE_SPECIAL
         );

@@ -12,10 +12,6 @@ public class Thief extends BasicCharacter {
     public Thief(String name) {
         super(name);
 
-        this.playerClass = GameConstants.THIEF;
-        this.hitPoints = getHitPoints() + GameConstants.THIEF_BONUS;
-        this.defence = getDefense() + GameConstants.THIEF_BONUS;
-        this.specialAbility = GameConstants.THIEF_SPECIAL;
-        this.attackType = GameConstants.THIEF_ATTACK;
+
     }
 }
