@@ -19,10 +19,10 @@ public class Main {
        // System.out.println(bob.getCharacterSheet());
         // Bob is an Orc
         bob = new Orc(bob);
-       // System.out.println(bob.getCharacterSheet());
+        //System.out.println(bob.getCharacterSheet());
         // Bob wants to cast spells
         bob = new Mage(bob);
-       // System.out.println(bob.getCharacterSheet());
+        System.out.println(bob.getCharacterSheet());
 
 
 

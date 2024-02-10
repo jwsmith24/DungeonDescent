@@ -47,7 +47,7 @@ public class Mage extends ClassDecorator {
                 "| Attack Type: %s\n" +
                 "| Special Ability: %s\n"
 
-                , GameConstants.MAGE, GameConstants.MAGE_ATTACK, GameConstants.MAGE_SPECIAL
+                , this.getPlayerClass(), this.getAttackType(), this.getSpecialAbility()
         );
     }
 

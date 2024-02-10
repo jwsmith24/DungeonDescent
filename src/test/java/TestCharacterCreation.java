@@ -53,6 +53,13 @@ public class TestCharacterCreation {
 
     }
 
+    @Test
+    void testDecoratingRaceThenClass() {
+        Character bob = new BasicCharacter("Bob");
+        //todo
+
+    }
+
 
 
     // test decorating race and then class

@@ -52,8 +52,8 @@ public class Orc extends ClassDecorator {
                 "| Speed: %s\n" +
                 "| Luck: %s\n"
 
-                , GameConstants.ORC, GameConstants.ORC_RACIAL, decoratedOrc.getAttack(), decoratedOrc.getDefense(),
-                this.getHitPoints(), decoratedOrc.getEnergy(), decoratedOrc.getSpeed(), decoratedOrc.getLuck()
+                , this.getPlayerRace(), this.getRacialAbility(), this.getAttack(), this.getDefense(),
+                this.getHitPoints(), this.getEnergy(), this.getSpeed(), this.getLuck()
         );
 
     }
