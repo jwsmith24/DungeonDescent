@@ -1,11 +1,19 @@
+
 plugins {
-    id 'java'
+    id "com.github.spotbugs" version "5.0.12"
+    id "checkstyle"
 }
 
-//mainClassName = ''
+apply plugin: 'application'
+apply plugin: 'jacoco'
+apply plugin: 'checkstyle'
+
+mainClassName = 'Main'
+
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
@@ -14,5 +22,43 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+// Ensure tests run before jacoco
+jacocoTestReport {
+    dependsOn Test
+}
+
+jacoco {
+    //toolVersion = "0.8.8"
+    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+
+checkstyle {
+    toolVersion = "8.8"
+    ignoreFailures = true
+    showViolations = false
+}
+
+tasks.withType(Checkstyle).configureEach {
+    reports {
+
+
+    }
+}
+
+spotbugs {
+    ignoreFailures = true
+    showProgress = true
+    effort = 'max'
 }
 
