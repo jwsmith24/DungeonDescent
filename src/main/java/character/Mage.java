@@ -1,8 +1,9 @@
 package character;
 
-public class Wizard extends Player {
-    public Wizard(String name) {
+public class Mage extends Player {
+    public Mage(String name) {
         super(name);
+        this.hitPoints = 5;
     }
 
     @Override

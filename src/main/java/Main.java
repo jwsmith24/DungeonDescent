@@ -14,8 +14,9 @@ public class Main {
 
 
 
-        Player wizard = new Wizard("bob");
+        Player wizard = new Mage("bob");
 
         System.out.println("Wizard attack score is: " + wizard.getAttack());
+        System.out.println("Wizard hit points: " + wizard.getHitPoints());
     }
 }
