@@ -17,6 +17,7 @@ public class GameConstants {
     static final int BASE_LOCKPICKING = 1;
     static final int BASE_ATHLETICS = 1;
     static final int BASE_ARCANA = 1;
+    static final int BASE_HISTORY = 1;
 
     // Special Abilities
     static final String MAGE_SPECIAL = "Fire Storm";

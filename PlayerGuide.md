@@ -6,40 +6,33 @@ A quick reference for how class, race, and background affect player stats.
 
 
 ## Class Options
-  All classes start with:
-  - Attack - 1
-  - Energy - 1
-  - Speed - 1
+
 
 ### Warrior
-> **Base Stats**
->  - Hit Points - 15
->  - Defence - 15
+ **Skill Improvement**
+  - +2 to Athletics
 
-> **Special Ability**
-> - *Thunderous Smash*
+ **Special Ability**
+ - *Thunderous Smash*
 
 
 ### Mage
-> **Base Stats**
->  - Hit Points - 10
->  - Defence - 10
+ **Skill Improvement**
+  - +2 to Arcana
 
-> **Special Ability**
-> - *Fire Storm*
+ **Special Ability**
+ - *Fire Storm*
 
 ### Thief
-> **Base Stats**
->  - Hit Points - 12
->  - Defence - 12
-
-> **Special Ability**
-> - *Sneak Attack*
+ **Skill Improvement** 
+- +2 to Lockpicking
+    
+**Special Ability**
+ - *Sneak Attack*
 
 ### Priest
-> **Base Stats**
-> - Hit Points - 11
-> - Defence - 11
+ **Skill Improvement**
+ - +2 to History
 
-> **Special Ability**
-> - *Holy Spirit* 
+ **Special Ability**
+ - *Holy Spirit* 
