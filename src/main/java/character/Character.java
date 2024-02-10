@@ -21,4 +21,9 @@ public interface Character {
     int getAthletics();
     int getArcana();
 
+    String getSpecialAbility();
+
+    @Override
+    String toString();
+
 }

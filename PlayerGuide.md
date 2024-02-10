@@ -23,7 +23,7 @@ A quick reference for how class, race, and background affect player stats.
 ### Mage
 > **Base Stats**
 >  - Hit Points - 10
->  - Defence - 15
+>  - Defence - 10
 
 > **Special Ability**
 > - *Fire Storm*
@@ -31,7 +31,7 @@ A quick reference for how class, race, and background affect player stats.
 ### Thief
 > **Base Stats**
 >  - Hit Points - 12
->  - Defence - 
+>  - Defence - 12
 
 > **Special Ability**
 > - *Sneak Attack*
@@ -39,7 +39,7 @@ A quick reference for how class, race, and background affect player stats.
 ### Priest
 > **Base Stats**
 > - Hit Points - 10
-> - Defence - 
+> - Defence - 11
 
 > **Special Ability**
 > - *Holy Spirit* 

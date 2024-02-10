@@ -5,7 +5,9 @@ package character;
  */
 public abstract class Player implements Character {
 
-   String name;
+    Character decoratedCharacter;
+    String name;
+
    // Core Stats
    int attack;
    int defence;
@@ -17,6 +19,9 @@ public abstract class Player implements Character {
    int athletics;
    int arcana;
 
+   int playerClass;
+   String specialAbility;
+
     /**
      * A Player starts with all the base stats plus whatever they're named by the user.
      * @param name character name
@@ -26,17 +31,19 @@ public abstract class Player implements Character {
        this.name = name;
 
        // Set base core stats
-       this.attack = Stats.BASE_ATTACK;
-       this.defence = Stats.BASE_DEF;
-       this.hitPoints = Stats.BASE_HP;
-       this.energy = Stats.BASE_ENERGY;
-       this.speed = Stats.BASE_SPEED;
+       this.attack = GameConstants.BASE_ATTACK;
+       this.defence = GameConstants.BASE_DEF;
+       this.hitPoints = GameConstants.BASE_HP;
+       this.energy = GameConstants.BASE_ENERGY;
+       this.speed = GameConstants.BASE_SPEED;
 
        // Set bases kills
-       this.dungeoneering = Stats.BASE_DUNGEONEERING;
-       this.lockPicking = Stats.BASE_LOCKPICKING;
-       this.athletics = Stats.BASE_ATHLETICS;
-       this.arcana = Stats.BASE_ARCANA;
+       this.dungeoneering = GameConstants.BASE_DUNGEONEERING;
+       this.lockPicking = GameConstants.BASE_LOCKPICKING;
+       this.athletics = GameConstants.BASE_ATHLETICS;
+       this.arcana = GameConstants.BASE_ARCANA;
+
+       this.playerClass = GameConstants.CLASSLESS;
    }
 
     @Override
@@ -88,6 +95,27 @@ public abstract class Player implements Character {
     @Override
     public int getArcana() {
        return arcana;
+    }
+
+    @Override
+    public String getSpecialAbility() {
+       return specialAbility;
+    }
+
+    @Override
+    public String toString() {
+
+        return String.format("""
+               ======================
+               \tChacter Info
+               ======================
+               Name: %s
+               Class: %s
+               Special Ability: %s
+               ======================
+               
+               """, getName(), getSpecialAbility());
+
     }
 
 }

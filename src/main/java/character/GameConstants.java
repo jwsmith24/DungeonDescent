@@ -3,7 +3,7 @@ package character;
 /**
  * Utility class to hold constants for base Player stats.
  */
-public class Stats {
+public class GameConstants {
 
     // Core Stats
     static final int BASE_ATTACK = 1;
@@ -23,5 +23,12 @@ public class Stats {
     static final String WARRIOR_SPECIAL = "Thunderous Smash";
     static final String THIEF_SPECIAL = "Sneak Attack";
     static final String PRIEST_SPECIAL = "Holy Spirit";
+
+    // Classes
+    static final int CLASSLESS = 0;
+    static final int WARRIOR = 1;
+    static final int MAGE = 2;
+    static final int THIEF = 3;
+    static final int PRIEST = 4;
 
 }

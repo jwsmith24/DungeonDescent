@@ -14,9 +14,16 @@ public class Main {
 
 
 
+        System.out.println("Let's make a mage!");
+
         Player wizard = new Mage("bob");
 
-        System.out.println("Wizard attack score is: " + wizard.getAttack());
-        System.out.println("Wizard hit points: " + wizard.getHitPoints());
+        System.out.println("We want to see something that's specific to Mage " +
+                "AND something that comes from the base class");
+
+        System.out.println(wizard);
+
+
+
     }
 }
