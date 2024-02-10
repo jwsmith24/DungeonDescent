@@ -117,9 +117,9 @@ public abstract class Player implements Character {
     @Override
     public String toString() {
 
-        return String.format("""
+        return """
                ======================
-               \tCharacter Info
+               Character Info
                ======================
                Name: %s
                Class: %s
@@ -128,10 +128,11 @@ public abstract class Player implements Character {
                Attack Type: %s
                Attack Bonus: + %s
                ======================
-               \tStats
+               Stats
                
                
-               """, getName(),getPlayerClass(), getSpecialAbility(),getAttackType(), getAttack());
+               """.formatted( getName(),getPlayerClass(), getSpecialAbility(),getAttackType(),
+                getAttack());
 
     }
 

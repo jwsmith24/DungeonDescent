@@ -14,7 +14,7 @@ public class Main {
 
 
 
-        System.out.println("Let's make a mage!");
+        System.out.println("Let's make a Mage!");
 
         Player mageBob = new Mage("Bob the Mage");
         System.out.println(mageBob);
@@ -25,7 +25,9 @@ public class Main {
         Player warriorCraig = new Warrior("Craig the Warrior");
         System.out.println(warriorCraig);
 
-
+        System.out.println("Let's make a Thief!");
+        Player thiefDoug = new Thief("Doug the Thief");
+        System.out.println(thiefDoug);
 
     }
 }
