@@ -1,6 +1,6 @@
 # DungeonDescent Player Guide
 
-A quick reference for how class, race, and background affects player stats.
+A quick reference for how class, race, and background affect player stats.
 
 ## Game Mechanics
 
