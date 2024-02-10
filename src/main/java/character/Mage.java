@@ -9,7 +9,7 @@ public class Mage extends ClassDecorator {
 
     Character decorated_mage;
     /**
-     * A Mage has a unique special and their stats don't change from the base.
+     * A Mage gets a +2 bonus to Arcana and has a unique ability.
      * @param characterRef base player object.
      */
     public Mage(Character characterRef) {
@@ -27,6 +27,11 @@ public class Mage extends ClassDecorator {
     public String getPlayerClass() {
 
         return GameConstants.MAGE;
+    }
+
+    @Override
+    public int getArcana() {
+        return decorated_mage.getArcana() + GameConstants.STAT_BONUS;
     }
 
     @Override
