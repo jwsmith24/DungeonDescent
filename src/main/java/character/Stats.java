@@ -17,4 +17,11 @@ public class Stats {
     static final int BASE_LOCKPICKING = 1;
     static final int BASE_ATHLETICS = 1;
     static final int BASE_ARCANA = 1;
+
+    // Special Abilities
+    static final String MAGE_SPECIAL = "Fire Storm";
+    static final String WARRIOR_SPECIAL = "Thunderous Smash";
+    static final String THIEF_SPECIAL = "Sneak Attack";
+    static final String PRIEST_SPECIAL = "Holy Spirit";
+
 }
