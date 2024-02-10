@@ -8,6 +8,7 @@
  
 ### STRUCTURAL DESIGN 
 Decorator pattern for player characters. 
+- Characters have a name.
 - Characters all have Attack, Defense, Hit Points, Energy, and Speed.
 - Characters will also have a basic array of skills (Athletics, Acrobatics, Lock Picking, Perception, Persuasion, etc.)
 - When the player chooses a class (Fighter, Rogue, Priest, etc.), it will augment their stats and skills and add abilities they can spend energy on.
