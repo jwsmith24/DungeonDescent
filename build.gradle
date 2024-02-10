@@ -1,13 +1,17 @@
 
 plugins {
-    id "checkstyle"
     id "com.github.spotbugs" version "5.0.12"
+    id "checkstyle"
 }
+
+
 
 apply plugin: 'application'
 apply plugin: 'jacoco'
 
 mainClassName = 'Main'
+compileJava.options.encoding = 'UTF-8'
+
 
 apply plugin: 'checkstyle'
 
@@ -16,13 +20,10 @@ checkstyle {
     showViolations = false
 }
 
-tasks.withType(Checkstyle) {
+tasks.withType(Checkstyle).configureEach {
     reports {
-       // html.required.set(true)
-       // xml.required.set(false)
     }
 
-    include("**/java/character/*")
 
 
 
@@ -30,8 +31,6 @@ tasks.withType(Checkstyle) {
 }
 checkstyle {
     toolVersion = "8.8"
-
-
 }
 
 

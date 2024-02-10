@@ -114,26 +114,23 @@ public abstract class Player implements Character {
     public String getAttackType() {
        return attackType;
     }
+
     @Override
     public String toString() {
-
-        return """
-               ======================
-               Character Info
-               ======================
-               Name: %s
-               Class: %s
-               Special Ability: %s
-               ======================
-               Attack Type: %s
-               Attack Bonus: + %s
-               ======================
-               Stats
-               
-               
-               """.formatted( getName(),getPlayerClass(), getSpecialAbility(),getAttackType(),
-                getAttack());
-
+        return String.format(
+                        "======================\n" +
+                        "|\tCharacter Info\n" +
+                        "======================\n" +
+                        "| Name: %s\n" +
+                        "| Class: %s\n" +
+                        "| Special Ability: %s\n" +
+                        "======================\n" +
+                        "| Attack Type: %s\n" +
+                        "| Attack Bonus: + %s\n" +
+                        "======================\n" +
+                        "|Stats\n\n",
+                getName(), getPlayerClass(), getSpecialAbility(), getAttackType(), getAttack()
+        );
     }
 
 }
