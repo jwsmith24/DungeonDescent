@@ -49,4 +49,18 @@ public class ConditionsTest {
         assertFalse(dan.getActiveEffects().contains(Condition.NEUTRAL), "Neutral condition was not removed when new effect is applied");
 
     }
+
+    @Test
+    void testApplyingNeutralToAffectedCharacterWithOneEffect() {
+
+        Character dad = new ApplyCondition(new Priest(new Demon(new BasicCharacter("dad"))), Condition.BLINDED);
+
+        dad = new ApplyCondition(dad, Condition.NEUTRAL);
+
+        // Need to make sure that dad is condition-free and only has neutral in the list
+        assertFalse(dad.getActiveEffects().contains(Condition.BLINDED), "Condition still present");
+        assertTrue(dad.getActiveEffects().contains(Condition.NEUTRAL), "List does not contain neutral");
+        assertEquals(1, dad.getActiveEffects().size(), "List contains more than 1 element");
+
+    }
 }

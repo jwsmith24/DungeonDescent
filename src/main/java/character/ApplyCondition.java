@@ -32,6 +32,7 @@ public class ApplyCondition extends ClassDecorator{
         // If applying the NEUTRAL condition, we need to clear the list of active effects
         if (newCondition == Condition.NEUTRAL){
             existingEffects.clear();
+            existingEffects.add(Condition.NEUTRAL);
 
         } else {
 
