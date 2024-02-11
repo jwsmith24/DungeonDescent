@@ -1,8 +1,15 @@
 package character;
 
-import utility.*;
-
 import java.util.ArrayList;
+
+import utility.CharacterSheetBuilder;
+import utility.Condition;
+import utility.PlayerClass;
+import utility.PlayerRace;
+import utility.PlayerSkills;
+import utility.PlayerStats;
+
+
 
 /**
  * <p>The basic concrete character class that can be decorated by the race and class decorators.</p>
@@ -157,7 +164,8 @@ public class BasicCharacter implements Character {
 
     @Override
     public ArrayList<Condition> getActiveEffects() {
-        // Returns a new arraylist object so that we don't modify the original with our wrapper conditions!
+        // Returns a new arraylist object so that we don't
+        // modify the original with our wrapper conditions!
         return new ArrayList<>(activeEffects);
     }
 

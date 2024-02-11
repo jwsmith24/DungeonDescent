@@ -1,8 +1,10 @@
 package character;
 
+import java.util.ArrayList;
+
 import utility.Condition;
 
-import java.util.ArrayList;
+
 
 /**
  * Defines character functionality.

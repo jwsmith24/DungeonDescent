@@ -18,7 +18,7 @@ public enum PlayerClass {
     public static final int STAT_BONUS = 2;
 
 
-    PlayerClass(String classDescription, String attackText, String specialAbilityText){
+    PlayerClass(String classDescription, String attackText, String specialAbilityText) {
         this.classDescription = classDescription;
         this.attackText = attackText;
         this.specialAbilityText = specialAbilityText;

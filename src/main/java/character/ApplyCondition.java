@@ -1,8 +1,9 @@
 package character;
 
+import java.util.ArrayList;
 import utility.Condition;
 
-import java.util.ArrayList;
+
 
 public class ApplyCondition extends CharacterDecorator {
 
@@ -32,7 +33,7 @@ public class ApplyCondition extends CharacterDecorator {
         ArrayList<Condition> existingEffects = affectedCharacter.getActiveEffects();
 
         // If applying the NEUTRAL condition, we need to clear the list of active effects
-        if (newCondition == Condition.NEUTRAL){
+        if (newCondition == Condition.NEUTRAL) {
             existingEffects.clear();
             existingEffects.add(Condition.NEUTRAL);
 

@@ -6,11 +6,14 @@ import utility.PlayerRace;
 /**
  * Provides race-specific functionality to a character.
  */
-public class RaceDecorator extends CharacterDecorator{
+public class RaceDecorator extends CharacterDecorator {
 
     Character decoratedRace;
     PlayerRace playerRace;
 
+    /**
+     * Stores reference to the wrapped object and filters overrides based on race selection.
+     */
     public RaceDecorator(Character characterRef, PlayerRace playerRace) {
         super(characterRef);
         decoratedRace = characterRef;

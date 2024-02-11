@@ -1,8 +1,10 @@
 package character;
 
+import java.util.ArrayList;
+
 import utility.Condition;
 
-import java.util.ArrayList;
+
 
 /**
  * <p>Template for decorator classes that will wrap the Basic Character.</p>

@@ -11,6 +11,9 @@ public class ClassDecorator extends CharacterDecorator {
     Character decoratedClass;
     PlayerClass playerClass;
 
+    /**
+     * Stores reference to the wrapped object and filters overrides based on class selection.
+     */
     public ClassDecorator(Character characterRef, PlayerClass playerClass) {
         super(characterRef);
         decoratedClass = characterRef;
@@ -51,7 +54,7 @@ public class ClassDecorator extends CharacterDecorator {
 
     @Override
     public int getArcana() {
-        if (playerClass == PlayerClass.MAGE){
+        if (playerClass == PlayerClass.MAGE) {
             return decoratedClass.getArcana() + PlayerClass.STAT_BONUS;
         }
         return decoratedClass.getArcana();
