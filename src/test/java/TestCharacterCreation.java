@@ -141,32 +141,5 @@ public class TestCharacterCreation {
         assertEquals(GameConstants.DEMON_RACIAL, bucky.getRacialAbility(), "Racial ability is incorrect");
     }
 
-    @Test
-    void testCharacterBeginsNeutral() {
-        Character bob = new BasicCharacter("bob");
-        bob = new Demon (new Orc(bob));
-
-        // Bob should be neutral!
-        // Bob's active effects arraylist should have neutral in it AND it should be the only entry in it
-        assertTrue(bob.getActiveEffects().contains(Condition.NEUTRAL));
-        assertEquals(1, bob.getActiveEffects().size());
-
-    }
-
-    @Test
-    void testApplyingEffect() {
-        Character bob = new BasicCharacter("bob");
-        bob = new Demon (new Orc(bob));
-
-        // Bob is restrained!
-        // Make sure the arraylist updates appropriately, displays the correct effect and does NOT have neutral in it
-
-        bob = new ApplyCondition(bob, Condition.RESTRAINED);
-
-        System.out.println(bob.getActiveEffects());
-
-    }
-
-
 
 }

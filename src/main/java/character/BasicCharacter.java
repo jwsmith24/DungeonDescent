@@ -151,11 +151,10 @@ public class BasicCharacter implements Character {
         return level;
     }
 
+
     @Override
     public ArrayList<Condition> getActiveEffects() {
-
-        // Copy the array
-
+        // Returns a new arraylist object so that we don't modify the original with our wrapper conditions!
         return new ArrayList<>(activeEffects);
     }
 
