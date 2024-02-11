@@ -1,4 +1,4 @@
-package character;
+package utility;
 
 /**
  * Utility class to hold constants for base Player stats.
@@ -27,11 +27,7 @@ public class GameConstants {
 
 
     // Classes
-    public static final String CLASSLESS = null;
-    public static final String WARRIOR = "Warrior";
-    public static final String MAGE = "Mage";
-    public static final String THIEF = "Thief";
-    public static final String PRIEST = "Thief";
+
 
     // Class Stat Bonuses
     public static final int STAT_BONUS = 2;

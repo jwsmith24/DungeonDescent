@@ -1,4 +1,6 @@
-package character;
+package utility;
+
+import character.Character;
 
 /**
  * Utility class to provide character sheet assembly for each decorator class.

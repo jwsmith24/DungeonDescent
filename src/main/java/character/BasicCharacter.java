@@ -1,5 +1,10 @@
 package character;
 
+import utility.CharacterSheetBuilder;
+import utility.Condition;
+import utility.GameConstants;
+import utility.PlayerClass;
+
 import java.util.ArrayList;
 
 /**
@@ -65,9 +70,9 @@ public class BasicCharacter implements Character {
         this.level = 1;
         this.activeEffects.add(Condition.NEUTRAL);
 
-        this.playerClass = GameConstants.CLASSLESS;
-        this.attackType = GameConstants.UNARMED_ATTACK;
-        this.specialAbility = GameConstants.NEW_CHARACTER;
+        this.playerClass = PlayerClass.NO_CLASS.getClassDescription();
+        this.attackType = PlayerClass.NO_CLASS.getAttackText();
+        this.specialAbility = PlayerClass.NO_CLASS.getSpecialAbilityText();
 
         this.race = GameConstants.NEW_CHARACTER;
         this.racialAbility = GameConstants.NEW_CHARACTER;

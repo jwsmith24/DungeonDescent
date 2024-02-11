@@ -1,6 +1,8 @@
 import character.*;
 import character.Character;
 import org.junit.jupiter.api.Test;
+import utility.Condition;
+import utility.PlayerClass;
 
 import static org.junit.jupiter.api.Assertions.*;
 

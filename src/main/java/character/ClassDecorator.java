@@ -1,5 +1,8 @@
 package character;
 
+import utility.CharacterSheetBuilder;
+import utility.PlayerClass;
+
 /**
  * Combines all class decorator functionality under one hood.
  */

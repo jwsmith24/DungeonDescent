@@ -2,6 +2,8 @@ import character.*;
 import character.Character;
 
 import org.junit.jupiter.api.Test;
+import utility.GameConstants;
+import utility.PlayerClass;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +32,7 @@ public class CharacterCreationTest {
         assertEquals(GameConstants.ORC_RACIAL, jeff.getRacialAbility(), "Wrong racial ability");
         assertEquals("Jeff", jeff.getName(), "Jeff no longer has his name");
         assertEquals(12, jeff.getHitPoints(), "Orc HP bonus not applied");
-        assertNull(jeff.getPlayerClass(), "Jeff should not have a class");
+        assertEquals(PlayerClass.NO_CLASS.getClassDescription(), jeff.getPlayerClass());
     }
 
 

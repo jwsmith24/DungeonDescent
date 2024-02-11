@@ -1,5 +1,7 @@
 package character;
 
+import utility.Condition;
+
 import java.util.ArrayList;
 
 /**

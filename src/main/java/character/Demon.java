@@ -1,5 +1,8 @@
 package character;
 
+import utility.CharacterSheetBuilder;
+import utility.GameConstants;
+
 public class Demon extends CharacterDecorator {
     Character decoratedDemon;
 

@@ -1,6 +1,9 @@
 package character;
 
 
+import utility.CharacterSheetBuilder;
+import utility.GameConstants;
+
 public class Elf extends CharacterDecorator {
 
     Character decoratedElf;
