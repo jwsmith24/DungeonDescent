@@ -57,7 +57,7 @@ public class BasicCharacter implements Character {
         this.playerClass = GameConstants.CLASSLESS;
         this.attackType = GameConstants.UNARMED_ATTACK;
         this.experience = 0;
-        this.race = null;
+        this.race = GameConstants.NEW_CHARACTER;
     }
 
 
@@ -160,11 +160,7 @@ public class BasicCharacter implements Character {
     @Override
     public String getCharacterSheet() {
 
-        return String.format("======================\n"
-                + "|\tCharacter Info\n"
-                + "======================\n"
-                + "| Name: %s\n"
-                + "| Experience: %s\n", getName(), getExperience());
+        return CharacterSheetBuilder.buildBasicSection(this);
 
 
     }

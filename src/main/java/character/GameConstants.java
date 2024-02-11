@@ -55,5 +55,6 @@ public class GameConstants {
     public static final String ELF_RACIAL = "+2 to Energy";
     public  static final String GNOME = "Gnome";
     public  static final String GNOME_RACIAL = "+2 to Luck";
+    public static final String NEW_CHARACTER = null;
 
 }
