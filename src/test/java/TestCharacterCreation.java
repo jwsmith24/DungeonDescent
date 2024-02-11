@@ -66,14 +66,30 @@ public class TestCharacterCreation {
         assertEquals(GameConstants.DEMON, bob.getPlayerRace(), "Bob is no longer a demon");
         assertEquals("Bob", bob.getName(), "Bob lost his name");
         assertEquals(10, bob.getHitPoints(), "Bob's HP changed");
+        assertEquals(3, bob.getHistory(), "History bonus not applied");
+        assertEquals(3, bob.getSpeed(), "Speed bonus not applied");
 
 
     }
 
-    
+    @Test
+    void testDecoratingClassThenRace() {
+        Character steve = new BasicCharacter("Steve");
 
+        // Steve is a Human
+        steve = new Human(steve);
+        // Steve is also a Warrior
+        steve = new Warrior(steve);
 
-    // test decorating class and then race
+        assertEquals(GameConstants.WARRIOR, steve.getPlayerClass(), "Steve is no longer a Warrior");
+        assertEquals(GameConstants.HUMAN, steve.getPlayerRace(), "Wrong race");
+        assertEquals("Steve", steve.getName(), "Wrong name");
+        assertEquals(10, steve.getHitPoints(), "Wrong HP");
+        assertEquals(3, steve.getAthletics(), "Athletics bonus not applied");
+        assertEquals(3, steve.getAttack(), "Attack bonus not applied");
+
+    }
+
 
 
 }

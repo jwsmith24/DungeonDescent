@@ -4,14 +4,51 @@ package character;
 /**
  * Warrior decorator class.
  */
-public class Warrior extends BasicCharacter {
+public class Warrior extends ClassDecorator {
 
+    Character decoratedWarrior;
     /**
-     * A Warrior has a unique special and gets a large bonus to HP and Defence.
-     * @param name character name
+     * A Warrior get +2 to athletics and has a unique special ability.
+     * @param characterRef reference to character
      */
-    public Warrior(String name) {
-        super(name);
+    public Warrior(Character characterRef) {
+        super(characterRef);
+        decoratedWarrior = characterRef;
+    }
+
+    @Override
+    public String getPlayerClass() {
+        return GameConstants.WARRIOR;
+    }
+    @Override
+    public String getAttackType() {
+
+        return GameConstants.WARRIOR_ATTACK;
+
+    }
+
+    @Override
+    public int getAthletics() {
+
+        return decoratedWarrior.getAthletics() + GameConstants.STAT_BONUS;
+    }
+
+    @Override
+    public String getSpecialAbility() {
+
+        return GameConstants.WARRIOR_SPECIAL;
+    }
+
+    @Override
+    public String getCharacterSheet() {
+        return decoratedWarrior.getCharacterSheet() + String.format(
+                "======================\n" +
+                        "| Class: %s\n" +
+                        "| Attack Type: %s\n" +
+                        "| Special Ability: %s\n"
+
+                , this.getPlayerClass(), this.getAttackType(), this.getSpecialAbility()
+        );
     }
 
 }

@@ -18,7 +18,7 @@ public class Main {
         Character bob = new BasicCharacter("Bob");
        // System.out.println(bob.getCharacterSheet());
         // Bob is an Orc
-        bob = new Orc(bob);
+        bob = new Human(bob);
         //System.out.println(bob.getCharacterSheet());
         // Bob wants to cast spells
         bob = new Mage(bob);

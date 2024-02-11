@@ -25,6 +25,7 @@ public class GameConstants {
     public static final String THIEF_SPECIAL = "Sneak Attack";
     public static final String PRIEST_SPECIAL = "Holy Spirit";
 
+
     // Classes
     public static final String CLASSLESS = null;
     public static final String WARRIOR = "Warrior";
@@ -47,9 +48,12 @@ public class GameConstants {
     public static final String ORC = "Orc";
     public static final String ORC_RACIAL = "+2 to Hit Points" ;
     public static final String HUMAN = "Human";
+    public static final String HUMAN_RACIAL = "+2 to Attack";
     public static final String DEMON = "Demon";
-    public static final String DEMON_RACIAL = "Become immune to all damage for 3 turns";
+    public static final String DEMON_RACIAL = "+2 to Speed";
     public static final String ELF = "Elf";
+    public static final String ELF_RACIAL = "+2 to Energy";
     public  static final String GNOME = "Gnome";
+    public  static final String GNOME_RACIAL = "+2 to Luck";
 
 }
