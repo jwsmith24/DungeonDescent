@@ -15,16 +15,23 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        // Let's build a character - Craig
+        // Utilizing the decorator pattern here for race and class with
+        // corresponding enums to keep things generalized and neat.
+
+        // For building the character sheet, I made a builder class that hides all the print
+        // formatting work behind nice static methods that the character decorator classes can use.
+
+
+
+        // Let's build a character - Craig and see their character sheet as its built!
 
         Character craig = new BasicCharacter("Craig");
 
         System.out.println("Hi, I'm " + craig.getName() + ".\n");
 
-        // Craig wants to be a Human Mage:
+        System.out.println(craig.getCharacterSheet());
 
-        // Utilizing the decorator pattern here for race and class with
-        // corresponding enums to keep things generalized and neat.
+        // Craig wants to be a Human Mage
 
         // First, we make Craig a Human
         craig = new RaceDecorator(craig, PlayerRace.HUMAN);
@@ -32,12 +39,18 @@ public class Main {
         System.out.println("Hi, I'm still " + craig.getName() + " and I'm a " + craig.getPlayerRace() + "!"
                 + "\nIf we were to fight right now, I would use a: " + craig.getAttackType());
 
+        System.out.println(craig.getCharacterSheet());
+
         // Then, Craig decides to be a Mage:
         craig = new ClassDecorator(craig, PlayerClass.MAGE);
 
         System.out.println("\nI'm seriously still " + craig.getName() + " the " + craig.getPlayerRace()
                 + ", but now I'm also a " + craig.getPlayerClass() + "!"
                 + " If we were to fight, I would use a: " + craig.getAttackType());
+
+        System.out.println(craig.getCharacterSheet());
+
+        // You can see the human racial ability (+2 to attack) was applied as well
 
 
     }

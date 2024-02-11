@@ -1,5 +1,5 @@
 # DungeonDescent Player Guide
-
+(In Progress)  
 A quick reference for how class, race, and background affect player stats.
 
 ## Game Mechanics
