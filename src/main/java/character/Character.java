@@ -37,6 +37,7 @@ public interface Character {
     int getHistory();
 
 
+
     // Player Info
 
     String getName();
@@ -58,6 +59,7 @@ public interface Character {
     String getAttackType();
 
     String getCharacterSheet();
+
 
 
 }

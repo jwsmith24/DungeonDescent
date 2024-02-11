@@ -204,8 +204,6 @@ public class BasicCharacter implements Character {
     }
 
 
-
-
 }
 
 

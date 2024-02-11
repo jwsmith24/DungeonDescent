@@ -21,6 +21,7 @@ public class Main {
 
         // For building the character sheet, I made a builder class that hides all the print
         // formatting work behind nice static methods which the character decorator classes use.
+        // It uses the decorator classes to act implicitly as the director to determine how a character sheet is built.
 
 
 
@@ -54,6 +55,8 @@ public class Main {
         System.out.println(craig.getCharacterSheet());
 
         // You can see the human racial ability (+2 to attack) was applied as well
+
+
 
 
     }

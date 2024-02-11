@@ -25,6 +25,8 @@ public abstract class CharacterDecorator implements Character {
         this.decoratedCharacter = decoratedCharacter;
     }
 
+
+
     // Getters for Core Stats
 
     @Override
