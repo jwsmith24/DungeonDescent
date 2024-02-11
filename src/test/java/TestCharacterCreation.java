@@ -128,6 +128,20 @@ public class TestCharacterCreation {
         assertEquals("Pete", pete.getName(), "Pete lost his name");
     }
 
+    @Test
+    void testStatPersistenceWithTwoRaces() {
+        Character bucky = new BasicCharacter("Bucky");
+
+        bucky = new Orc(bucky);
+        bucky = new Demon(bucky);
+
+        // Bucky should have the bonuses to hit points and speed but only have the demon racial
+
+        assertEquals(3, bucky.getSpeed(), "Speed incorrect");
+        assertEquals(12, bucky.getHitPoints(), "HP incorrect");
+        assertEquals(GameConstants.DEMON_RACIAL, bucky.getRacialAbility(), "Racial ability is incorrect");
+    }
+
 
 
 }
