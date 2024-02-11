@@ -59,10 +59,11 @@ public class CharacterCreationTest {
         // Bob is a demon
         bob = new Demon(bob);
         // Bob is also a Priest
-        bob = new Priest(bob);
+        bob = new ClassDecorator(bob, PlayerClass.PRIEST);
 
-        assertEquals(GameConstants.PRIEST, bob.getPlayerClass(), "Bob is no longer a priest");
+        assertEquals(PlayerClass.PRIEST.getClassDescription(), bob.getPlayerClass(), "Bob is no longer a priest");
         assertEquals(GameConstants.DEMON, bob.getPlayerRace(), "Bob is no longer a demon");
+
         assertEquals("Bob", bob.getName(), "Bob lost his name");
         assertEquals(10, bob.getHitPoints(), "Bob's HP changed");
         assertEquals(3, bob.getHistory(), "History bonus not applied");
@@ -78,9 +79,9 @@ public class CharacterCreationTest {
         // Steve is a Human
         steve = new Human(steve);
         // Steve is also a Warrior
-        steve = new Warrior(steve);
+        steve = new ClassDecorator(steve, PlayerClass.WARRIOR);
 
-        assertEquals(GameConstants.WARRIOR, steve.getPlayerClass(), "Steve is no longer a Warrior");
+        assertEquals(PlayerClass.WARRIOR.getClassDescription(), steve.getPlayerClass(), "Steve is no longer a Warrior");
         assertEquals(GameConstants.HUMAN, steve.getPlayerRace(), "Wrong race");
         assertEquals("Steve", steve.getName(), "Wrong name");
         assertEquals(10, steve.getHitPoints(), "Wrong HP");
@@ -94,12 +95,12 @@ public class CharacterCreationTest {
 
         Character pete = new BasicCharacter("Pete");
         // Pete is a thief
-        pete = new Thief(pete);
+        pete = new ClassDecorator(pete, PlayerClass.THIEF);
         // He's also a warrior
-        pete = new Warrior(pete);
+        pete = new ClassDecorator(pete, PlayerClass.WARRIOR);
 
         // Pete's latest class was warrior, so his attack should be a warrior attack
-        assertEquals(GameConstants.WARRIOR_ATTACK, pete.getAttackType(), "Pete is not a warrior");
+        assertEquals(PlayerClass.WARRIOR.getAttackText(), pete.getAttackType(), "Pete is not a warrior");
 
         // Pete should still have the +2 bonus to lockpicking though
         assertEquals(3, pete.getLockPicking(), "Pete lost his lockpicking prof");
@@ -113,10 +114,10 @@ public class CharacterCreationTest {
     @Test
     void testStatPersistenceWithTwoClassesReverseOrder() {
         Character pete = new BasicCharacter("Pete");
-        pete = new Warrior(pete);
-        pete = new Thief(pete);
+        pete = new ClassDecorator(pete, PlayerClass.WARRIOR);
+        pete = new ClassDecorator(pete, PlayerClass.THIEF);
 
-        assertEquals(GameConstants.THIEF_ATTACK, pete.getAttackType(), "Pete is not a warrior");
+        assertEquals(PlayerClass.THIEF.getAttackText(), pete.getAttackType(), "Pete is not a warrior");
 
         // Pete should still have the +2 bonus to lockpicking
         assertEquals(3, pete.getLockPicking(), "Pete lost his lockpicking prof");

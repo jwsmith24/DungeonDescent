@@ -49,11 +49,8 @@ public class ClassDecorator extends CharacterDecorator {
     @Override
     public int getArcana() {
         if (playerClass == PlayerClass.MAGE){
-
             return decoratedClass.getArcana() + PlayerClass.STAT_BONUS;
-
         }
-
         return decoratedClass.getArcana();
     }
 

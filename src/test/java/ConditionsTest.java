@@ -36,7 +36,7 @@ public class ConditionsTest {
 
     @Test
     void testApplyingEffectToAffectedCharacter() {
-        Character dan = new ApplyCondition(new Warrior(new Elf(new BasicCharacter("dad"))), Condition.PARALYZED);
+        Character dan = new ApplyCondition(new ClassDecorator(new Elf(new BasicCharacter("dad")), PlayerClass.WARRIOR), Condition.PARALYZED);
 
         // dan is already paralyzed
         dan = new ApplyCondition(dan, Condition.POISONED);
@@ -53,7 +53,7 @@ public class ConditionsTest {
     @Test
     void testApplyingNeutralToCharacterWithOneAffliction() {
 
-        Character dad = new ApplyCondition(new Priest(new Demon(new BasicCharacter("dad"))), Condition.BLINDED);
+        Character dad = new ApplyCondition(new ClassDecorator(new Demon(new BasicCharacter("dad")), PlayerClass.PRIEST), Condition.BLINDED);
 
         dad = new ApplyCondition(dad, Condition.NEUTRAL);
 
@@ -66,7 +66,7 @@ public class ConditionsTest {
 
     @Test
     void testApplyingNeutralToCharacterWithMultipleAfflictions() {
-        Character dad = new ApplyCondition(new Priest(new Demon(new BasicCharacter("dad"))), Condition.STUNNED);
+        Character dad = new ApplyCondition(new ClassDecorator(new Demon(new BasicCharacter("dad")), PlayerClass.PRIEST), Condition.STUNNED);
         dad = new ApplyCondition(dad, Condition.POISONED);
         // Dad is stunned and poisoned, but we throw a healing potion at him and now he's good
         dad = new ApplyCondition(dad, Condition.NEUTRAL);
