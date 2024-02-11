@@ -3,7 +3,7 @@ package conditions;
 /**
  * Possible Player/Enemy Conditions
  */
-public enum Conditions {
+public enum Condition {
     POISONED("Character is poisoned. Effects: -1 to attack rolls and ability checks."),
     STUNNED("Character is stunned. Effects: Incapacitated, can't move."),
     BLINDED("Character is blinded. Effects: Can't see and automatically fails any ability check that requires sight."),
@@ -17,10 +17,14 @@ public enum Conditions {
 
     private final String description;
 
-    Conditions(String description) {
+    Condition(String description) {
         this.description = description;
     }
 
+    /**
+     * Can be implemented to provided help text.
+     * @return condition description
+     */
     public String getDescription() {
         return description;
     }

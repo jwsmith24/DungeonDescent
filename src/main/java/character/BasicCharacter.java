@@ -1,5 +1,7 @@
 package character;
 
+import conditions.Condition;
+
 /**
  * Abstract class to define the base player character
  * before its decorated by class, race, and background modifiers.
@@ -27,6 +29,7 @@ public class BasicCharacter implements Character {
     String race;
     int experience;
     int level;
+    Condition activeEffect;
 
     String playerClass;
     String specialAbility;
@@ -58,6 +61,7 @@ public class BasicCharacter implements Character {
         this.name = name;
         this.experience = 0;
         this.level = 1;
+        this.activeEffect = Condition.NEUTRAL;
 
         this.playerClass = GameConstants.CLASSLESS;
         this.attackType = GameConstants.UNARMED_ATTACK;
@@ -142,6 +146,10 @@ public class BasicCharacter implements Character {
     @Override
     public int getLevel() {
         return level;
+    }
+
+    public Condition getActiveEffect() {
+        return activeEffect;
     }
 
     @Override

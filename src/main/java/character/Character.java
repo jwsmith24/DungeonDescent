@@ -1,6 +1,5 @@
 package character;
 
-
 /**
  * Defines base character.
  */
