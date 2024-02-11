@@ -154,7 +154,9 @@ public class BasicCharacter implements Character {
     @Override
     public ArrayList<Condition> getActiveEffects() {
 
-        return activeEffects;
+        // Copy the array
+
+        return new ArrayList<>(activeEffects);
     }
 
     @Override
