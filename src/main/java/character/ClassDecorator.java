@@ -1,12 +1,15 @@
 package character;
 
 /**
- * Base class decorator. Can be extended to augment
- * a player's stats based on race, class, and background.
+ * <p>Template for decorator classes that will wrap the Basic Character.</p>
+ *
+ * <p>Fully implements Character to ensure it knows all of the functionality, but is abstract
+ * so that each decorator class only has to override the methods that it will be augmenting.</p>
  */
 public abstract class ClassDecorator implements Character {
 
-    Character decoratedCharacter; // Store reference to decorator object
+    // Stores reference to wrapped class that it's decorating.
+    Character decoratedCharacter;
 
     /**
      * Constructor for the base decorator class.
@@ -16,21 +19,7 @@ public abstract class ClassDecorator implements Character {
         this.decoratedCharacter = decoratedCharacter;
     }
 
-    /**
-     * Builds part of the character sheet at each tier of decoration.
-     * @return character sheet string
-     */
-    @Override
-    public String getCharacterSheet() {
-        return null;
-    }
-
-
-
-    @Override
-    public String getName() {
-        return decoratedCharacter.getName();
-    }
+    // Getters for Core Stats
 
     @Override
     public int getAttack() {
@@ -62,6 +51,8 @@ public abstract class ClassDecorator implements Character {
         return decoratedCharacter.getLuck();
     }
 
+    // Getters for Skills
+
     @Override
     public int getDungeoneering() {
         return decoratedCharacter.getDungeoneering();
@@ -87,9 +78,36 @@ public abstract class ClassDecorator implements Character {
         return decoratedCharacter.getHistory();
     }
 
+    // Getters for Player Info
+
+    @Override
+    public String getName() {
+        return decoratedCharacter.getName();
+    }
+
     @Override
     public int getExperience() {
         return decoratedCharacter.getExperience();
+    }
+
+    @Override
+    public int getLevel() {
+        return decoratedCharacter.getLevel();
+    }
+
+    @Override
+    public Condition getActiveEffect() {
+        return decoratedCharacter.getActiveEffect();
+    }
+
+    @Override
+    public String getPlayerClass() {
+        return decoratedCharacter.getPlayerClass();
+    }
+
+    @Override
+    public String getAttackType() {
+        return decoratedCharacter.getAttackType();
     }
 
     @Override
@@ -97,35 +115,25 @@ public abstract class ClassDecorator implements Character {
         return decoratedCharacter.getSpecialAbility();
     }
 
-
-    @Override
-    public String getRacialAbility() {
-        return decoratedCharacter.getRacialAbility();
-    }
-
-
-    @Override
-    public String getPlayerClass() {
-        return decoratedCharacter.getPlayerClass();
-    }
-
-
-
-    @Override
-    public String getAttackType() {
-        return decoratedCharacter.getAttackType();
-    }
-
-
     @Override
     public String getPlayerRace() {
         return decoratedCharacter.getPlayerRace();
     }
 
     @Override
-    public int getLevel() {
-        return decoratedCharacter.getLevel();
+    public String getRacialAbility() {
+        return decoratedCharacter.getRacialAbility();
     }
+
+    /**
+     * Builds part of the character sheet at each tier of decoration.
+     * @return character sheet string
+     */
+    @Override
+    public String getCharacterSheet() {
+        return null;
+    }
+
 
 
 }

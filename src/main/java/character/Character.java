@@ -1,7 +1,7 @@
 package character;
 
 /**
- * Defines base character.
+ * Defines character functionality.
  */
 public interface Character {
 
@@ -38,6 +38,8 @@ public interface Character {
     int getExperience();
 
     int getLevel();
+
+    Condition getActiveEffect();
 
     String getPlayerRace();
 

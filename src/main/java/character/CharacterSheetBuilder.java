@@ -57,6 +57,11 @@ public class CharacterSheetBuilder {
         );
     }
 
+    /**
+     * Helper method to build the first section of the character sheet.
+     * @param characterRef reference to the character
+     * @return chunk of character sheet with basic info
+     */
     public static String buildBasicSection(Character characterRef) {
 
         return String.format("======================%n"

@@ -1,10 +1,10 @@
 package character;
 
-import conditions.Condition;
-
 /**
- * Abstract class to define the base player character
- * before its decorated by class, race, and background modifiers.
+ * <p>The basic concrete character class that can be decorated by the race and class decorators.</p>
+ *
+ * <p>Functionality for ALL characters can be added here while class or race-specific
+ *  functionality will override the applicable methods in the decorator classes.</p>
  */
 public class BasicCharacter implements Character {
 
@@ -72,7 +72,7 @@ public class BasicCharacter implements Character {
     }
 
 
-    // Base Stat Getters
+    // Getters for Core Stats
     @Override
     public int getAttack() {
         return attack;
@@ -92,6 +92,7 @@ public class BasicCharacter implements Character {
     public int getEnergy() {
         return energy;
     }
+
     @Override
     public int getSpeed() {
         return speed;
@@ -103,8 +104,7 @@ public class BasicCharacter implements Character {
     }
 
 
-    // Base Skill Getters
-
+    // Getters for Skills
     @Override
     public int getDungeoneering() {
         return dungeoneering;
@@ -132,13 +132,14 @@ public class BasicCharacter implements Character {
 
 
 
-    // Player Data
+    // Getters for Player Data
 
     @Override
     public String getName() {
         return name;
     }
-   @Override
+
+    @Override
     public int getExperience() {
         return experience;
     }
@@ -148,6 +149,7 @@ public class BasicCharacter implements Character {
         return level;
     }
 
+    @Override
     public Condition getActiveEffect() {
         return activeEffect;
     }
@@ -156,10 +158,12 @@ public class BasicCharacter implements Character {
     public String getPlayerClass() {
         return playerClass;
     }
+
     @Override
     public String getAttackType() {
         return attackType;
     }
+
     @Override
     public String getSpecialAbility() {
         return specialAbility;
@@ -170,10 +174,12 @@ public class BasicCharacter implements Character {
     public String getPlayerRace() {
         return race;
     }
+
     @Override
     public String getRacialAbility() {
         return racialAbility;
     }
+
 
     @Override
     public String getCharacterSheet() {

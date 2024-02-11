@@ -1,4 +1,4 @@
-package conditions;
+package character;
 
 /**
  * Possible Player/Enemy Conditions
