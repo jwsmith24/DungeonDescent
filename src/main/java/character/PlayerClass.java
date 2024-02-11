@@ -7,8 +7,8 @@ public enum PlayerClass {
 
     NO_CLASS("Player does not have a class yet", "unarmed strike", "make a joke"),
     WARRIOR("Warrior", "sword strike", "thunderous smash"),
-    MAGE("Mage", "fire bolt", "sneak attack"),
-    THIEF("Thief", "dagger strike", "fire storm"),
+    MAGE("Mage", "fire bolt", "fire storm"),
+    THIEF("Thief", "dagger strike", "sneak attack"),
     PRIEST("Priest", "smite", "holy spirit");
 
 

@@ -40,15 +40,15 @@ public class CharacterCreationTest {
         Character jeff = new BasicCharacter("Jeff");
 
         // Make Jeff a Mage!
-        jeff = new Mage(jeff);
+        jeff = new ClassDecorator(jeff, PlayerClass.MAGE);
 
         // Make sure Jeff has original properties AND mage stuff
         assertEquals("Jeff", jeff.getName(), "Jeff no longer has his name");
-        assertEquals(GameConstants.MAGE, jeff.getPlayerClass(), "Jeff is not a mage");
+        assertEquals(PlayerClass.MAGE.getClassDescription(), jeff.getPlayerClass(), "Jeff is not a mage");
         assertNull(jeff.getPlayerRace(), "Jeff should not have a race yet");
         assertEquals(3, jeff.getArcana(), "Arcana bonus not applied");
-        assertEquals(GameConstants.MAGE_SPECIAL, jeff.getSpecialAbility(), "Wrong special");
-        assertEquals(GameConstants.MAGE_ATTACK, jeff.getAttackType(), "Wrong attack type");
+        assertEquals(PlayerClass.MAGE.getSpecialAbilityText(), jeff.getSpecialAbility(), "Wrong special");
+        assertEquals(PlayerClass.MAGE.getAttackText(), jeff.getAttackType(), "Wrong attack type");
 
     }
 
