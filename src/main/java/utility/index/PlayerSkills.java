@@ -1,4 +1,4 @@
-package utility;
+package utility.index;
 
 /**
  * Character skill options.Could have methods to calculate skill modifications based on dungeon

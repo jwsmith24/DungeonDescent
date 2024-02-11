@@ -3,11 +3,17 @@ package utility;
 import character.Adventurer;
 import character.Character;
 
+/**
+ * Contains methods for character creation.
+ */
 public class CharacterBuilder {
 
-    // Essentially needs to hard copy the final state of the wrapped/decorated player object
 
-    public static Adventurer adventurerBuilder(Character characterRef) {
+    /**
+     *  Once character creation is done, we want to capture the state of the object so that
+     *  updating conditions, level, experience, etc. doesn't scale out of control.
+     */
+    public static Adventurer characterCreator(Character characterRef) {
 
         // Create Adventurer object that captures state of decorated object
         Adventurer newPlayer = new Adventurer();

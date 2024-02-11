@@ -1,4 +1,4 @@
-package utility;
+package utility.index;
 
 /**
  * Possible Player/Enemy Conditions with descriptions.

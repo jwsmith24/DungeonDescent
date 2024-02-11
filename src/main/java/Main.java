@@ -3,8 +3,8 @@ import character.Character;
 import character.ClassDecorator;
 import character.RaceDecorator;
 
-import utility.PlayerClass;
-import utility.PlayerRace;
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
 
 /**
  * Basic main class to ensure everything is set up properly.

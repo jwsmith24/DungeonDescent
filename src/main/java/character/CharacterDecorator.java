@@ -2,7 +2,7 @@ package character;
 
 import java.util.ArrayList;
 
-import utility.Condition;
+import utility.index.Condition;
 
 
 

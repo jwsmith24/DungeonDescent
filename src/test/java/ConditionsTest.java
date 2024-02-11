@@ -1,9 +1,9 @@
 import character.*;
 import character.Character;
 import org.junit.jupiter.api.Test;
-import utility.Condition;
-import utility.PlayerClass;
-import utility.PlayerRace;
+import utility.index.Condition;
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,7 +1,7 @@
 package character;
 
 import utility.CharacterSheetBuilder;
-import utility.PlayerRace;
+import utility.index.PlayerRace;
 
 /**
  * Provides race-specific functionality to a character.

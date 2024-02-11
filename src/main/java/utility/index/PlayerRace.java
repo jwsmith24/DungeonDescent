@@ -1,4 +1,4 @@
-package utility;
+package utility.index;
 
 public enum PlayerRace {
     ORC("Orc", "+2 to HP"),

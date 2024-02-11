@@ -1,6 +1,6 @@
 package character;
 
-import utility.*;
+import utility.index.Condition;
 
 import java.util.ArrayList;
 

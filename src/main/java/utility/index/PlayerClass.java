@@ -1,4 +1,4 @@
-package utility;
+package utility.index;
 
 /**
  * Contains all character class options in the game.

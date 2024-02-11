@@ -3,11 +3,11 @@ package character;
 import java.util.ArrayList;
 
 import utility.CharacterSheetBuilder;
-import utility.Condition;
-import utility.PlayerClass;
-import utility.PlayerRace;
-import utility.PlayerSkills;
-import utility.PlayerStats;
+import utility.index.Condition;
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
+import utility.index.PlayerSkills;
+import utility.index.PlayerStats;
 
 
 

@@ -1,4 +1,4 @@
-package utility;
+package utility.index;
 
 /**
  * Player stat options that exist in the game.

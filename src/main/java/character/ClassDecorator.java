@@ -1,7 +1,7 @@
 package character;
 
 import utility.CharacterSheetBuilder;
-import utility.PlayerClass;
+import utility.index.PlayerClass;
 
 /**
  * Provides class-specific functionality to a character.
