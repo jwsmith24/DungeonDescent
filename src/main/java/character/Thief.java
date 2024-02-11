@@ -37,14 +37,7 @@ public class Thief extends ClassDecorator {
 
     @Override
     public String getCharacterSheet() {
-        return decoratedThief.getCharacterSheet() + String.format(
-                "======================\n" +
-                        "| Class: %s\n" +
-                        "| Attack Type: %s\n" +
-                        "| Special Ability: %s\n"
-
-                , this.getPlayerClass(), this.getAttackType(), this.getSpecialAbility()
-        );
+        return decoratedThief.getCharacterSheet() + CharacterSheetBuilder.buildClassSection(this);
     }
 
 }

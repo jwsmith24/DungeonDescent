@@ -41,14 +41,7 @@ public class Warrior extends ClassDecorator {
 
     @Override
     public String getCharacterSheet() {
-        return decoratedWarrior.getCharacterSheet() + String.format(
-                "======================\n" +
-                        "| Class: %s\n" +
-                        "| Attack Type: %s\n" +
-                        "| Special Ability: %s\n"
-
-                , this.getPlayerClass(), this.getAttackType(), this.getSpecialAbility()
-        );
+        return decoratedWarrior.getCharacterSheet() + CharacterSheetBuilder.buildClassSection(this);
     }
 
 }
