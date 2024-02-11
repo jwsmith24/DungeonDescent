@@ -27,6 +27,7 @@ public class BasicCharacter implements Character {
     String race;
     int experience;
     int level;
+
     String playerClass;
     String specialAbility;
     String racialAbility;
