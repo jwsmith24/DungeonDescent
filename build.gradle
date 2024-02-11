@@ -46,23 +46,23 @@ test {
 }
 
 
-// Ensure tests run before jacoco
-jacocoTestReport {
-    dependsOn Test
-}
-
 jacoco {
-    //toolVersion = "0.8.8"
+    toolVersion = "0.8.8"
     reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
+
+
 jacocoTestReport {
+    dependsOn test
     reports {
         xml.required = false
         csv.required = false
         html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
+
+build.dependsOn jacocoTestReport
 
 spotbugs {
     //ignoreFailures = true
