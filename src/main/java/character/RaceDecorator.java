@@ -4,7 +4,7 @@ import utility.CharacterSheetBuilder;
 import utility.PlayerRace;
 
 /**
- * Combines all race decorator functionality under one hood.
+ * Provides race-specific functionality to a character.
  */
 public class RaceDecorator extends CharacterDecorator{
 

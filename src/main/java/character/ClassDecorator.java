@@ -4,7 +4,7 @@ import utility.CharacterSheetBuilder;
 import utility.PlayerClass;
 
 /**
- * Combines all class decorator functionality under one hood.
+ * Provides class-specific functionality to a character.
  */
 public class ClassDecorator extends CharacterDecorator {
 
