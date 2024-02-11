@@ -51,7 +51,7 @@ public class ConditionsTest {
     }
 
     @Test
-    void testApplyingNeutralToAffectedCharacterWithOneEffect() {
+    void testApplyingNeutralToCharacterWithOneAffliction() {
 
         Character dad = new ApplyCondition(new Priest(new Demon(new BasicCharacter("dad"))), Condition.BLINDED);
 
@@ -63,4 +63,19 @@ public class ConditionsTest {
         assertEquals(1, dad.getActiveEffects().size(), "List contains more than 1 element");
 
     }
+
+    @Test
+    void testApplyingNeutralToCharacterWithMultipleAfflictions() {
+        Character dad = new ApplyCondition(new Priest(new Demon(new BasicCharacter("dad"))), Condition.STUNNED);
+        dad = new ApplyCondition(dad, Condition.POISONED);
+        // Dad is stunned and poisoned, but we throw a healing potion at him and now he's good
+        dad = new ApplyCondition(dad, Condition.NEUTRAL);
+
+
+        // Check that applying neutral still works properly
+        assertEquals(1, dad.getActiveEffects().size(), "List contains more than 1 element");
+        assertTrue(dad.getActiveEffects().contains(Condition.NEUTRAL), "List does not contain neutral");
+
+    }
+
 }
