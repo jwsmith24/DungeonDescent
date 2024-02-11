@@ -186,7 +186,14 @@ public class BasicCharacter implements Character {
 
         return CharacterSheetBuilder.buildBasicSection(this);
 
+    }
 
+    // Condition Updates
+
+    public void setPlayerCondition(Condition condition){
+        this.activeEffect = condition;
+        System.out.println(this.getName() + " is " + condition);
+        System.out.println(condition.getDescription());
     }
 
 

@@ -142,6 +142,29 @@ public class TestCharacterCreation {
         assertEquals(GameConstants.DEMON_RACIAL, bucky.getRacialAbility(), "Racial ability is incorrect");
     }
 
+    @Test
+    void testApplyConditionToCharacter() {
+        Character bob = new BasicCharacter("bob");
+        bob = new Demon (new Orc(bob));
+
+        assertEquals(Condition.NEUTRAL, bob.getActiveEffect(), "Bob is not starting out neutral");
+
+    }
+
+    @Test
+    void testActiveEffectDescription() {
+        Character bob = new BasicCharacter("bob");
+        bob = new Demon (new Orc(bob));
+
+        assertEquals(Condition.NEUTRAL, bob.getActiveEffect(), "Bob is not starting out neutral");
+        assertEquals(Condition.NEUTRAL.getDescription(), bob.getActiveEffect().getDescription(), "Descriptions do not match");
+
+        // Change condition and make sure it updates. Bob is
+
+        bob.setPlayerCondition(Condition.RESTRAINED);
+        assertEquals(Condition.RESTRAINED.getDescription(), bob.getActiveEffect().getDescription(), "Condition did not update");
+    }
+
 
 
 }

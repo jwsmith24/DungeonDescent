@@ -53,4 +53,8 @@ public interface Character {
 
     String getCharacterSheet();
 
+    // Condition Updates
+
+    void setPlayerCondition(Condition condition);
+
 }

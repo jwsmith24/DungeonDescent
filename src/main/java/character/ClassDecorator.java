@@ -135,5 +135,12 @@ public abstract class ClassDecorator implements Character {
     }
 
 
+    // Condition Updates
+
+    @Override
+    public void setPlayerCondition(Condition condition) {
+
+        decoratedCharacter.setPlayerCondition(condition);
+    }
 
 }
