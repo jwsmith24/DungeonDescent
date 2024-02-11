@@ -10,23 +10,34 @@ public interface Character {
 
     // Stats
     int getAttack();
+
     int getDefense();
+
     int getHitPoints();
+
     int getEnergy();
+
     int getSpeed();
+
     int getLuck();
 
     // Skills
     int getDungeoneering();
+
     int getLockPicking();
+
     int getAthletics();
+
     int getArcana();
+
     int getHistory();
+
 
     // Player Info
     int getExperience();
 
     String getPlayerRace();
+
     String getSpecialAbility();
 
     String getRacialAbility();

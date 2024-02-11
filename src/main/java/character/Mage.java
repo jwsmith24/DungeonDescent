@@ -41,14 +41,7 @@ public class Mage extends ClassDecorator {
 
     @Override
     public String getCharacterSheet() {
-        return decoratedMage.getCharacterSheet() + String.format(
-                "======================\n" +
-                "| Class: %s\n" +
-                "| Attack Type: %s\n" +
-                "| Special Ability: %s\n"
-
-                , this.getPlayerClass(), this.getAttackType(), this.getSpecialAbility()
-        );
+        return decoratedMage.getCharacterSheet() + CharacterSheetBuilder.buildClassSection(this);
     }
 
 

@@ -1,7 +1,8 @@
 package character;
 
 /**
- * Base class decorator. Can be extended to augment a player's stats based on race, class, and background.
+ * Base class decorator. Can be extended to augment
+ * a player's stats based on race, class, and background.
  */
 public abstract class ClassDecorator implements Character {
 
@@ -28,10 +29,7 @@ public abstract class ClassDecorator implements Character {
 
 
 
-
-
-
-   // Getters & Setters
+    // Getters & Setters
 
     @Override
     public String getName() {

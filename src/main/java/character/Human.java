@@ -38,24 +38,7 @@ public class Human extends ClassDecorator {
     @Override
     public String getCharacterSheet() {
 
-        return decoratedHuman.getCharacterSheet() + String.format(
-
-                "======================\n" +
-                        "| Race: %s\n" +
-                        "| Racial ability: %s\n" +
-                        "======================\n" +
-                        "|\tStats\n" +
-                        "======================\n" +
-                        "| Attack: %s\n" +
-                        "| Defence: %s\n" +
-                        "| Hit Points: %s\n" +
-                        "| Energy: %s\n" +
-                        "| Speed: %s\n" +
-                        "| Luck: %s\n"
-
-                , this.getPlayerRace(), this.getRacialAbility(), this.getAttack(), this.getDefense(),
-                this.getHitPoints(), this.getEnergy(), this.getSpeed(), this.getLuck()
-        );
+        return decoratedHuman.getCharacterSheet() + CharacterSheetBuilder.buildRaceSection(this);
 
     }
 }
