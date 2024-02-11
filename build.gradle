@@ -31,6 +31,9 @@ checkstyle {
     toolVersion = "8.8"
 }
 
+run {
+    standardInput = System.in
+}
 
 repositories {
     mavenCentral()

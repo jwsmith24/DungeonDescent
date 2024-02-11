@@ -3,7 +3,7 @@ package character;
 import java.util.ArrayList;
 import utility.index.Condition;
 
-
+//todo change to work with adventurer class instead of decorators
 
 public class ApplyCondition extends CharacterDecorator {
 

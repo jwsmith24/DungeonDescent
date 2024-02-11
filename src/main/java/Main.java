@@ -3,6 +3,7 @@ import character.Character;
 import character.ClassDecorator;
 import character.RaceDecorator;
 
+import utility.CharacterBuilder;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
@@ -23,6 +24,7 @@ public class Main {
         // formatting work behind nice static methods which the character decorator classes use.
         // It uses the decorator classes to act implicitly as the director to determine how a character sheet is built.
 
+/*
 
 
         // Let's build a character - Craig and see their character sheet as its built!
@@ -58,6 +60,10 @@ public class Main {
 
 
 
+*/
+
+
+        CharacterBuilder.createCharacter();
 
     }
 }

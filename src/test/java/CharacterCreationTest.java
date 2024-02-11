@@ -154,7 +154,7 @@ public class CharacterCreationTest {
         // Once character creation is done, we want to capture the state of the object so that
         // updating conditions, level, experience, etc. doesn't scale out of control.
 
-        Adventurer dungeonCloud = CharacterBuilder.characterCreator(cloud);
+        Adventurer dungeonCloud = CharacterBuilder.spawnCharacter(cloud);
         System.out.println(dungeonCloud.getCharacterSheet());
 
 
@@ -164,6 +164,7 @@ public class CharacterCreationTest {
         assertEquals(cloud.getPlayerClass(), dungeonCloud.getPlayerClass(), "classes do not match");
 
     }
+
 
 
 }
