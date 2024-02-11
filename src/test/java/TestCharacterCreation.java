@@ -90,6 +90,44 @@ public class TestCharacterCreation {
 
     }
 
+    @Test
+    void testStatPersistenceWithTwoClasses() {
+
+        Character pete = new BasicCharacter("Pete");
+        // Pete is a thief
+        pete = new Thief(pete);
+        // He's also a warrior
+        pete = new Warrior(pete);
+
+        // Pete's latest class was warrior, so his attack should be a warrior attack
+        assertEquals(GameConstants.WARRIOR_ATTACK, pete.getAttackType(), "Pete is not a warrior");
+
+        // Pete should still have the +2 bonus to lockpicking though
+        assertEquals(3, pete.getLockPicking(), "Pete lost his lockpicking prof");
+        // and Pete should have his warrior bonus to athletics
+        assertEquals(3, pete.getAthletics(), "Pete lost his athletics prof");
+
+        // Check basic character data
+        assertEquals("Pete", pete.getName(), "Pete lost his name");
+    }
+
+    @Test
+    void testStatPersistenceWithTwoClassesReverseOrder() {
+        Character pete = new BasicCharacter("Pete");
+        pete = new Warrior(pete);
+        pete = new Thief(pete);
+
+        assertEquals(GameConstants.THIEF_ATTACK, pete.getAttackType(), "Pete is not a warrior");
+
+        // Pete should still have the +2 bonus to lockpicking
+        assertEquals(3, pete.getLockPicking(), "Pete lost his lockpicking prof");
+        // and Pete should have his warrior bonus to athletics
+        assertEquals(3, pete.getAthletics(), "Pete lost his athletics prof");
+
+        // Check basic character data
+        assertEquals("Pete", pete.getName(), "Pete lost his name");
+    }
+
 
 
 }
