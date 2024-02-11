@@ -1,6 +1,6 @@
 package character;
 
-public class Demon extends ClassDecorator {
+public class Demon extends CharacterDecorator {
     Character decoratedDemon;
 
     /**

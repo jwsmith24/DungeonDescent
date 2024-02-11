@@ -5,7 +5,7 @@ package character;
 /**
  * Mage decorator class.
  */
-public class Mage extends ClassDecorator {
+public class Mage extends CharacterDecorator {
 
     Character decoratedMage;
     /**

@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * <p>Fully implements Character to ensure it knows all of the functionality, but is abstract
  * so that each decorator class only has to override the methods that it will be augmenting.</p>
  */
-public abstract class ClassDecorator implements Character {
+public abstract class CharacterDecorator implements Character {
 
     // Stores reference to wrapped class that it's decorating.
     Character decoratedCharacter;
@@ -17,7 +17,7 @@ public abstract class ClassDecorator implements Character {
      * Constructor for the base decorator class.
      * @param decoratedCharacter reference to next object in the decorator chain.
      */
-    public ClassDecorator(Character decoratedCharacter) {
+    public CharacterDecorator(Character decoratedCharacter) {
         this.decoratedCharacter = decoratedCharacter;
     }
 

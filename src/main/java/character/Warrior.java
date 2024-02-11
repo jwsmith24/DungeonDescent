@@ -4,7 +4,7 @@ package character;
 /**
  * Warrior decorator class.
  */
-public class Warrior extends ClassDecorator {
+public class Warrior extends CharacterDecorator {
 
     Character decoratedWarrior;
     /**

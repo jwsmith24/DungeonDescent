@@ -2,7 +2,7 @@ package character;
 
 import java.util.ArrayList;
 
-public class ApplyCondition extends ClassDecorator{
+public class ApplyCondition extends CharacterDecorator {
 
     Character affectedCharacter;
     Condition newCondition;
