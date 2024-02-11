@@ -68,3 +68,4 @@ A quick reference for how class, race, and background affect player stats.
 
 **Racial Feature**  
 *Berserker Rage* - Once per dungeon, gain a +10 to Attack.
+

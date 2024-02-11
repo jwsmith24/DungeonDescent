@@ -27,10 +27,6 @@ public abstract class ClassDecorator implements Character {
 
 
 
-
-
-    // Getters & Setters
-
     @Override
     public String getName() {
         return decoratedCharacter.getName();
@@ -124,6 +120,11 @@ public abstract class ClassDecorator implements Character {
     @Override
     public String getPlayerRace() {
         return decoratedCharacter.getPlayerRace();
+    }
+
+    @Override
+    public int getLevel() {
+        return decoratedCharacter.getLevel();
     }
 
 

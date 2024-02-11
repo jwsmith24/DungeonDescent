@@ -6,8 +6,6 @@ package character;
  */
 public interface Character {
 
-    String getName();
-
     // Stats
     int getAttack();
 
@@ -20,6 +18,7 @@ public interface Character {
     int getSpeed();
 
     int getLuck();
+
 
     // Skills
     int getDungeoneering();
@@ -34,7 +33,12 @@ public interface Character {
 
 
     // Player Info
+
+    String getName();
+
     int getExperience();
+
+    int getLevel();
 
     String getPlayerRace();
 

@@ -26,6 +26,7 @@ public class BasicCharacter implements Character {
     String name;
     String race;
     int experience;
+    int level;
     String playerClass;
     String specialAbility;
     String racialAbility;
@@ -54,20 +55,19 @@ public class BasicCharacter implements Character {
 
         // Set base player info
         this.name = name;
-        this.playerClass = GameConstants.CLASSLESS;
-        this.specialAbility = GameConstants.NEW_CHARACTER;
-        this.attackType = GameConstants.UNARMED_ATTACK;
-        this.racialAbility = GameConstants.NEW_CHARACTER;
         this.experience = 0;
+        this.level = 1;
+
+        this.playerClass = GameConstants.CLASSLESS;
+        this.attackType = GameConstants.UNARMED_ATTACK;
+        this.specialAbility = GameConstants.NEW_CHARACTER;
+
         this.race = GameConstants.NEW_CHARACTER;
+        this.racialAbility = GameConstants.NEW_CHARACTER;
     }
 
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
+    // Base Stat Getters
     @Override
     public int getAttack() {
         return attack;
@@ -87,7 +87,6 @@ public class BasicCharacter implements Character {
     public int getEnergy() {
         return energy;
     }
-
     @Override
     public int getSpeed() {
         return speed;
@@ -97,6 +96,9 @@ public class BasicCharacter implements Character {
     public int getLuck() {
         return luck;
     }
+
+
+    // Base Skill Getters
 
     @Override
     public int getDungeoneering() {
@@ -123,40 +125,45 @@ public class BasicCharacter implements Character {
         return history;
     }
 
+
+
+    // Player Data
+
+    @Override
+    public String getName() {
+        return name;
+    }
+   @Override
     public int getExperience() {
         return experience;
     }
 
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public String getPlayerClass() {
+        return playerClass;
+    }
+    @Override
+    public String getAttackType() {
+        return attackType;
+    }
     @Override
     public String getSpecialAbility() {
         return specialAbility;
     }
 
 
-
-    @Override
-    public String getRacialAbility() {
-        return racialAbility;
-    }
-
-
-
-    @Override
-    public String getPlayerClass() {
-        return playerClass;
-    }
-
-
-    @Override
-    public String getAttackType() {
-        return attackType;
-    }
-
-
-
     @Override
     public String getPlayerRace() {
         return race;
+    }
+    @Override
+    public String getRacialAbility() {
+        return racialAbility;
     }
 
     @Override
