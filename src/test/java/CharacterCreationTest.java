@@ -2,7 +2,6 @@ import character.*;
 import character.Character;
 
 import org.junit.jupiter.api.Test;
-import utility.GameConstants;
 import utility.PlayerClass;
 import utility.PlayerRace;
 

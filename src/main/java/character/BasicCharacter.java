@@ -48,18 +48,19 @@ public class BasicCharacter implements Character {
     public BasicCharacter(String name) {
 
         // Set base stats
-        this.attack = GameConstants.BASE_ATTACK;
-        this.defence = GameConstants.BASE_DEF;
-        this.hitPoints = GameConstants.BASE_HP;
-        this.energy = GameConstants.BASE_ENERGY;
-        this.speed = GameConstants.BASE_SPEED;
+        this.attack = PlayerStats.ATTACK.getBaseValue();
+        this.defence = PlayerStats.DEF.getBaseValue();
+        this.hitPoints = PlayerStats.HP.getBaseValue();
+        this.energy = PlayerStats.ENERGY.getBaseValue();
+        this.speed = PlayerStats.SPEED.getBaseValue();
+        this.luck = PlayerStats.LUCK.getBaseValue();
 
         // Set base skills
-        this.dungeoneering = GameConstants.BASE_DUNGEONEERING;
-        this.lockPicking = GameConstants.BASE_LOCKPICKING;
-        this.athletics = GameConstants.BASE_ATHLETICS;
-        this.arcana = GameConstants.BASE_ARCANA;
-        this.history = GameConstants.BASE_HISTORY;
+        this.dungeoneering = PlayerSkills.DUNGEONEERING.getBaseValue();
+        this.lockPicking = PlayerSkills.LOCK_PICKING.getBaseValue();
+        this.athletics = PlayerSkills.ATHLETICS.getBaseValue();
+        this.arcana = PlayerSkills.ARCANA.getBaseValue();
+        this.history = PlayerSkills.HISTORY.getBaseValue();
 
         // Set base player info
         this.name = name;
