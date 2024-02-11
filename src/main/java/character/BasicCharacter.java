@@ -55,7 +55,9 @@ public class BasicCharacter implements Character {
         // Set base player info
         this.name = name;
         this.playerClass = GameConstants.CLASSLESS;
+        this.specialAbility = GameConstants.NEW_CHARACTER;
         this.attackType = GameConstants.UNARMED_ATTACK;
+        this.racialAbility = GameConstants.NEW_CHARACTER;
         this.experience = 0;
         this.race = GameConstants.NEW_CHARACTER;
     }
