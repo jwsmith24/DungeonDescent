@@ -4,6 +4,7 @@ import character.Character;
 import org.junit.jupiter.api.Test;
 import utility.GameConstants;
 import utility.PlayerClass;
+import utility.PlayerRace;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,11 +26,11 @@ public class CharacterCreationTest {
         Character jeff = new BasicCharacter("Jeff");
 
         // Make Jeff an Orc!
-        jeff = new Orc(jeff);
+        jeff = new RaceDecorator(jeff, PlayerRace.ORC);
 
         // Make sure Jeff has his original properties AND orc stuff
-        assertEquals(GameConstants.ORC, jeff.getPlayerRace(), "Jeff is not an Orc");
-        assertEquals(GameConstants.ORC_RACIAL, jeff.getRacialAbility(), "Wrong racial ability");
+        assertEquals(PlayerRace.ORC.getRaceDescription(), jeff.getPlayerRace(), "Jeff is not an Orc");
+        assertEquals(PlayerRace.ORC.getRacialBonusText(), jeff.getRacialAbility(), "Wrong racial ability");
         assertEquals("Jeff", jeff.getName(), "Jeff no longer has his name");
         assertEquals(12, jeff.getHitPoints(), "Orc HP bonus not applied");
         assertEquals(PlayerClass.NO_CLASS.getClassDescription(), jeff.getPlayerClass());
@@ -47,7 +48,6 @@ public class CharacterCreationTest {
         // Make sure Jeff has original properties AND mage stuff
         assertEquals("Jeff", jeff.getName(), "Jeff no longer has his name");
         assertEquals(PlayerClass.MAGE.getClassDescription(), jeff.getPlayerClass(), "Jeff is not a mage");
-        assertNull(jeff.getPlayerRace(), "Jeff should not have a race yet");
         assertEquals(3, jeff.getArcana(), "Arcana bonus not applied");
         assertEquals(PlayerClass.MAGE.getSpecialAbilityText(), jeff.getSpecialAbility(), "Wrong special");
         assertEquals(PlayerClass.MAGE.getAttackText(), jeff.getAttackType(), "Wrong attack type");
@@ -59,12 +59,12 @@ public class CharacterCreationTest {
         Character bob = new BasicCharacter("Bob");
 
         // Bob is a demon
-        bob = new Demon(bob);
+        bob = new RaceDecorator(bob, PlayerRace.DEMON);
         // Bob is also a Priest
         bob = new ClassDecorator(bob, PlayerClass.PRIEST);
 
         assertEquals(PlayerClass.PRIEST.getClassDescription(), bob.getPlayerClass(), "Bob is no longer a priest");
-        assertEquals(GameConstants.DEMON, bob.getPlayerRace(), "Bob is no longer a demon");
+        assertEquals(PlayerRace.DEMON.getRaceDescription(), bob.getPlayerRace(), "Bob is no longer a demon");
 
         assertEquals("Bob", bob.getName(), "Bob lost his name");
         assertEquals(10, bob.getHitPoints(), "Bob's HP changed");
@@ -79,12 +79,12 @@ public class CharacterCreationTest {
         Character steve = new BasicCharacter("Steve");
 
         // Steve is a Human
-        steve = new Human(steve);
+        steve = new RaceDecorator(steve, PlayerRace.HUMAN);
         // Steve is also a Warrior
         steve = new ClassDecorator(steve, PlayerClass.WARRIOR);
 
         assertEquals(PlayerClass.WARRIOR.getClassDescription(), steve.getPlayerClass(), "Steve is no longer a Warrior");
-        assertEquals(GameConstants.HUMAN, steve.getPlayerRace(), "Wrong race");
+        assertEquals(PlayerRace.HUMAN.getRaceDescription(), steve.getPlayerRace(), "Wrong race");
         assertEquals("Steve", steve.getName(), "Wrong name");
         assertEquals(10, steve.getHitPoints(), "Wrong HP");
         assertEquals(3, steve.getAthletics(), "Athletics bonus not applied");
@@ -134,14 +134,14 @@ public class CharacterCreationTest {
     void testStatPersistenceWithTwoRaces() {
         Character bucky = new BasicCharacter("Bucky");
 
-        bucky = new Orc(bucky);
-        bucky = new Demon(bucky);
+        bucky = new RaceDecorator(bucky, PlayerRace.ORC);
+        bucky = new RaceDecorator(bucky, PlayerRace.DEMON);
 
         // Bucky should have the bonuses to hit points and speed but only have the demon racial
 
         assertEquals(3, bucky.getSpeed(), "Speed incorrect");
         assertEquals(12, bucky.getHitPoints(), "HP incorrect");
-        assertEquals(GameConstants.DEMON_RACIAL, bucky.getRacialAbility(), "Racial ability is incorrect");
+        assertEquals(PlayerRace.DEMON.getRacialBonusText(), bucky.getRacialAbility(), "Racial ability is incorrect");
     }
 
 

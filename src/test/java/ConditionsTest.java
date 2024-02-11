@@ -3,6 +3,7 @@ import character.Character;
 import org.junit.jupiter.api.Test;
 import utility.Condition;
 import utility.PlayerClass;
+import utility.PlayerRace;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +13,7 @@ public class ConditionsTest {
     @Test
     void testCharacterBeginsNeutral() {
         Character bob = new BasicCharacter("bob");
-        bob = new Demon(new Orc(bob));
+        bob = new ClassDecorator(new RaceDecorator(bob, PlayerRace.ORC), PlayerClass.THIEF);
 
         // Bob should be neutral!
         // Bob's active effects arraylist should have neutral in it AND it should be the only entry in it
@@ -24,7 +25,7 @@ public class ConditionsTest {
     @Test
     void testApplyingEffectToNeutralCharacter() {
         Character bob = new BasicCharacter("bob");
-        bob = new Demon (new Orc(bob));
+        bob = new ClassDecorator (new RaceDecorator(bob, PlayerRace.ELF), PlayerClass.MAGE);
 
         // Bob is restrained!
         // Make sure the arraylist updates appropriately, displays the correct effect and does NOT have neutral in it
@@ -38,7 +39,7 @@ public class ConditionsTest {
 
     @Test
     void testApplyingEffectToAffectedCharacter() {
-        Character dan = new ApplyCondition(new ClassDecorator(new Elf(new BasicCharacter("dad")), PlayerClass.WARRIOR), Condition.PARALYZED);
+        Character dan = new ApplyCondition(new ClassDecorator(new RaceDecorator(new BasicCharacter("dad"), PlayerRace.DEMON), PlayerClass.WARRIOR), Condition.PARALYZED);
 
         // dan is already paralyzed
         dan = new ApplyCondition(dan, Condition.POISONED);
@@ -55,7 +56,7 @@ public class ConditionsTest {
     @Test
     void testApplyingNeutralToCharacterWithOneAffliction() {
 
-        Character dad = new ApplyCondition(new ClassDecorator(new Demon(new BasicCharacter("dad")), PlayerClass.PRIEST), Condition.BLINDED);
+        Character dad = new ApplyCondition(new ClassDecorator(new RaceDecorator(new BasicCharacter("dad"), PlayerRace.GNOME), PlayerClass.PRIEST), Condition.BLINDED);
 
         dad = new ApplyCondition(dad, Condition.NEUTRAL);
 
@@ -68,7 +69,7 @@ public class ConditionsTest {
 
     @Test
     void testApplyingNeutralToCharacterWithMultipleAfflictions() {
-        Character dad = new ApplyCondition(new ClassDecorator(new Demon(new BasicCharacter("dad")), PlayerClass.PRIEST), Condition.STUNNED);
+        Character dad = new ApplyCondition(new ClassDecorator(new RaceDecorator(new BasicCharacter("dad"), PlayerRace.DEMON), PlayerClass.PRIEST), Condition.STUNNED);
         dad = new ApplyCondition(dad, Condition.POISONED);
         // Dad is stunned and poisoned, but we throw a healing potion at him and now he's good
         dad = new ApplyCondition(dad, Condition.NEUTRAL);
