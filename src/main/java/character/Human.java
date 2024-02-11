@@ -4,6 +4,7 @@ package character;
 public class Human extends ClassDecorator {
 
     Character decoratedHuman;
+
     /**
      * An Orc gains a bonus to HP and has a unique racial ability.
      *
@@ -22,7 +23,7 @@ public class Human extends ClassDecorator {
     }
 
     @Override
-    public int getAttack(){
+    public int getAttack() {
         return decoratedHuman.getAttack() + GameConstants.STAT_BONUS;
     }
 

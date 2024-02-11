@@ -46,7 +46,7 @@ public class GameConstants {
 
     // Races
     public static final String ORC = "Orc";
-    public static final String ORC_RACIAL = "+2 to Hit Points" ;
+    public static final String ORC_RACIAL = "+2 to Hit Points";
     public static final String HUMAN = "Human";
     public static final String HUMAN_RACIAL = "+2 to Attack";
     public static final String DEMON = "Demon";

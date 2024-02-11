@@ -4,11 +4,13 @@ package character;
 public class Elf extends ClassDecorator {
 
     Character decoratedElf;
+
     /**
      * An Elf gets a +2 bonus to Energy and has a unique special ability.
      *
      * @param decoratedCharacter reference to next object in the decorator chain.
      */
+
     public Elf(Character decoratedCharacter) {
         super(decoratedCharacter);
         decoratedElf = decoratedCharacter;
@@ -22,7 +24,7 @@ public class Elf extends ClassDecorator {
     }
 
     @Override
-    public int getEnergy(){
+    public int getEnergy() {
         return decoratedElf.getEnergy() + GameConstants.STAT_BONUS;
     }
 

@@ -1,3 +1,4 @@
+import com.github.spotbugs.snom.SpotBugsReport
 
 plugins {
     id "com.github.spotbugs" version "5.0.12"
@@ -23,9 +24,6 @@ checkstyle {
 tasks.withType(Checkstyle).configureEach {
     reports {
     }
-
-
-
 
 
 }
@@ -67,8 +65,21 @@ jacocoTestReport {
 }
 
 spotbugs {
-    ignoreFailures = true
+    //ignoreFailures = true
     showProgress = true
     effort = 'max'
 }
 
+spotbugsMain {
+    reports{
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+spotbugsTest {
+    reports{
+        xml.enabled = false
+        html.enabled = true
+    }
+}

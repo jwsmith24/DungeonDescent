@@ -26,9 +26,9 @@ public class CharacterSheetBuilder {
                 + "| Hit Points: %s\n"
                 + "| Energy: %s\n"
                 + "| Speed: %s\n"
-                + "| Luck: %s\n"
+                + "| Luck: %s\n",
 
-                , decoratedRace.getPlayerRace(),
+                decoratedRace.getPlayerRace(),
                 decoratedRace.getRacialAbility(),
                 decoratedRace.getAttack(),
                 decoratedRace.getDefense(),
@@ -50,9 +50,9 @@ public class CharacterSheetBuilder {
                 "======================\n"
                 + "| Class: %s\n"
                 + "| Attack Type: %s\n"
-                + "| Special Ability: %s\n"
+                + "| Special Ability: %s\n",
 
-                , decoratedClass.getPlayerClass(), decoratedClass.getAttackType(),
+                decoratedClass.getPlayerClass(), decoratedClass.getAttackType(),
                 decoratedClass.getSpecialAbility()
         );
 
