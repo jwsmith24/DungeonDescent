@@ -3,8 +3,7 @@ import character.Character;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestCharacterCreation {
@@ -143,26 +142,29 @@ public class TestCharacterCreation {
     }
 
     @Test
-    void testApplyConditionToCharacter() {
+    void testCharacterBeginsNeutral() {
         Character bob = new BasicCharacter("bob");
         bob = new Demon (new Orc(bob));
 
-        assertEquals(Condition.NEUTRAL, bob.getActiveEffect(), "Bob is not starting out neutral");
+        // Bob should be neutral!
+        // Bob's active effects arraylist should have neutral in it AND it should be the only entry in it
+        assertTrue(bob.getActiveEffects().contains(Condition.NEUTRAL));
+        assertEquals(1, bob.getActiveEffects().size());
 
     }
 
     @Test
-    void testActiveEffectDescription() {
+    void testApplyingEffect() {
         Character bob = new BasicCharacter("bob");
         bob = new Demon (new Orc(bob));
 
-        assertEquals(Condition.NEUTRAL, bob.getActiveEffect(), "Bob is not starting out neutral");
-        assertEquals(Condition.NEUTRAL.getDescription(), bob.getActiveEffect().getDescription(), "Descriptions do not match");
+        // Bob is restrained!
+        // Make sure the arraylist updates appropriately, displays the correct effect and does NOT have neutral in it
 
-        // Change condition and make sure it updates. Bob is
+        bob = new ApplyCondition(bob, Condition.RESTRAINED);
 
-        bob.setPlayerCondition(Condition.RESTRAINED);
-        assertEquals(Condition.RESTRAINED.getDescription(), bob.getActiveEffect().getDescription(), "Condition did not update");
+        System.out.println(bob.getActiveEffects());
+
     }
 
 

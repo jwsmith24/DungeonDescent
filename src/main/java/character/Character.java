@@ -1,5 +1,7 @@
 package character;
 
+import java.util.ArrayList;
+
 /**
  * Defines character functionality.
  */
@@ -39,7 +41,7 @@ public interface Character {
 
     int getLevel();
 
-    Condition getActiveEffect();
+    ArrayList<Condition> getActiveEffects();
 
     String getPlayerRace();
 
@@ -53,8 +55,5 @@ public interface Character {
 
     String getCharacterSheet();
 
-    // Condition Updates
-
-    void setPlayerCondition(Condition condition);
 
 }

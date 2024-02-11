@@ -1,5 +1,7 @@
 package character;
 
+import java.util.ArrayList;
+
 /**
  * <p>The basic concrete character class that can be decorated by the race and class decorators.</p>
  *
@@ -29,7 +31,7 @@ public class BasicCharacter implements Character {
     String race;
     int experience;
     int level;
-    Condition activeEffect;
+    ArrayList<Condition> activeEffects = new ArrayList<>();
 
     String playerClass;
     String specialAbility;
@@ -61,7 +63,7 @@ public class BasicCharacter implements Character {
         this.name = name;
         this.experience = 0;
         this.level = 1;
-        this.activeEffect = Condition.NEUTRAL;
+        this.activeEffects.add(Condition.NEUTRAL);
 
         this.playerClass = GameConstants.CLASSLESS;
         this.attackType = GameConstants.UNARMED_ATTACK;
@@ -150,8 +152,9 @@ public class BasicCharacter implements Character {
     }
 
     @Override
-    public Condition getActiveEffect() {
-        return activeEffect;
+    public ArrayList<Condition> getActiveEffects() {
+
+        return activeEffects;
     }
 
     @Override
@@ -188,13 +191,7 @@ public class BasicCharacter implements Character {
 
     }
 
-    // Condition Updates
 
-    public void setPlayerCondition(Condition condition){
-        this.activeEffect = condition;
-        System.out.println(this.getName() + " is " + condition);
-        System.out.println(condition.getDescription());
-    }
 
 
 }

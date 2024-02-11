@@ -11,9 +11,10 @@ public enum Condition {
     PARALYZED("Character is paralyzed. Effects: Incapacitated and can't move or speak."),
     NEUTRAL("Character does not have any active conditions.");
 
+
     //todo: add positive conditions!
 
-
+    //todo: add random condition method?
 
     private final String description;
 

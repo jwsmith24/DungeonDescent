@@ -1,5 +1,7 @@
 package character;
 
+import java.util.ArrayList;
+
 /**
  * <p>Template for decorator classes that will wrap the Basic Character.</p>
  *
@@ -96,8 +98,8 @@ public abstract class ClassDecorator implements Character {
     }
 
     @Override
-    public Condition getActiveEffect() {
-        return decoratedCharacter.getActiveEffect();
+    public ArrayList<Condition> getActiveEffects() {
+        return decoratedCharacter.getActiveEffects();
     }
 
     @Override
@@ -135,12 +137,5 @@ public abstract class ClassDecorator implements Character {
     }
 
 
-    // Condition Updates
-
-    @Override
-    public void setPlayerCondition(Condition condition) {
-
-        decoratedCharacter.setPlayerCondition(condition);
-    }
 
 }
