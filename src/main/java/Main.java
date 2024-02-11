@@ -1,18 +1,43 @@
-
+import character.BasicCharacter;
+import character.Character;
+import character.ClassDecorator;
+import character.RaceDecorator;
+import utility.PlayerClass;
+import utility.PlayerRace;
 
 /**
  * Basic main class to ensure everything is set up properly.
  */
 public class Main {
 
-    static int level = 0;
-
     /**
-     * Simple main method to test dev tools.
+     * Simple main method to test dev tools for assignment part 1.
      */
     public static void main(String[] args) {
 
-        System.out.println("hi");
+        // Let's build a character - Craig
+
+        Character craig = new BasicCharacter("Craig");
+
+        System.out.println("Hi, I'm " + craig.getName() + ".\n");
+
+        // Craig wants to be a Human Mage:
+
+        // Utilizing the decorator pattern here for race and class with
+        // corresponding enums to keep things generalized and neat.
+
+        // First, we make Craig a Human
+        craig = new RaceDecorator(craig, PlayerRace.HUMAN);
+
+        System.out.println("Hi, I'm still " + craig.getName() + " and I'm a " + craig.getPlayerRace() + "!"
+                + "\nIf we were to fight right now, I would use a: " + craig.getAttackType());
+
+        // Then, Craig decides to be a Mage:
+        craig = new ClassDecorator(craig, PlayerClass.MAGE);
+
+        System.out.println("\nI'm seriously still " + craig.getName() + " the " + craig.getPlayerRace()
+                + ", but now I'm also a " + craig.getPlayerClass() + "!"
+                + " If we were to fight, I would use a: " + craig.getAttackType());
 
 
     }
