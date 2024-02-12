@@ -16,13 +16,12 @@ public class CharacterSheetBuilder {
     public static String buildRaceSection(Character decoratedRace) {
 
         return String.format(
-                "======================%n"
-
+                "==================================%n"
                 + "| Race: %s%n"
                 + "| Racial ability: %s%n"
-                + "======================%n"
-                + "|\t\tStats%n"
-                + "======================%n"
+                + "==================================%n"
+                + "|\t\t\t  Stats%n"
+                + "==================================%n"
                 + "| Attack: %s%n"
                 + "| Defence: %s%n"
                 + "| Hit Points: %s%n"
@@ -49,11 +48,11 @@ public class CharacterSheetBuilder {
     public static String buildClassSection(Character decoratedClass) {
 
         return String.format(
-                "======================%n"
+                "==================================%n"
                 + "| Class: %s%n"
                 + "| Attack Type: %s%n"
                 + "| Special Ability: %s%n"
-                + "======================%n",
+                + "==================================%n",
 
                 decoratedClass.getPlayerClass(), decoratedClass.getAttackType(),
                 decoratedClass.getSpecialAbility()
@@ -68,9 +67,9 @@ public class CharacterSheetBuilder {
     public static String buildBasicSection(Character characterRef) {
 
         return String.format(
-                "======================%n"
-                + "|\tCharacter Info%n"
-                + "======================%n"
+                "==================================%n"
+                + "|\t\t Character Info%n"
+                + "==================================%n"
                 + "| Name: %s%n"
                 + "| Experience: %s%n", characterRef.getName(), characterRef.getExperience());
     }
