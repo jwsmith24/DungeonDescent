@@ -267,7 +267,6 @@ public class CharacterBuilder {
         newPlayer.setActiveEffects(characterRef.getActiveEffects());
 
 
-
         return newPlayer;
     }
 

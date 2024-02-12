@@ -1,6 +1,7 @@
 import character.*;
 
 import character.Character;
+import dungeon.DungeonMaster;
 import utility.CharacterBuilder;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
@@ -26,10 +27,12 @@ public class Main {
 
 
 
-        decoratorDemo();
+        //decoratorDemo();
 
         //userCharacterCreationDemo();
 
+
+        runDungeon();
 
 
     }
@@ -75,5 +78,10 @@ public class Main {
         PlayerInventory.initializeInventory();
         PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HELMET_OF_PROTECTION);
         PlayerInventory.removeItem(EquipmentSlot.HELMET);
+    }
+
+    private static void runDungeon() {
+        DungeonMaster dm = new DungeonMaster();
+        dm.runDungeon();
     }
 }

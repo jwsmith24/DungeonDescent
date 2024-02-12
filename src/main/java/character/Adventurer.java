@@ -26,6 +26,7 @@ public class Adventurer implements Character {
     int history;
 
     // Player Info
+
     int experience;
     int level;
     String name;
@@ -45,6 +46,18 @@ public class Adventurer implements Character {
     public Adventurer() {
 
 
+    }
+
+    /**
+     * Rather than a level system, skills will improve by the player spending the xp
+     * they earn from defeating monsters in the dungeon.
+     * @param xpSpent amount to subtract from player's total
+     */
+    public void spendXP(int xpSpent) {
+        this.experience = (this.experience - xpSpent);
+    }
+    public void gainXP(int xpGained) {
+        this.experience = this.experience + xpGained;
     }
 
     public void applyCondition(Condition newCondition) {
