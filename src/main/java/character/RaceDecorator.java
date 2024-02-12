@@ -72,4 +72,12 @@ public class RaceDecorator extends CharacterDecorator {
         }
         return decoratedRace.getSpeed();
     }
+
+    @Override
+    public int getLuck() {
+        if (playerRace == PlayerRace.GNOME) {
+            return decoratedRace.getLuck() + PlayerRace.STAT_BONUS;
+        }
+        return decoratedRace.getLuck();
+    }
 }

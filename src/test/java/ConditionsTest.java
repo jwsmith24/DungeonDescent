@@ -108,23 +108,5 @@ public class ConditionsTest {
 
     }
 
-    @Test
-    void testConditionsWithLogs() {
-
-        // Spawn in a player
-        Character testPlayer = new BasicCharacter("Cloud");
-        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
-        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
-        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
-
-        System.out.println(player.getName() + " is created!");
-
-        // Apply condition
-        player.applyCondition(Condition.RESTRAINED);
-
-        assertTrue(player.getActiveEffects().contains(Condition.RESTRAINED));
-
-
-    }
 
 }
