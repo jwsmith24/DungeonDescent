@@ -1,5 +1,9 @@
 package utility.index;
 
+import character.Adventurer;
+
+import java.util.ArrayList;
+
 /**
  * Possible Player/Enemy Conditions with descriptions.
  */
@@ -30,6 +34,39 @@ public enum Condition {
      */
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * Adds new condition to a character's list of active effects
+     * or clears list if condition is set to neutral.
+     */
+
+    public void applyCondition(Adventurer affectedCharacter, Condition newCondition) {
+
+        // Get the list of existing conditions from previous wrapper, and then decide what to do!
+        ArrayList<Condition> existingEffects = affectedCharacter.getActiveEffects();
+
+        // If applying the NEUTRAL condition, we need to clear the list of active effects
+
+        if (newCondition == Condition.NEUTRAL) {
+            existingEffects.clear();
+            existingEffects.add(Condition.NEUTRAL);
+
+        } else {
+
+            // If character is neutral, need to remove it before applying new effect
+            existingEffects.removeIf(condition -> condition == Condition.NEUTRAL);
+
+            // Using the removeIf from Iterator instead of an enhanced for loop is safe
+            // to use during concurrent iteration
+
+            // Apply new effect
+            existingEffects.add(newCondition);
+
+        }
+
+
+
     }
 
 
