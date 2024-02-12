@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import utility.index.EquipmentSlot;
+import utility.index.Item;
 
 /**
  * Functionality for player inventory management.
@@ -13,13 +14,13 @@ import utility.index.EquipmentSlot;
  */
 public class PlayerInventory {
 
-    Map<EquipmentSlot, Equipment> inventory;
+    Map<EquipmentSlot, Item> inventory;
 
 
     /**
      * Equips item to an inventory slot.
      */
-    public void equipItem(EquipmentSlot slot, Equipment item) {
+    public void equipItem(EquipmentSlot slot, Item item) {
         if (!isSlotEquipped(slot)){
             inventory.put(slot, item);
         }
@@ -28,20 +29,39 @@ public class PlayerInventory {
 
     }
 
+    /**
+     * Sets inventory to starting inventory.
+     */
+    private void initializeInventory() {
+        inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
+        inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
+        inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
+        inventory.put(EquipmentSlot.OFF_HAND,Item.NO_OFF_HAND);
+        inventory.put(EquipmentSlot.POTION, Item.POTION_OF_HEALING);
+    }
+
     public void displayInventory() {
 
-        System.out.println("Inventory");
+        System.out.println("==================================");
+        System.out.println("\t\t\tInventory");
+        System.out.println("==================================");
 
-        for (Map.Entry<EquipmentSlot, Equipment> entry : inventory.entrySet()) {
-            System.out.println(entry.getKey().getSlotDescription() + entry.getValue().itemDescription);
+        try {
+            for (Map.Entry<EquipmentSlot, Item> entry : inventory.entrySet()) {
+                System.out.println(entry.getKey().getSlotDescription() + entry.getValue().getItemName());
+            }
+
+        } catch (NullPointerException e) {
+            System.out.println("No inventory was found");
         }
+
 
     }
 
     /**
      * Removes an item from an inventory slot.
      */
-    public void removeItem(EquipmentSlot slot, Equipment item) {
+    public void removeItem(EquipmentSlot slot, Item item) {
         inventory.remove(slot);
     }
 
@@ -56,14 +76,16 @@ public class PlayerInventory {
     /**
      * Shows which item player has equipped in a given inventory slot.
      */
-    public Equipment getEquippedItem(EquipmentSlot slot) {
+    public Item getEquippedItem(EquipmentSlot slot) {
+
         return inventory.get(slot);
     }
 
     /**
-     * Inventory constructor.
+     * Constructs inventory with starting items.
      */
     public PlayerInventory() {
         this.inventory = new HashMap<>();
+        this.initializeInventory();
     }
 }
