@@ -61,6 +61,14 @@ public class Adventurer implements Character {
         this.experience = this.experience + xpGained;
     }
 
+    public void findGold(int newGold) {
+        this.gold = this.gold + newGold;
+    }
+
+    public void spendGold(int spentGold) {
+        this.gold = this.gold - spentGold;
+    }
+
     public void applyCondition(Condition newCondition) {
 
 

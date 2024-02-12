@@ -10,6 +10,8 @@ import java.util.Random;
 public class DungeonMaster {
     int dungeonLevel;
 
+    Random d20 = new Random();
+
     // player stats (atk, def, hp, luck, energy, speed)
 
     // monster stats (atk, def, hp, speed)
@@ -26,18 +28,6 @@ public class DungeonMaster {
         // run cycle 4 (FINAL BOSS) - DRAGON
 
     }
-
-    /**
-     * Simulates rolling a D20!
-     * @return result of the dice roll
-     */
-    private int rollD20() {
-
-        Random random = new Random();
-        return random.nextInt(20) + 1;
-    }
-
-
 
 
 
@@ -59,12 +49,21 @@ public class DungeonMaster {
                 System.out.println("Have a larger chance to find loot");
 
                 // Chance to find the shopkeeper or loot lying around
-                int result = rollD20();
 
-                if(result > 15) {
+
+                if((d20.nextInt(20) + 1) > 15) {
                     System.out.println("The Shopkeeper appears!");
+                    System.out.println("Do you want to approach?");
+                    System.out.println("1 - Yes | 2 - No");
 
-                } else if (result > 10) {
+                    int result = scanner.nextInt();
+
+                    if(result == 1) {
+                        System.out.println("Go shopping!");
+                    }
+
+
+                } else if ((d20.nextInt(20) + 1) > 10) {
                     System.out.println("The monster leaves behind some loot!");
 
                 }
@@ -78,7 +77,7 @@ public class DungeonMaster {
                 System.out.println("Gain XP");
                 System.out.println("Have a chance to find loot");
 
-                if (rollD20() > 12) {
+                if ((d20.nextInt(20) + 1) > 12) {
                     System.out.println("The monsters leaves behind some loot!");
                 }
 
