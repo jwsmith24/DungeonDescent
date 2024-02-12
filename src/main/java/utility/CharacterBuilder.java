@@ -232,7 +232,7 @@ public class CharacterBuilder {
      *  Once character creation is done, we want to capture the state of the object so that
      *  updating conditions, level, experience, etc. doesn't scale out of control.
      */
-    private static Adventurer spawnCharacter(Character characterRef) {
+    public static Adventurer spawnCharacter(Character characterRef) {
 
         // Create Adventurer object that captures state of decorated object
         Adventurer newPlayer = new Adventurer();

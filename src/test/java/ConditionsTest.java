@@ -1,6 +1,8 @@
 import character.*;
 import character.Character;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utility.CharacterBuilder;
 import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
@@ -12,72 +14,116 @@ public class ConditionsTest {
 
     @Test
     void testCharacterBeginsNeutral() {
-        Character bob = new BasicCharacter("bob");
-        bob = new ClassDecorator(new RaceDecorator(bob, PlayerRace.ORC), PlayerClass.THIEF);
 
-        // Bob should be neutral!
-        // Bob's active effects arraylist should have neutral in it AND it should be the only entry in it
-        assertTrue(bob.getActiveEffects().contains(Condition.NEUTRAL));
-        assertEquals(1, bob.getActiveEffects().size());
+        Character testPlayer = new BasicCharacter("testPlayer");
+        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
+        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
+        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
+
+        assertEquals(1, player.getActiveEffects().size(), "effects list not 1");
+        assertTrue(player.getActiveEffects().contains(Condition.NEUTRAL));
 
     }
 
     @Test
     void testApplyingEffectToNeutralCharacter() {
-        Character bob = new BasicCharacter("bob");
-        bob = new ClassDecorator (new RaceDecorator(bob, PlayerRace.ELF), PlayerClass.MAGE);
 
-        // Bob is restrained!
-        // Make sure the arraylist updates appropriately, displays the correct effect and does NOT have neutral in it
+        Character testPlayer = new BasicCharacter("testPlayer");
+        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
+        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
+        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
 
-        bob = new ApplyCondition(bob, Condition.RESTRAINED);
+        // Apply effect
+        player.applyCondition(Condition.RESTRAINED);
 
-        assertTrue(bob.getActiveEffects().contains(Condition.RESTRAINED), "Bob is not showing RESTRAINED");
-        assertFalse(bob.getActiveEffects().contains(Condition.NEUTRAL), "Neutral condition was not removed when new effect is applied");
+
+        assertTrue(player.getActiveEffects().contains(Condition.RESTRAINED), "Bob is not showing RESTRAINED");
+        assertFalse(player.getActiveEffects().contains(Condition.NEUTRAL), "Neutral condition was not removed when new effect is applied");
+        assertEquals(1, player.getActiveEffects().size(), "list size != 1");
 
     }
 
     @Test
     void testApplyingEffectToAffectedCharacter() {
-        Character dan = new ApplyCondition(new ClassDecorator(new RaceDecorator(new BasicCharacter("dad"), PlayerRace.DEMON), PlayerClass.WARRIOR), Condition.PARALYZED);
 
-        // dan is already paralyzed
-        dan = new ApplyCondition(dan, Condition.POISONED);
-        // if dan is also poisoned, both conditions should be present in the active effects list
+        Character testPlayer = new BasicCharacter("testPlayer");
+        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
+        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
+        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
 
-        assertTrue(dan.getActiveEffects().contains(Condition.PARALYZED), "Original condition not in list");
-        assertTrue(dan.getActiveEffects().contains(Condition.POISONED), "New condition is not in list");
+        // Apply initial effect
+        player.applyCondition(Condition.BLINDED);
+
+        // Apply another effect
+        player.applyCondition(Condition.STUNNED);
+
+        // Both conditions should be present in the active effects list
+        assertTrue(player.getActiveEffects().contains(Condition.BLINDED), "Original condition not in list");
+        assertTrue(player.getActiveEffects().contains(Condition.STUNNED), "New condition is not in list");
 
         // Make sure neutral condition is still not there
-        assertFalse(dan.getActiveEffects().contains(Condition.NEUTRAL), "Neutral condition was not removed when new effect is applied");
+        assertFalse(player.getActiveEffects().contains(Condition.NEUTRAL), "Neutral condition was not removed when new effect is applied");
 
     }
 
     @Test
     void testApplyingNeutralToCharacterWithOneAffliction() {
 
-        Character dad = new ApplyCondition(new ClassDecorator(new RaceDecorator(new BasicCharacter("dad"), PlayerRace.GNOME), PlayerClass.PRIEST), Condition.BLINDED);
+        Character testPlayer = new BasicCharacter("testPlayer");
+        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
+        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
+        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
 
-        dad = new ApplyCondition(dad, Condition.NEUTRAL);
+        // Afflict them with blindness
+        player.applyCondition(Condition.BLINDED);
 
-        // Need to make sure that dad is condition-free and only has neutral in the list
-        assertFalse(dad.getActiveEffects().contains(Condition.BLINDED), "Condition still present");
-        assertTrue(dad.getActiveEffects().contains(Condition.NEUTRAL), "List does not contain neutral");
-        assertEquals(1, dad.getActiveEffects().size(), "List contains more than 1 element");
+        // Cure them
+        player.applyCondition(Condition.NEUTRAL);
+
+        // Check for condition-free with only neutral in the list
+        assertFalse(player.getActiveEffects().contains(Condition.BLINDED), "Condition still present");
+        assertTrue(player.getActiveEffects().contains(Condition.NEUTRAL), "List does not contain neutral");
+        assertEquals(1, player.getActiveEffects().size(), "List contains more than 1 element");
 
     }
 
     @Test
     void testApplyingNeutralToCharacterWithMultipleAfflictions() {
-        Character dad = new ApplyCondition(new ClassDecorator(new RaceDecorator(new BasicCharacter("dad"), PlayerRace.DEMON), PlayerClass.PRIEST), Condition.STUNNED);
-        dad = new ApplyCondition(dad, Condition.POISONED);
-        // Dad is stunned and poisoned, but we throw a healing potion at him and now he's good
-        dad = new ApplyCondition(dad, Condition.NEUTRAL);
 
+        Character testPlayer = new BasicCharacter("testPlayer");
+        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
+        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
+        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
+
+        // Inflict two conditions
+        player.applyCondition(Condition.PARALYZED);
+        player.applyCondition(Condition.POISONED);
+
+        // Cure them
+        player.applyCondition(Condition.NEUTRAL);
 
         // Check that applying neutral still works properly
-        assertEquals(1, dad.getActiveEffects().size(), "List contains more than 1 element");
-        assertTrue(dad.getActiveEffects().contains(Condition.NEUTRAL), "List does not contain neutral");
+        assertEquals(1, player.getActiveEffects().size(), "List contains more than 1 element");
+        assertTrue(player.getActiveEffects().contains(Condition.NEUTRAL), "List does not contain neutral");
+
+    }
+
+    @Test
+    void testConditionsWithLogs() {
+
+        // Spawn in a player
+        Character testPlayer = new BasicCharacter("Cloud");
+        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
+        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
+        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
+
+        System.out.println(player.getName() + " is created!");
+
+        // Apply condition
+        player.applyCondition(Condition.RESTRAINED);
+
+        assertTrue(player.getActiveEffects().contains(Condition.RESTRAINED));
+
 
     }
 

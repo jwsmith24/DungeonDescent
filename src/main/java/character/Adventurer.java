@@ -37,6 +37,35 @@ public class Adventurer implements Character {
     String racialAbility;
     String attackType;
 
+    public void applyCondition(Condition newCondition) {
+
+
+        // If applying the NEUTRAL condition, we need to clear the list of active effects
+
+        if (newCondition == Condition.NEUTRAL) {
+
+            // Clear the list of all effects, add neutral
+            activeEffects.clear();
+            activeEffects.add(Condition.NEUTRAL);
+
+
+        } else {
+            // Remove neutral from list before applying new effect
+            activeEffects.removeIf(condition -> condition == Condition.NEUTRAL);
+
+            // Using the removeIf from Iterator instead of an enhanced for loop is safe
+            // to use during concurrent iteration
+
+            // Apply new effect
+            activeEffects.add(newCondition);
+
+
+        }
+
+
+
+    }
+
 
 
 
