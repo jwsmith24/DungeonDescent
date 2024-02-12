@@ -14,9 +14,15 @@ import utility.index.Item;
  */
 public class PlayerInventory {
 
-    Map<EquipmentSlot, Item> inventory;
+    HashMap<EquipmentSlot, Item> inventory;
 
-
+    /**
+     * Constructs inventory with starting items.
+     */
+    public PlayerInventory() {
+        this.inventory = new HashMap<>();
+        this.initializeInventory();
+    }
     /**
      * Equips item to an inventory slot.
      */
@@ -40,19 +46,18 @@ public class PlayerInventory {
         inventory.put(EquipmentSlot.POTION, Item.POTION_OF_HEALING);
     }
 
-    public void displayInventory() {
+    public static void displayInventory(PlayerInventory player) {
+
+        HashMap<EquipmentSlot, Item> inventory = player.inventory;
 
         System.out.println("==================================");
         System.out.println("\t\t\tInventory");
         System.out.println("==================================");
 
-        try {
+        if (inventory != null) {
             for (Map.Entry<EquipmentSlot, Item> entry : inventory.entrySet()) {
                 System.out.println(entry.getKey().getSlotDescription() + entry.getValue().getItemName());
             }
-
-        } catch (NullPointerException e) {
-            System.out.println("No inventory was found");
         }
 
 
@@ -81,11 +86,5 @@ public class PlayerInventory {
         return inventory.get(slot);
     }
 
-    /**
-     * Constructs inventory with starting items.
-     */
-    public PlayerInventory() {
-        this.inventory = new HashMap<>();
-        this.initializeInventory();
-    }
+
 }

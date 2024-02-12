@@ -3,8 +3,6 @@ package character;
 import utility.index.Condition;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Encapsulates a character after it is constructed to be more maintainable
@@ -43,6 +41,16 @@ public class Adventurer implements Character {
 
     PlayerInventory inventory;
 
+
+    /**
+     * Default constructor, sets everything after character creation.
+     */
+    public Adventurer() {
+        // initialize inventory
+        this.inventory = new PlayerInventory();
+
+    }
+
     public void applyCondition(Condition newCondition) {
 
 
@@ -68,8 +76,6 @@ public class Adventurer implements Character {
 
         }
 
-
-
     }
 
 
@@ -78,23 +84,20 @@ public class Adventurer implements Character {
 
 
 
-    /**
-     * Default constructor, sets everything after character creation.
-     */
-    public Adventurer() {
-        // initialize inventory
-        this.inventory = new PlayerInventory();
 
-    }
+
+
+
+
+
+
 
 
     // Getters and Setters
 
     // Adventurer-Specific
 
-    public PlayerInventory getInventory() {
-        return this.inventory;
-    }
+
 
 
 
