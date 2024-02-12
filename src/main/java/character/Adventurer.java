@@ -3,6 +3,8 @@ package character;
 import utility.index.Condition;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Encapsulates a character after it is constructed to be more maintainable
@@ -26,16 +28,22 @@ public class Adventurer implements Character {
     int history;
 
     // Player Info
-    String name;
-    String race;
     int experience;
     int level;
-    ArrayList<Condition> activeEffects = new ArrayList<>();
-
+    String name;
+    String race;
     String playerClass;
     String specialAbility;
     String racialAbility;
     String attackType;
+    ArrayList<Condition> activeEffects = new ArrayList<>();
+
+    // Equipment slots are represented with a hashmap
+
+
+    public void displayInventory() {
+
+    }
 
     public void applyCondition(Condition newCondition) {
 

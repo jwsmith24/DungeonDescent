@@ -21,7 +21,7 @@ public class CharacterSheetBuilder {
                 + "| Race: %s%n"
                 + "| Racial ability: %s%n"
                 + "======================%n"
-                + "|\tStats%n"
+                + "|\t\tStats%n"
                 + "======================%n"
                 + "| Attack: %s%n"
                 + "| Defence: %s%n"
@@ -52,7 +52,8 @@ public class CharacterSheetBuilder {
                 "======================%n"
                 + "| Class: %s%n"
                 + "| Attack Type: %s%n"
-                + "| Special Ability: %s%n",
+                + "| Special Ability: %s%n"
+                + "======================%n",
 
                 decoratedClass.getPlayerClass(), decoratedClass.getAttackType(),
                 decoratedClass.getSpecialAbility()
