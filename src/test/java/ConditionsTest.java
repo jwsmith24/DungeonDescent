@@ -15,10 +15,7 @@ public class ConditionsTest {
     @Test
     void testCharacterBeginsNeutral() {
 
-        Character testPlayer = new BasicCharacter("testPlayer");
-        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
-        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
-        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
+        Adventurer player = CharacterCreationTest.spawnCharacter();
 
         assertEquals(1, player.getActiveEffects().size(), "effects list not 1");
         assertTrue(player.getActiveEffects().contains(Condition.NEUTRAL));
@@ -28,10 +25,7 @@ public class ConditionsTest {
     @Test
     void testApplyingEffectToNeutralCharacter() {
 
-        Character testPlayer = new BasicCharacter("testPlayer");
-        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
-        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
-        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
+        Adventurer player = CharacterCreationTest.spawnCharacter();
 
         // Apply effect
         player.applyCondition(Condition.RESTRAINED);
@@ -46,10 +40,7 @@ public class ConditionsTest {
     @Test
     void testApplyingEffectToAffectedCharacter() {
 
-        Character testPlayer = new BasicCharacter("testPlayer");
-        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
-        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
-        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
+        Adventurer player = CharacterCreationTest.spawnCharacter();
 
         // Apply initial effect
         player.applyCondition(Condition.BLINDED);
@@ -69,10 +60,7 @@ public class ConditionsTest {
     @Test
     void testApplyingNeutralToCharacterWithOneAffliction() {
 
-        Character testPlayer = new BasicCharacter("testPlayer");
-        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
-        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
-        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
+        Adventurer player = CharacterCreationTest.spawnCharacter();
 
         // Afflict them with blindness
         player.applyCondition(Condition.BLINDED);
@@ -90,10 +78,7 @@ public class ConditionsTest {
     @Test
     void testApplyingNeutralToCharacterWithMultipleAfflictions() {
 
-        Character testPlayer = new BasicCharacter("testPlayer");
-        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
-        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
-        Adventurer player = CharacterBuilder.spawnCharacter(testPlayer);
+        Adventurer player = CharacterCreationTest.spawnCharacter();
 
         // Inflict two conditions
         player.applyCondition(Condition.PARALYZED);

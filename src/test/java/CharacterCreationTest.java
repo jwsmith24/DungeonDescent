@@ -2,6 +2,7 @@ import character.*;
 import character.Character;
 
 import org.junit.jupiter.api.Test;
+import utility.CharacterBuilder;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
@@ -9,6 +10,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class CharacterCreationTest {
+
+    /**
+     * Helper method to spawn in a test Player named "Cloud"
+     * @return Adventurer named Cloud
+     */
+    public static Adventurer spawnCharacter() {
+        // Spawn character
+        Character testPlayer = new BasicCharacter("Cloud");
+        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
+        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
+
+        return CharacterBuilder.spawnCharacter(testPlayer);
+    }
 
     @Test
     void testMakeBasicCharacter() {

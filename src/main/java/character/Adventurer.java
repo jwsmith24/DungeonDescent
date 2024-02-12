@@ -36,14 +36,12 @@ public class Adventurer implements Character {
     String specialAbility;
     String racialAbility;
     String attackType;
-    ArrayList<Condition> activeEffects = new ArrayList<>();
+    String characterSheet;
+    ArrayList<Condition> activeEffects;
 
     // Equipment slots are represented with a hashmap
 
-
-    public void displayInventory() {
-
-    }
+    PlayerInventory inventory;
 
     public void applyCondition(Condition newCondition) {
 
@@ -80,13 +78,27 @@ public class Adventurer implements Character {
 
 
 
+    /**
+     * Default constructor, sets everything after character creation.
+     */
+    public Adventurer() {
+        // initialize inventory
+        this.inventory = new PlayerInventory();
 
-
-
-
+    }
 
 
     // Getters and Setters
+
+    // Adventurer-Specific
+
+    public PlayerInventory getInventory() {
+        return this.inventory;
+    }
+
+
+
+    // Foundational Getters/Setters
 
     @Override
     public int getAttack() {
@@ -279,15 +291,9 @@ public class Adventurer implements Character {
         this.characterSheet = characterSheet;
     }
 
-    String characterSheet;
 
-    /**
-     * Default constructor.
-     */
-    public Adventurer() {
 
-        // default constructor
-    }
+
 
 
 }
