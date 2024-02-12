@@ -81,7 +81,7 @@ public class PlayerInventory {
 
             } else {
                 System.out.println("You already have equipment in this slot: \n");
-                System.out.println("EQUIPPED: " + slot.getSlotDescription() + equippedItem.getItemDescription());
+                System.out.println("EQUIPPED: " + slot.getSlotDescription() + equippedItem.getItemName());
 
                 System.out.println("Would you like to replace it?");
                 System.out.println("Enter 1 - Yes or 2 - No");
@@ -107,6 +107,8 @@ public class PlayerInventory {
 
 
         }
+
+        scanner.close();
 
     }
 

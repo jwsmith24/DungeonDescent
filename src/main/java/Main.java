@@ -2,6 +2,8 @@ import character.*;
 
 import character.Character;
 import utility.CharacterBuilder;
+import utility.index.EquipmentSlot;
+import utility.index.Item;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
@@ -24,17 +26,17 @@ public class Main {
 
 
 
-        decoratorDemo();
-        userCharacterCreationDemo();
+        //decoratorDemo();
 
+        //userCharacterCreationDemo();
 
 
 
     }
     private static void userCharacterCreationDemo() {
         Adventurer player = CharacterBuilder.createCharacter();
-
         System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
+
     }
     private static void decoratorDemo() {
         // Let's build a character - Craig and see their character sheet as its built!
@@ -67,5 +69,11 @@ public class Main {
         System.out.println(craig.getCharacterSheet());
 
         // You can see the human racial ability (+2 to attack) was applied as well
+    }
+
+    private static void buildInventory() {
+        PlayerInventory.initializeInventory();
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HELMET_OF_PROTECTION);
+        PlayerInventory.removeItem(EquipmentSlot.HELMET);
     }
 }
