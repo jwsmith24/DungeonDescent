@@ -1,8 +1,6 @@
-import character.BasicCharacter;
-import character.Character;
-import character.ClassDecorator;
-import character.RaceDecorator;
+import character.*;
 
+import character.Character;
 import utility.CharacterBuilder;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
@@ -62,8 +60,7 @@ public class Main {
 
 */
 
-
-        CharacterBuilder.createCharacter();
+        Adventurer player = CharacterBuilder.createCharacter();
 
     }
 }

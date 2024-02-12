@@ -15,10 +15,24 @@ public class CharacterBuilder {
 
 
     /**
-     * Builds character object based on user input.
+     * Directs building a character to be used in the game.
      */
-    public static void createCharacter() {
+    public static Adventurer createCharacter() {
+        
+        Character generatedPlayer = manualCharacterCreation();
 
+        // After character is built from user input, we capture the state in an Adventurer object.
+        Adventurer player = spawnCharacter(generatedPlayer);
+
+        return player;
+
+    }
+
+    /**
+     * Helper method to build a character from user input.
+     * @return finished character
+     */
+    private static Character manualCharacterCreation() {
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
         PlayerRace raceSelection;
         PlayerClass classSelection;
@@ -52,10 +66,14 @@ public class CharacterBuilder {
             }
             System.out.println("Restarting character creation!");
         }
-
         scanner.close();
+
+        return player;
     }
 
+    /**
+     * Helper method to select class from player selection.
+     */
     private static PlayerClass selectClass(Scanner scanner) {
 
         PlayerClass classSelection;
@@ -258,6 +276,6 @@ public class CharacterBuilder {
      * Private constructor - utility class.
      */
     private CharacterBuilder() {
-        // No objects today!
+        // No objects here!
     }
 }

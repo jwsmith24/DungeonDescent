@@ -66,10 +66,12 @@ public class CharacterSheetBuilder {
      */
     public static String buildBasicSection(Character characterRef) {
 
-        return String.format("======================%n"
+        return String.format(
+                "======================%n"
                 + "|\tCharacter Info%n"
                 + "======================%n"
                 + "| Name: %s%n"
                 + "| Experience: %s%n", characterRef.getName(), characterRef.getExperience());
     }
+
 }
