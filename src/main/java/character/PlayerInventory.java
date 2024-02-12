@@ -106,16 +106,7 @@ public class PlayerInventory {
             }
 
 
-            // see what's there. If it's empty, say that slot is already empty
-            // If it's full, prompt user to confirm removing the item
-            // then remove it
-
-
-
-
         }
-
-
 
     }
 

@@ -67,6 +67,21 @@ public class InventoryManagementTest {
         // Make sure it's equipped.
         assertEquals(Item.HELMET_OF_PROTECTION, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET));
 
+    }
+
+    @Test
+    void testRemoveItemFromEmptySlot() {
+        PlayerInventory.initializeInventory();
+        // Try to remove the helmet
+        PlayerInventory.removeItem(EquipmentSlot.HELMET);
+
+
+    }
+
+    @Test
+    void testRemoveItemFromEquippedSlot() {
+        // Testing removing from equipped slot manually since it relies on user input
+
 
     }
 }

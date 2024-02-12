@@ -24,6 +24,19 @@ public class Main {
 
 
 
+        decoratorDemo();
+        userCharacterCreationDemo();
+
+
+
+
+    }
+    private static void userCharacterCreationDemo() {
+        Adventurer player = CharacterBuilder.createCharacter();
+
+        System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
+    }
+    private static void decoratorDemo() {
         // Let's build a character - Craig and see their character sheet as its built!
 
         Character craig = new BasicCharacter("Craig");
@@ -54,14 +67,5 @@ public class Main {
         System.out.println(craig.getCharacterSheet());
 
         // You can see the human racial ability (+2 to attack) was applied as well
-
-
-
-
-
-        //Adventurer player = CharacterBuilder.createCharacter();
-
-        //System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
-
     }
 }
