@@ -37,17 +37,13 @@ public class Adventurer implements Character {
     String characterSheet;
     ArrayList<Condition> activeEffects;
 
-    // Equipment slots are represented with a hashmap
-
-    PlayerInventory inventory;
 
 
     /**
      * Default constructor, sets everything after character creation.
      */
     public Adventurer() {
-        // initialize inventory
-        this.inventory = new PlayerInventory();
+
 
     }
 

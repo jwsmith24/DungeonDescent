@@ -1,7 +1,9 @@
 package character;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import utility.index.EquipmentSlot;
 import utility.index.Item;
@@ -11,25 +13,24 @@ import utility.index.Item;
  *
  * <p>There is no backpack feature yet so if an item is not equipped to the character,
  * it is assumed to be dropped.</p>
+ *
+ * <P>Designed to be a static entity since there is only ever one player.</P>
  */
 public class PlayerInventory {
 
-    HashMap<EquipmentSlot, Item> inventory;
+    static HashMap<EquipmentSlot, Item> inventory = new HashMap<>();
 
-    /**
-     * Constructs inventory with starting items.
-     */
-    public PlayerInventory() {
-        this.inventory = new HashMap<>();
-        this.initializeInventory();
+
+    private PlayerInventory() {
+
     }
     /**
      * Equips item to an inventory slot.
      */
-    public void equipItem(EquipmentSlot slot, Item item) {
-        if (!isSlotEquipped(slot)){
-            inventory.put(slot, item);
-        }
+    public static void equipItem(EquipmentSlot slot, Item item) {
+
+        inventory.put(slot, item);
+
 
         //todo: logic to prompt player to choose to replace or not
 
@@ -38,7 +39,7 @@ public class PlayerInventory {
     /**
      * Sets inventory to starting inventory.
      */
-    private void initializeInventory() {
+    public static void initializeInventory() {
         inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
         inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
         inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
@@ -46,9 +47,7 @@ public class PlayerInventory {
         inventory.put(EquipmentSlot.POTION, Item.POTION_OF_HEALING);
     }
 
-    public static void displayInventory(PlayerInventory player) {
-
-        HashMap<EquipmentSlot, Item> inventory = player.inventory;
+    public static void displayInventory() {
 
         System.out.println("==================================");
         System.out.println("\t\t\tInventory");
@@ -66,14 +65,65 @@ public class PlayerInventory {
     /**
      * Removes an item from an inventory slot.
      */
-    public void removeItem(EquipmentSlot slot, Item item) {
-        inventory.remove(slot);
+    public static void removeItem(EquipmentSlot slot) {
+
+        // instead of simply removing the item from the list,
+        // we want to replace it with the associated empty item constant
+        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+        Item equippedItem = getEquippedItem(slot);
+
+        if (inventory != null) {
+
+            // Only starting equipment has a value of 0
+            if (equippedItem.getItemValue() == 0) {
+                // No item equipped in this slot, inform player and move on
+                System.out.println(equippedItem.getItemName());
+
+            } else {
+                System.out.println("You already have equipment in this slot: \n");
+                System.out.println("EQUIPPED: " + slot.getSlotDescription() + equippedItem.getItemDescription());
+
+                System.out.println("Would you like to replace it?");
+                System.out.println("Enter 1 - Yes or 2 - No");
+
+                while(true){
+                    try {
+                        int input = scanner.nextInt();
+
+                        if (input == 1) {
+                            //replace it
+                            break;
+
+                        } else if (input == 2){
+                            // Do nothing and move on
+                            break;
+
+                        }
+                    }catch (IllegalArgumentException e) {
+                        System.out.println("Enter a valid option");
+                    }
+                }
+            }
+
+
+            // see what's there. If it's empty, say that slot is already empty
+            // If it's full, prompt user to confirm removing the item
+            // then remove it
+
+
+
+
+        }
+
+
+
     }
 
     /**
      * Determine if slot is already equipped or open.
+     * // todo: rework this to make sense
      */
-    public boolean isSlotEquipped(EquipmentSlot slot) {
+    public static boolean isSlotEquipped(EquipmentSlot slot) {
 
         return inventory.containsKey(slot);
     }
@@ -81,7 +131,7 @@ public class PlayerInventory {
     /**
      * Shows which item player has equipped in a given inventory slot.
      */
-    public Item getEquippedItem(EquipmentSlot slot) {
+    public static Item getEquippedItem(EquipmentSlot slot) {
 
         return inventory.get(slot);
     }
