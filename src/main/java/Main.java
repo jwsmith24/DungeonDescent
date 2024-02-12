@@ -22,7 +22,6 @@ public class Main {
         // formatting work behind nice static methods which the character decorator classes use.
         // It uses the decorator classes to act implicitly as the director to determine how a character sheet is built.
 
-/*
 
 
         // Let's build a character - Craig and see their character sheet as its built!
@@ -58,11 +57,11 @@ public class Main {
 
 
 
-*/
 
-        Adventurer player = CharacterBuilder.createCharacter();
 
-        System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
+        //Adventurer player = CharacterBuilder.createCharacter();
+
+        //System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
 
     }
 }
