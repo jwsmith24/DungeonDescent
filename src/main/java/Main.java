@@ -62,5 +62,7 @@ public class Main {
 
         Adventurer player = CharacterBuilder.createCharacter();
 
+        System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
+
     }
 }

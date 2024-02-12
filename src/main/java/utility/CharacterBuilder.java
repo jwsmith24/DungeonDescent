@@ -18,13 +18,12 @@ public class CharacterBuilder {
      * Directs building a character to be used in the game.
      */
     public static Adventurer createCharacter() {
-        
+
         Character generatedPlayer = manualCharacterCreation();
 
         // After character is built from user input, we capture the state in an Adventurer object.
-        Adventurer player = spawnCharacter(generatedPlayer);
 
-        return player;
+        return spawnCharacter(generatedPlayer);
 
     }
 
@@ -233,7 +232,7 @@ public class CharacterBuilder {
      *  Once character creation is done, we want to capture the state of the object so that
      *  updating conditions, level, experience, etc. doesn't scale out of control.
      */
-    public static Adventurer spawnCharacter(Character characterRef) {
+    private static Adventurer spawnCharacter(Character characterRef) {
 
         // Create Adventurer object that captures state of decorated object
         Adventurer newPlayer = new Adventurer();

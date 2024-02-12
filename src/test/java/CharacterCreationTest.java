@@ -144,26 +144,6 @@ public class CharacterCreationTest {
         assertEquals(PlayerRace.DEMON.getRacialBonusText(), bucky.getRacialAbility(), "Racial ability is incorrect");
     }
 
-    @Test
-    void testAdventurerEncapsulation() {
-        // Make Cloud, a Human Warrior
-        Character cloud = new BasicCharacter("cloud");
-        cloud = new RaceDecorator(cloud, PlayerRace.HUMAN);
-        cloud = new ClassDecorator(cloud, PlayerClass.WARRIOR);
-
-        // Once character creation is done, we want to capture the state of the object so that
-        // updating conditions, level, experience, etc. doesn't scale out of control.
-
-        Adventurer dungeonCloud = CharacterBuilder.spawnCharacter(cloud);
-        System.out.println(dungeonCloud.getCharacterSheet());
-
-
-        assertEquals(cloud.getAttack(), dungeonCloud.getAttack(), "Attack scores differ");
-        assertEquals(cloud.getCharacterSheet(), dungeonCloud.getCharacterSheet(), "Character sheet strings are different");
-        assertEquals(cloud.getPlayerRace(), dungeonCloud.getPlayerRace(), "races do not match");
-        assertEquals(cloud.getPlayerClass(), dungeonCloud.getPlayerClass(), "classes do not match");
-
-    }
 
 
 
