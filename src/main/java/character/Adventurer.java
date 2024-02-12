@@ -29,6 +29,7 @@ public class Adventurer implements Character {
 
     int experience;
     int level;
+    int gold;
     String name;
     String race;
     String playerClass;

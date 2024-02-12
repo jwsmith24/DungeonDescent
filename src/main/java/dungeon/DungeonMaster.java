@@ -2,6 +2,7 @@ package dungeon;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  * Director for all actions in the dungeon.
@@ -26,6 +27,19 @@ public class DungeonMaster {
 
     }
 
+    /**
+     * Simulates rolling a D20!
+     * @return result of the dice roll
+     */
+    private int rollD20() {
+
+        Random random = new Random();
+        return random.nextInt(20) + 1;
+    }
+
+
+
+
 
     /**
      * TODO: Implement actual functionality
@@ -44,6 +58,17 @@ public class DungeonMaster {
                 System.out.println("Gain more XP");
                 System.out.println("Have a larger chance to find loot");
 
+                // Chance to find the shopkeeper or loot lying around
+                int result = rollD20();
+
+                if(result > 15) {
+                    System.out.println("The Shopkeeper appears!");
+
+                } else if (result > 10) {
+                    System.out.println("The monster leaves behind some loot!");
+
+                }
+
                 System.out.println("Want to take a long rest? You have X/3 remaining");
                 level++;
                 dungeonLevel++;
@@ -52,6 +77,10 @@ public class DungeonMaster {
                 System.out.println("Fight a small monster!");
                 System.out.println("Gain XP");
                 System.out.println("Have a chance to find loot");
+
+                if (rollD20() > 12) {
+                    System.out.println("The monsters leaves behind some loot!");
+                }
 
                 level++;
                 dungeonLevel++;
@@ -65,6 +94,8 @@ public class DungeonMaster {
     private void runMagicDungeonCycle() {
 
     }
+
+
 
 
 
