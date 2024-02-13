@@ -29,7 +29,6 @@ public class Adventurer implements Character {
 
     int experience;
     int level;
-    int gold;
     String name;
     String race;
     String playerClass;
@@ -61,13 +60,7 @@ public class Adventurer implements Character {
         this.experience = this.experience + xpGained;
     }
 
-    public void findGold(int newGold) {
-        this.gold = this.gold + newGold;
-    }
 
-    public void spendGold(int spentGold) {
-        this.gold = this.gold - spentGold;
-    }
 
     public void applyCondition(Condition newCondition) {
 

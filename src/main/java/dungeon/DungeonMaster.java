@@ -1,5 +1,8 @@
 package dungeon;
 
+import character.Adventurer;
+import character.PlayerInventory;
+
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.Random;
@@ -9,6 +12,7 @@ import java.util.Random;
  */
 public class DungeonMaster {
     int dungeonLevel;
+
 
     Random d20 = new Random();
 

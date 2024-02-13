@@ -197,7 +197,8 @@ public class CharacterBuilder {
                 int choice;
 
                 try {
-                    choice = Integer.parseInt(scanner.nextLine());
+                    choice = scanner.nextInt();
+                    scanner.nextLine();
 
                     if (choice <= 5 && choice > 0) {
 

@@ -1,11 +1,18 @@
 package dungeon;
 
+import character.Adventurer;
+import character.PlayerInventory;
+import utility.index.EquipmentSlot;
+import utility.index.Item;
+
 import java.util.Scanner;
 
 /**
  * Contains all shop-related functionality.
  */
 public class Shop {
+
+    private static final int SHOP_PRICE = 41;
 
     /**
      * Contains the logic for a shopkeeper encounter.
@@ -24,8 +31,8 @@ public class Shop {
                 result = scanner.nextInt();
 
                 if(result == 1) {
-                    System.out.println("Go shopping!");
-                    goShopping();
+                    System.out.println("The shopkeeper beckons you closer. 'Only one item', they say in a broken voice");
+                    goShopping(scanner);
                     playerDeciding = false;
 
                 } else {
@@ -39,21 +46,99 @@ public class Shop {
 
         }
 
-        ShopKeeperItems sword = ShopKeeperItems.SWORD_OF_SLASHING;
-        String test = sword.itemDescription;
-        String test2 = sword.itemName;
+
+
     }
 
-    private static void goShopping() {
+    public static void goShopping(Scanner scanner) {
 
         System.out.println("==================================");
         System.out.println("========= SHOP INVENTORY =========");
         System.out.println("==================================");
 
+       int index = 1;
+        // Iterate through the list of items and display the shop inventory.
+        for (Item item : Item.values()) {
 
-        for (ShopKeeperItems item : ShopKeeperItems.values()) {
-            System.out.println(item.itemName + " | " + item.itemDescription + " | " + item.cost + " gold");
+            if(item.getItemValue() == SHOP_PRICE) {
+
+                System.out.println(index + ": " + item.getItemName() + " | "
+                        + item.getItemDescription() + " | " + item.getItemValue() + " gold");
+                index++;
+            }
+
         }
+        System.out.println("*");
+        System.out.println("*");
+        System.out.println("*");
+
+        System.out.println("Enter the name of the item you wish to purchase || Enter 5 to leave.");
+
+        boolean playerDeciding = true;
+        int result;
+
+        while(playerDeciding) {
+
+            try {
+                result = scanner.nextInt();
+                scanner.nextLine();
+
+                if (result == 1) {
+                    transaction(Item.SWORD_OF_SLASHING);
+                    playerDeciding = false;
+
+                } else if (result == 2) {
+                    transaction(Item.HELMET_OF_PROTECTION);
+                    playerDeciding = false;
+
+                } else if (result == 3) {
+                    transaction(Item.POTION_OF_HEALING);
+                    playerDeciding = false;
+
+                } else if (result == 4) {
+                    transaction(Item.HAT_OF_STYLE);
+                    playerDeciding = false;
+
+                }else if (result == 5) {
+                    System.out.println("You begin to leave and realize the shopkeeper is nowhere to be found.");
+                    playerDeciding = false;
+
+                }else {
+                    System.out.println("Enter a valid number for your item selection. Or press 5 to leave.");
+                }
+            } catch (Exception e) {
+                System.out.println("Enter a valid selection or press 5 to leave.");
+                scanner.nextLine();
+            }
+        }
+
+    }
+
+
+    private static void transaction(Item item) {
+
+        // Check that player has enough gold
+        if (!PlayerInventory.haveEnoughGold(item.getItemValue())) {
+
+            System.out.println("You don't have enough gold!'");
+            System.out.println("Current funds: " + PlayerInventory.acquireGold());
+
+            System.out.println("The shopkeeper seemed displeased as you were rummaging through your coins. "
+                    + "When you look up, they're nowhere to be seen.");
+
+        } else {
+
+            // subtract funds
+            PlayerInventory.spendGold(item.getItemValue());
+            // equip new item
+            PlayerInventory.equipItem(item.getItemType(), item);
+            // display new item equipped
+            System.out.println("You have equipped: " + item + "!");
+
+            System.out.println("You look up from inspecting your new item and the shopkeeper has vanished without a trace...");
+
+        }
+
 
     }
 
@@ -62,25 +147,7 @@ public class Shop {
     }
 
 
-    private enum ShopKeeperItems {
-        SWORD_OF_SLASHING("Sword of Slashing", "+1 to ATK!", 30);
 
-
-        private final String itemName;
-        private final String itemDescription;
-
-        private final int cost;
-
-        ShopKeeperItems(String itemName,String itemDescription, int cost) {
-            this.itemName = itemName;
-            this.itemDescription = itemDescription;
-            this.cost = cost;
-        }
-
-
-
-
-    }
 
 
 }

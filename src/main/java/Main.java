@@ -2,11 +2,15 @@ import character.*;
 
 import character.Character;
 import dungeon.DungeonMaster;
+import dungeon.Shop;
 import utility.CharacterBuilder;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 /**
  * Basic main class to ensure everything is set up properly.
@@ -29,10 +33,14 @@ public class Main {
 
         //decoratorDemo();
 
-        userCharacterCreationDemo();
+        //userCharacterCreationDemo();
 
 
-        runDungeon();
+        //runDungeon();
+
+
+
+        Shop.goShopping(new Scanner(System.in, StandardCharsets.UTF_8));
 
 
     }
@@ -76,8 +84,7 @@ public class Main {
 
     private static void buildInventory() {
         PlayerInventory.initializeInventory();
-        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HELMET_OF_PROTECTION);
-        PlayerInventory.removeItem(EquipmentSlot.HELMET);
+
     }
 
     private static void runDungeon() {

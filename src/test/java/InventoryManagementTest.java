@@ -1,11 +1,10 @@
 import character.*;
-import character.Character;
+
 import org.junit.jupiter.api.Test;
-import utility.CharacterBuilder;
+
 import utility.index.EquipmentSlot;
 import utility.index.Item;
-import utility.index.PlayerClass;
-import utility.index.PlayerRace;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,7 +24,7 @@ public class InventoryManagementTest {
         assertEquals(Item.NO_WEAPON, PlayerInventory.getEquippedItem(EquipmentSlot.WEAPON), "wrong weapon initialized.");
         assertEquals(Item.NO_ARMOR, PlayerInventory.getEquippedItem(EquipmentSlot.ARMOR), "wrong armor");
         assertEquals(Item.NO_HELMET, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET), "wrong helmet");
-        assertEquals(Item.POTION_OF_HEALING, PlayerInventory.getEquippedItem(EquipmentSlot.POTION), "wrong potion");
+        assertEquals(Item.NO_POTION, PlayerInventory.getEquippedItem(EquipmentSlot.POTION), "wrong potion");
         assertEquals(Item.NO_OFF_HAND, PlayerInventory.getEquippedItem(EquipmentSlot.OFF_HAND), "wrong offhand");
     }
 
@@ -62,10 +61,10 @@ public class InventoryManagementTest {
         PlayerInventory.initializeInventory();
 
         // Equip a helmet!
-        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HELMET_OF_PROTECTION);
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET);
 
         // Make sure it's equipped.
-        assertEquals(Item.HELMET_OF_PROTECTION, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET));
+        assertEquals(Item.IRON_HELMET, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET));
 
     }
 

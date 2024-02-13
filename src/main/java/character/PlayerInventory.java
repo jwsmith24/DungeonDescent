@@ -20,7 +20,20 @@ public class PlayerInventory {
 
     static HashMap<EquipmentSlot, Item> inventory = new HashMap<>();
 
+    static int gold;
 
+    public static boolean haveEnoughGold(int value) {
+        return (gold >= value);
+    }
+
+    public static int acquireGold() {
+
+        return gold;
+    }
+
+    public static void spendGold(int value) {
+        gold = (gold - value);
+    }
     private PlayerInventory() {
 
     }
@@ -44,7 +57,7 @@ public class PlayerInventory {
         inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
         inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
         inventory.put(EquipmentSlot.OFF_HAND,Item.NO_OFF_HAND);
-        inventory.put(EquipmentSlot.POTION, Item.POTION_OF_HEALING);
+        inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
     }
 
     public static void displayInventory() {
