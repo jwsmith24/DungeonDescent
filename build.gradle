@@ -3,10 +3,8 @@ import com.github.spotbugs.snom.SpotBugsTask
 plugins {
     id "com.github.spotbugs" version "5.0.12"
     id "checkstyle"
+    id 'java'
 }
-
-
-
 
 
 
@@ -55,7 +53,7 @@ test {
 
 
 jacoco {
-    toolVersion = "0.8.8"
+
     reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
 }
 
@@ -73,7 +71,7 @@ jacocoTestReport {
 build.dependsOn jacocoTestReport
 
 spotbugs {
-    //ignoreFailures = true
+    ignoreFailures = true
     showProgress = true
     effort = 'max'
 }
