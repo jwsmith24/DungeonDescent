@@ -196,6 +196,11 @@ public class CharacterCreationTest {
                 "Racial ability is incorrect");
     }
 
+    @Test
+    void testCharacterBuilder() {
+        //todo: need to write the automatic script for chracter building
+    }
+
 
 
 

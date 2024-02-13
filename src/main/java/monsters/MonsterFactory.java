@@ -50,4 +50,8 @@ public class MonsterFactory {
 
     }
 
+    private MonsterFactory() {
+        // Don't want any monster factory objects.
+    }
+
 }
