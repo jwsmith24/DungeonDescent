@@ -16,11 +16,6 @@ compileJava.options.encoding = 'UTF-8'
 
 apply plugin: 'checkstyle'
 
-java {
-    // Default to Java 18
-    sourceCompatibility = JavaVersion.VERSION_18
-    targetCompatibility = JavaVersion.VERSION_18
-}
 
 
 checkstyle {
