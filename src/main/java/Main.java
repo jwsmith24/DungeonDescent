@@ -31,7 +31,7 @@ public class Main {
 
 
 
-        //decoratorDemo();
+        decoratorDemo();
 
         //userCharacterCreationDemo();
 
@@ -40,7 +40,7 @@ public class Main {
 
 
 
-        Shop.goShopping(new Scanner(System.in, StandardCharsets.UTF_8));
+        //Shop.goShopping(new Scanner(System.in, StandardCharsets.UTF_8));
 
 
     }

@@ -1,4 +1,6 @@
-import character.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import character.PlayerInventory;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,11 +8,7 @@ import utility.index.EquipmentSlot;
 import utility.index.Item;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-
 public class InventoryManagementTest {
-
 
     @Test
     void testInitializeInventory() {
@@ -21,11 +19,16 @@ public class InventoryManagementTest {
 
         // Player should start with no weapon
 
-        assertEquals(Item.NO_WEAPON, PlayerInventory.getEquippedItem(EquipmentSlot.WEAPON), "wrong weapon initialized.");
-        assertEquals(Item.NO_ARMOR, PlayerInventory.getEquippedItem(EquipmentSlot.ARMOR), "wrong armor");
-        assertEquals(Item.NO_HELMET, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET), "wrong helmet");
-        assertEquals(Item.NO_POTION, PlayerInventory.getEquippedItem(EquipmentSlot.POTION), "wrong potion");
-        assertEquals(Item.NO_OFF_HAND, PlayerInventory.getEquippedItem(EquipmentSlot.OFF_HAND), "wrong offhand");
+        assertEquals(Item.NO_WEAPON, PlayerInventory.getEquippedItem(EquipmentSlot.WEAPON),
+                "wrong weapon initialized.");
+        assertEquals(Item.NO_ARMOR, PlayerInventory.getEquippedItem(EquipmentSlot.ARMOR),
+                "wrong armor");
+        assertEquals(Item.NO_HELMET, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET),
+                "wrong helmet");
+        assertEquals(Item.NO_POTION, PlayerInventory.getEquippedItem(EquipmentSlot.POTION),
+                "wrong potion");
+        assertEquals(Item.NO_OFF_HAND, PlayerInventory.getEquippedItem(EquipmentSlot.OFF_HAND),
+                "wrong offhand");
     }
 
     @Test
