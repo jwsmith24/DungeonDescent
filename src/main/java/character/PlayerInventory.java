@@ -50,7 +50,7 @@ public class PlayerInventory {
     public static void displayInventory() {
 
         System.out.println("==================================");
-        System.out.println("\t\t\tInventory");
+        System.out.println("========= YOUR INVENTORY =========");
         System.out.println("==================================");
 
         if (inventory != null) {

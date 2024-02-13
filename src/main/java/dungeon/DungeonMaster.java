@@ -51,7 +51,7 @@ public class DungeonMaster {
                 // Chance to find the shopkeeper or loot lying around
                 if((d20.nextInt(20) + 1) > 15) {
 
-                    shopKeeperEncounter();
+                    Shop.shopKeeperEncounter(scanner);
 
                 } else if ((d20.nextInt(20) + 1) > 10) {
                     System.out.println("The monster leaves behind some loot!");
@@ -80,37 +80,6 @@ public class DungeonMaster {
 
     }
 
-    /**
-     * Contains the logic for a shopkeeper encounter.
-     */
-    private void shopKeeperEncounter() {
-
-        int result;
-        boolean playerDeciding = true;
-
-        while (playerDeciding){
-            System.out.println("The Shopkeeper appears!");
-            System.out.println("Do you want to approach?");
-            System.out.println("1 - Yes | 2 - No");
-
-            try {
-                result = scanner.nextInt();
-
-                if(result == 1) {
-                    System.out.println("Go shopping!");
-                    playerDeciding = false;
-
-                } else {
-                    System.out.println("Enter a valid response");
-                }
-
-            } catch (Exception e) {
-                System.out.println("Enter a valid response");
-                scanner.nextLine();
-            }
-
-        }
-    }
     private void runMagicDungeonCycle() {
 
     }

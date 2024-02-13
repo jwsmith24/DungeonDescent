@@ -154,6 +154,7 @@ public class CharacterBuilder {
 
         } catch (Exception e) {
             System.out.println("Invalid Entry");
+            scanner.nextLine();
         }
         return null;
     }
@@ -183,14 +184,16 @@ public class CharacterBuilder {
 
         System.out.println("Select your race!");
 
-        printRaceOptions();
-
         PlayerRace raceSelection;
 
-        while (true) {
+        boolean playerChoosingRace = true;
+
+        while (playerChoosingRace) {
+
+            printRaceOptions();
+
 
             if (scanner.hasNextLine()) {
-
                 int choice;
 
                 try {
@@ -213,15 +216,14 @@ public class CharacterBuilder {
 
                     } else {
                         System.out.println("Enter a valid choice");
-                        printRaceOptions();
+
                     }
                 } catch (Exception e) {
                     System.out.println("Enter a valid number");
-                    printRaceOptions();
+
                 }
             } else {
                 System.out.println("No input found");
-                break;
             }
         }
 

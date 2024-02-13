@@ -29,7 +29,7 @@ public class Main {
 
         //decoratorDemo();
 
-        //userCharacterCreationDemo();
+        userCharacterCreationDemo();
 
 
         runDungeon();
