@@ -17,13 +17,17 @@ Decorator pattern for player characters.
 
 ### BUILDER DESIGN 
 Factory pattern for generating monsters, rooms, loot tables.
-- Three possible different builder implementations here:
-  - MonsterBuilder
+- Possible different builder implementations here:
+  - MonsterFactory
     - Base monster has Attack, Defense, Hit Points, Speed, and Special Ability
     - Then have builders for each monster type: Goblin, Ogre, Slime, Displacer Beast, Spectator, Dragon, Etc
   - RoomBuilder 
   - LootTableBuilder
+  - CharacterBuilder
+  - CharacterSheetBuilder
 
 ### BEHAVIORAL DESIGN 
 Mediator pattern for keeping track of turns in the dungeon and to trigger random events.
 - Implement a DungeonMaster class to act as the mediator for all the entities in the dungeon.
+- Track dungeon cycles
+- Trigger random events based on updates
