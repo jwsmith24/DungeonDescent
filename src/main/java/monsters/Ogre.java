@@ -1,15 +1,12 @@
-package monsters.factories;
+package monsters;
 
-import character.Adventurer;
-import monsters.Monster;
-
-public class DragonFactory extends Monster {
+public class Ogre extends Monster {
 
     /**
-     * Builds a monster with dragon stats.
+     * Builds a monster with goblin stats.
      */
-    public DragonFactory() {
-        super("Young Red Dragon", 178, 10, 18, 5, 5900);
+    public Ogre() {
+        super("Ogre", 59, 6, 11, 1, 450);
     }
 
     /**
@@ -18,7 +15,7 @@ public class DragonFactory extends Monster {
     @Override
     public void attack() {
 
-        System.out.println();
+        System.out.println("The ogre attacks you with it's massive spiked club!");
     }
 
     @Override
@@ -51,4 +48,3 @@ public class DragonFactory extends Monster {
     }
 
 }
-

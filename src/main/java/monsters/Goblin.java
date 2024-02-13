@@ -1,14 +1,11 @@
-package monsters.factories;
+package monsters;
 
-import character.Adventurer;
-import monsters.Monster;
-
-public class GoblinFactory extends Monster {
+public class Goblin extends Monster {
 
     /**
      * Builds a monster with goblin stats.
      */
-   public GoblinFactory() {
+   public Goblin() {
        super("Goblin", 7, 1, 15, 1, 50);
    }
 
@@ -18,6 +15,7 @@ public class GoblinFactory extends Monster {
     @Override
     public void attack() {
 
+        System.out.println("The goblin strikes at you with its short sword!");
     }
 
     @Override

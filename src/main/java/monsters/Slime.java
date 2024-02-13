@@ -1,14 +1,11 @@
-package monsters.factories;
+package monsters;
 
-import character.Adventurer;
-import monsters.Monster;
-
-public class SlimeFactory extends Monster {
+public class Slime extends Monster {
 
     /**
      * Builds a monster with Slime stats.
      */
-    public SlimeFactory() {
+    public Slime() {
         super("OOZE", 22, 3, 8, 0, 100);
     }
 
@@ -18,6 +15,7 @@ public class SlimeFactory extends Monster {
     @Override
     public void attack() {
 
+        System.out.println("The ooze forms into a massive fist that sails in your direction!");
     }
 
     @Override

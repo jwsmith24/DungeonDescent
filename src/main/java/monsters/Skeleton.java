@@ -1,15 +1,12 @@
-package monsters.factories;
+package monsters;
 
-import character.Adventurer;
-import monsters.Monster;
-
-public class OgreFactory extends Monster {
+public class Skeleton extends Monster {
 
     /**
-     * Builds a monster with goblin stats.
+     * Builds a monster with skeleton stats.
      */
-    public OgreFactory() {
-        super("Ogre", 59, 6, 11, 1, 450);
+    public Skeleton() {
+        super("Skeleton", 13, 4, 13, 1, 50);
     }
 
     /**
@@ -18,7 +15,8 @@ public class OgreFactory extends Monster {
     @Override
     public void attack() {
 
-        System.out.println("The ogre attacks you with it's massive spiked club!");
+        System.out.println("The skeleton swings its shattered blade at you");
+
     }
 
     @Override

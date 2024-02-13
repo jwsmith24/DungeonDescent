@@ -1,15 +1,12 @@
-package monsters.factories;
+package monsters;
 
-import character.Adventurer;
-import monsters.Monster;
-
-public class SpiderFactory extends Monster {
+public class Dragon extends Monster {
 
     /**
-     * Builds a monster with spider stats.
+     * Builds a monster with dragon stats.
      */
-    public SpiderFactory() {
-        super("Giant Spider", 26, 5, 14, 2, 200);
+    public Dragon() {
+        super("Young Red Dragon", 178, 10, 18, 5, 5900);
     }
 
     /**
@@ -17,8 +14,8 @@ public class SpiderFactory extends Monster {
      */
     @Override
     public void attack() {
-        System.out.println("The spider lunges at you to take a massive bite!");
 
+        System.out.println("The Dragon roars as the corridor erupts into flames!");
     }
 
     @Override
