@@ -1,35 +1,22 @@
-import com.github.spotbugs.snom.SpotBugsTask
-
 plugins {
     id "com.github.spotbugs" version "5.0.12"
     id "checkstyle"
     id 'java'
+    id 'application'
+    id 'jacoco'
 }
 
+build.dependsOn jacocoTestReport
 
-
-apply plugin: 'application'
-apply plugin: 'jacoco'
-
-mainClassName = 'Main'
-compileJava.options.encoding = 'UTF-8'
-
-
-apply plugin: 'checkstyle'
-
-
+application {
+    mainClassName = 'Main'
+}
 
 checkstyle {
     ignoreFailures = true
     showViolations = false
 }
 
-tasks.withType(Checkstyle).configureEach {
-    reports {
-    }
-
-
-}
 checkstyle {
     toolVersion = "8.8"
 }
@@ -51,14 +38,6 @@ test {
     useJUnitPlatform()
 }
 
-
-jacoco {
-
-    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
-}
-
-
-
 jacocoTestReport {
     dependsOn test
     reports {
@@ -68,24 +47,9 @@ jacocoTestReport {
     }
 }
 
-build.dependsOn jacocoTestReport
-
 spotbugs {
     ignoreFailures = true
     showProgress = true
     effort = 'max'
 }
 
-spotbugsMain {
-    reports{
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-spotbugsTest {
-    reports{
-        xml.enabled = false
-        html.enabled = true
-    }
-}
