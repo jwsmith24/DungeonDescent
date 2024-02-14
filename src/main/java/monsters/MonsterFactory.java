@@ -7,8 +7,7 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 /**
- * Instead of creating factory classes for each monster type, I've simplified the design so the client just has to
- * call the MonsterFactory method createMonster with the type of monster provided by the nested enum, MonsterType.
+ * MonsterFactory provides the client a readable, simple way of creating monster objects of a specific type.
  *
  * <P>The monster factory is also capable of providing a random small, random medium, or random large monster.</P>
  */
@@ -17,6 +16,7 @@ public class MonsterFactory {
     // Random for monster gen
     private static final Random RANDOM = new Random();
 
+    // Array list of method references to be used for random monster generation
     private static final List<Supplier<Monster>> smallMonsters = new ArrayList<>();
     private static final List<Supplier<Monster>> mediumMonsters = new ArrayList<>();
     private static final List<Supplier<Monster>> largeMonsters = new ArrayList<>();
