@@ -34,8 +34,8 @@ public class MonsterFactory {
             mediumMonsters.add(MonsterFactory::createDisplacerBeast);
             mediumMonsters.add(MonsterFactory::createSpider);
 
-            mediumMonsters.add(MonsterFactory::createDragon);
-            mediumMonsters.add(MonsterFactory::createBeholder);
+            largeMonsters.add(MonsterFactory::createDragon);
+            largeMonsters.add(MonsterFactory::createBeholder);
             largeMonsters.add(MonsterFactory::createGiant);
     };
 

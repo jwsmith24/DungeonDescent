@@ -44,6 +44,9 @@ public class MonsterTest {
         Monster slime = MonsterFactory.createSlime();
         Monster skeleton = MonsterFactory.createSkeleton();
         Monster ogre = MonsterFactory.createOgre();
+        Monster giant = MonsterFactory.createGiant();
+        Monster beholder = MonsterFactory.createBeholder();
+        Monster displacerBeast = MonsterFactory.createDisplacerBeast();
 
 
         // Make sure the stats line up
@@ -59,6 +62,12 @@ public class MonsterTest {
                 "Wrong attack bonus");
         assertEquals("Ogre", ogre.getName(),
                 "Should be an Ogre");
+        assertEquals("Giant", giant.getName(),
+                "Wrong name");
+        assertEquals("Beholder", beholder.getName(),
+                "wrong name");
+        assertEquals("Displacer Beast", displacerBeast.getName(),
+                "Wrong name");
 
     }
 
@@ -76,6 +85,9 @@ public class MonsterTest {
         Monster slime = MonsterFactory.createSlime();
         Monster skeleton = MonsterFactory.createSkeleton();
         Monster ogre = MonsterFactory.createOgre();
+        Monster giant = MonsterFactory.createGiant();
+        Monster beholder = MonsterFactory.createBeholder();
+        Monster displacerBeast = MonsterFactory.createDisplacerBeast();
 
         goblin.attack();
         dragon.attack();
@@ -83,6 +95,9 @@ public class MonsterTest {
         slime.attack();
         skeleton.attack();
         ogre.attack();
+        giant.attack();
+        beholder.attack();
+        displacerBeast.attack();
     }
 
 
