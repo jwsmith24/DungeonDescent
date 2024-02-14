@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MonsterTest {
 
@@ -35,18 +34,16 @@ public class MonsterTest {
 
     }
 
-
-
     @Test
     void testMonsterFactory() {
 
         // Make some monsters
-        Monster goblin = MonsterFactory.createMonster(MonsterFactory.MonsterType.GOBLIN);
-        Monster dragon = MonsterFactory.createMonster(MonsterFactory.MonsterType.DRAGON);
-        Monster spider = MonsterFactory.createMonster(MonsterFactory.MonsterType.SPIDER);
-        Monster slime = MonsterFactory.createMonster(MonsterFactory.MonsterType.SLIME);
-        Monster skeleton = MonsterFactory.createMonster(MonsterFactory.MonsterType.SKELETON);
-        Monster ogre = MonsterFactory.createMonster(MonsterFactory.MonsterType.OGRE);
+        Monster goblin = MonsterFactory.createGoblin();
+        Monster dragon = MonsterFactory.createDragon();
+        Monster spider = MonsterFactory.createSpider();
+        Monster slime = MonsterFactory.createSlime();
+        Monster skeleton = MonsterFactory.createSkeleton();
+        Monster ogre = MonsterFactory.createOgre();
 
 
         // Make sure the stats line up
@@ -65,17 +62,6 @@ public class MonsterTest {
 
     }
 
-    /**
-     * If a monster is added to the enum but hasn't had functionality programmed yet.
-     */
-    @Test
-    void testMonsterFactoryWithMonsterTypeThatDoesNotExist() {
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            Monster beholder = MonsterFactory.createMonster(MonsterFactory.MonsterType.WEREWOLF);
-        });
-
-    }
 
     /**
      * Verify the appropriate strings are getting printed out.
@@ -84,12 +70,12 @@ public class MonsterTest {
     void testAttack() {
 
         // Make some monsters
-        Monster goblin = MonsterFactory.createMonster(MonsterFactory.MonsterType.GOBLIN);
-        Monster dragon = MonsterFactory.createMonster(MonsterFactory.MonsterType.DRAGON);
-        Monster spider = MonsterFactory.createMonster(MonsterFactory.MonsterType.SPIDER);
-        Monster slime = MonsterFactory.createMonster(MonsterFactory.MonsterType.SLIME);
-        Monster skeleton = MonsterFactory.createMonster(MonsterFactory.MonsterType.SKELETON);
-        Monster ogre = MonsterFactory.createMonster(MonsterFactory.MonsterType.OGRE);
+        Monster goblin = MonsterFactory.createGoblin();
+        Monster dragon = MonsterFactory.createDragon();
+        Monster spider = MonsterFactory.createSpider();
+        Monster slime = MonsterFactory.createSlime();
+        Monster skeleton = MonsterFactory.createSkeleton();
+        Monster ogre = MonsterFactory.createOgre();
 
         goblin.attack();
         dragon.attack();
