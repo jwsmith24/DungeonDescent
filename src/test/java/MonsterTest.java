@@ -1,11 +1,40 @@
-import monsters.Monster;
-import monsters.MonsterFactory;
+import monsters.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MonsterTest {
+
+
+    @Test
+    void testGenerateSmallMonster() {
+        Monster random = MonsterFactory.randomSmallMonster();
+
+        assertTrue((random instanceof Goblin) || (random instanceof Skeleton) ||
+                (random instanceof Slime));
+
+    }
+
+    @Test
+    void testGenerateMediumMonster() {
+        Monster random = MonsterFactory.randomMediumMonster();
+
+        assertTrue((random instanceof Spider) || (random instanceof Ogre) ||
+                (random instanceof DisplacerBeast));
+
+    }
+
+    @Test
+    void testGenerateLargeMonster() {
+        Monster random = MonsterFactory.randomLargeMonster();
+
+        assertTrue((random instanceof Dragon) || (random instanceof Beholder) ||
+                (random instanceof Giant));
+
+    }
+
 
 
     @Test
@@ -43,7 +72,7 @@ public class MonsterTest {
     void testMonsterFactoryWithMonsterTypeThatDoesNotExist() {
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Monster beholder = MonsterFactory.createMonster(MonsterFactory.MonsterType.BEHOLDER);
+            Monster beholder = MonsterFactory.createMonster(MonsterFactory.MonsterType.WEREWOLF);
         });
 
     }
@@ -53,6 +82,7 @@ public class MonsterTest {
      */
     @Test
     void testAttack() {
+
         // Make some monsters
         Monster goblin = MonsterFactory.createMonster(MonsterFactory.MonsterType.GOBLIN);
         Monster dragon = MonsterFactory.createMonster(MonsterFactory.MonsterType.DRAGON);

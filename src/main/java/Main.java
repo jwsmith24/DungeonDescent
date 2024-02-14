@@ -31,12 +31,12 @@ public class Main {
 
 
 
-        decoratorDemo();
+        //decoratorDemo();
 
         //userCharacterCreationDemo();
 
 
-        //runDungeon();
+        runDungeon();
 
 
 

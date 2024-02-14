@@ -35,6 +35,8 @@ public class Shop {
                     goShopping(scanner);
                     playerDeciding = false;
 
+                    //todo implement what happens if player says no
+
                 } else {
                     System.out.println("Enter a valid response");
                 }
@@ -45,9 +47,6 @@ public class Shop {
             }
 
         }
-
-
-
     }
 
     public static void goShopping(Scanner scanner) {
@@ -72,7 +71,7 @@ public class Shop {
         System.out.println("*");
         System.out.println("*");
 
-        System.out.println("Enter the name of the item you wish to purchase || Enter 5 to leave.");
+        System.out.println("Enter the index of the item you wish to purchase || Enter 5 to leave.");
 
         boolean playerDeciding = true;
         int result;
