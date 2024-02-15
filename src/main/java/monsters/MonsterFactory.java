@@ -23,7 +23,8 @@ public class MonsterFactory {
 
 
 
-    // Initialize the array list of factory methods
+    // Initialize the array list of factory methods. Using a static block for readability
+    // rather than initialize the static variables directly.
     static {
 
             smallMonsters.add(MonsterFactory::createGoblin);
@@ -38,8 +39,6 @@ public class MonsterFactory {
             largeMonsters.add(MonsterFactory::createBeholder);
             largeMonsters.add(MonsterFactory::createGiant);
     };
-
-
 
 
     public static Monster createGoblin() {

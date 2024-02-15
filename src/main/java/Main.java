@@ -1,6 +1,7 @@
 import character.*;
 
 import character.Character;
+import dungeon.Dungeon;
 import dungeon.DungeonMaster;
 import dungeon.Shop;
 import utility.CharacterBuilder;
@@ -88,7 +89,6 @@ public class Main {
     }
 
     private static void runDungeon() {
-        DungeonMaster dm = new DungeonMaster();
-        dm.runDungeon();
+        Dungeon.runDungeon();
     }
 }
