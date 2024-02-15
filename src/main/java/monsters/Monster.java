@@ -8,42 +8,37 @@ import character.Adventurer;
 public abstract class Monster {
 
     // Monster attributes
-
-    protected int hp;
-    protected int attackBonus;
-    protected int armorClass;
-
     protected String name;
-    protected int speed;
-    protected int xp;
+    protected MonsterStats stats;
+
 
 
     /**
      * Base constructor for all monsters
      */
-    public Monster(String name, int hp, int attackBonus, int armorClass, int speed, int experienceWorth) {
+    public Monster(String name, int hp, int attackBonus, int armorClass, int speed, int experience) {
         this.name = name;
-        this.hp = hp;
-        this.attackBonus = attackBonus;
-        this.armorClass = armorClass;
-        this.xp = experienceWorth;
-        this.speed = speed;
+        this.stats = MonsterStats.monsterStatBuilder(hp, attackBonus, armorClass,
+                speed, experience);
     }
 
 
     // Methods for all monsters
 
     /**
-     * Attack a player.
+     * Abstract method attack to ensure each monster type overrides with their own
+     * flavor text.
      */
     public abstract void attack();
 
-    public abstract String getName();
-    public abstract int getXP();
-    public abstract int getHp();
-    public abstract int getAttackBonus();
-    public abstract int getArmorClass();
-    public abstract int getSpeed();
+
+    public String getName() {
+        return name;
+    }
+    public MonsterStats getStats() {
+        return stats;
+    }
+
 
 
 

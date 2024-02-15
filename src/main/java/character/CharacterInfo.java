@@ -1,13 +1,12 @@
 package character;
 
-import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
-import java.util.ArrayList;
+
 
 /**
- * Wraps all the character info up nicely.
+ * Builder for character info.
  */
 public class CharacterInfo {
 

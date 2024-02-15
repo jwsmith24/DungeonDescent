@@ -10,42 +10,35 @@ import java.util.ArrayList;
  */
 public class Adventurer {
 
-    CharacterInfo info;
-    CharacterStats stats;
-    CharacterSkills skills;
-    ArrayList<Condition> activeEffects;
+    private CharacterInfo info;
+    private CharacterStats stats;
+    private CharacterSkills skills;
+    private ArrayList<Condition> activeEffects;
 
 
     /**
-     * Default constructor, sets everything after character creation.
+     * Default constructor, Adventurers are built with the character builder classes.
      */
     public Adventurer() {
-
+        // empty for now
 
     }
-
-    public ArrayList<Condition> getActiveEffects() {
-        return new ArrayList<>(activeEffects);
-    }
-    public void setActiveEffects(ArrayList<Condition> activeEffects) {
-        this.activeEffects = new ArrayList<> (activeEffects);
-    }
-
 
     /**
      * Rather than a level system, skills will improve by the player spending the xp
      * they earn from defeating monsters in the dungeon.
-     * @param xpSpent amount to subtract from player's total
+     * @param amount amount to subtract from player's total
      */
-    public void spendXP(int xpSpent) {
-        // ensure xpspent is positive
-        if (xpSpent < 0) {
+    public void spendXP(int amount) {
+
+        // ensure XP spent is positive
+        if (amount < 0) {
             System.out.println("XP spent cannot be negative");
             return;
         }
 
         int xp = this.info.getExperience();
-        int newXp = xp - xpSpent;
+        int newXp = xp - amount;
 
         // Ensure player has enough experience to purchase a skill upgrade
         if (newXp < 0) {
@@ -59,27 +52,35 @@ public class Adventurer {
 
     }
 
-    public void gainXP(int xpGained) {
-        // ensure xpGained is positive
-        if (xpGained < 0) {
+    /**
+     * Used by entities that cause the player to gain xp.
+     * @param amount xp gained
+     */
+    public void gainXP(int amount) {
+        // ensure XP gained is positive
+        if (amount < 0) {
             System.out.println("XP gained cannot be negative");
             return;
         }
 
         int currentXP = this.info.getExperience();
 
-        this.info.setExperience(currentXP + xpGained);
+        this.info.setExperience(currentXP + amount);
     }
 
-    public void takeDamage(int damage) {
+    /**
+     * Used by entities that cause the player damage.
+     * @param amount damage taken
+     */
+    public void takeDamage(int amount) {
 
        // check that damage is a positive value
-        if (damage < 0) {
-            throw new IllegalArgumentException("Damage value cannot be negative!");
+        if (amount < 0) {
+            System.out.println("Damage cannot be negative!");
         }
 
         int currentHP = this.stats.getHitPoints();
-         currentHP -= damage;
+         currentHP -= amount;
 
         // check to see if damage kills player and set hp to 0
         if (currentHP <= 0) {
@@ -88,8 +89,12 @@ public class Adventurer {
         }
     }
 
-    public void healPlayer(int healingReceived) {
-        int newHp = this.stats.getHitPoints() + healingReceived;
+    /**
+     * Used by entites that cause the character to gain HP.
+     * @param amount hp gained
+     */
+    public void healPlayer(int amount) {
+        int newHp = this.stats.getHitPoints() + amount;
 
         // if healing would bring player over max hp, just set hp to max
         this.stats.setHitPoints(Math.min(newHp, this.stats.getMaxHP()));
@@ -97,9 +102,20 @@ public class Adventurer {
 
 
 
+    public ArrayList<Condition> getActiveEffects() {
+        return activeEffects;
+    }
 
+    public void setActiveEffects(ArrayList<Condition> activeEffects) {
+        this.activeEffects = activeEffects;
+    }
 
-
+    /**
+     * Applies new condition to character. If this is the first condition applied, remove neutral and apply the
+     * new condition. If this is condition 2+, add the condition. Clearing conditions is clearing the list and
+     * adding neutral to active effects.
+     * @param newCondition new condition to apply to character.
+     */
     public void applyCondition(Condition newCondition) {
 
 
@@ -110,7 +126,6 @@ public class Adventurer {
             // Clear the list of all effects, add neutral
             activeEffects.clear();
             activeEffects.add(Condition.NEUTRAL);
-
 
         } else {
             // Remove neutral from list before applying new effect

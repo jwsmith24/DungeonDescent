@@ -1,5 +1,8 @@
 package character;
 
+/**
+ * Builder for character skills.
+ */
 public class CharacterSkills {
 
     // Skills

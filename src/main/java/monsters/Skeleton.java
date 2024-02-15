@@ -19,33 +19,6 @@ public class Skeleton extends Monster {
 
     }
 
-    @Override
-    public String getName() {
-        return name;
-    }
 
-    @Override
-    public int getXP() {
-        return xp;
-    }
-    @Override
-    public int getHp() {
-        return hp;
-    }
-
-    @Override
-    public int getAttackBonus() {
-        return attackBonus;
-    }
-
-    @Override
-    public int getArmorClass() {
-        return armorClass;
-    }
-
-    @Override
-    public int getSpeed() {
-        return speed;
-    }
 
 }

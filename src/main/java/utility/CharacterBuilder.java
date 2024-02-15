@@ -240,14 +240,17 @@ public class CharacterBuilder {
         // Create Adventurer object that captures state of decorated object
         Adventurer newPlayer = new Adventurer();
 
-        // Extract Stats
+        // Stats
         newPlayer.setStats(CharacterStats.statBuilder(characterRef));
 
-        // Extract Skills
+        // Skills
         newPlayer.setSkills(CharacterSkills.skillBuilder(characterRef));
 
-        // Extract Info
+        // Info
         newPlayer.setInfo(CharacterInfo.infoBuilder(characterRef));
+
+        // Conditions
+        newPlayer.setActiveEffects(characterRef.getActiveEffects());
 
         return newPlayer;
     }

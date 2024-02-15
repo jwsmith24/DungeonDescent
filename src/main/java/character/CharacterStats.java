@@ -1,5 +1,8 @@
 package character;
 
+/**
+ * Builder for character stats.
+ */
 public class CharacterStats {
 
     // Core Stats
