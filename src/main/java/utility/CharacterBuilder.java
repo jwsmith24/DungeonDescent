@@ -241,32 +241,13 @@ public class CharacterBuilder {
         Adventurer newPlayer = new Adventurer();
 
         // Extract Stats
-        newPlayer.setAttack(characterRef.getAttack());
-        newPlayer.setDefense(characterRef.getDefense());
-        newPlayer.setHitPoints(characterRef.getHitPoints());
-        newPlayer.setEnergy(characterRef.getEnergy());
-        newPlayer.setSpeed(characterRef.getSpeed());
-        newPlayer.setLuck(characterRef.getLuck());
+        newPlayer.setStats(CharacterStats.statBuilder(characterRef));
 
         // Extract Skills
-        newPlayer.setDungeoneering(characterRef.getDungeoneering());
-        newPlayer.setLockPicking(characterRef.getLockPicking());
-        newPlayer.setAthletics(characterRef.getAthletics());
-        newPlayer.setArcana(characterRef.getArcana());
-        newPlayer.setHistory(characterRef.getHistory());
+        newPlayer.setSkills(CharacterSkills.skillBuilder(characterRef));
 
         // Extract Info
-        newPlayer.setName(characterRef.getName());
-        newPlayer.setCharacterSheet(characterRef.getCharacterSheet());
-
-        newPlayer.setRace(characterRef.getPlayerRace());
-        newPlayer.setPlayerClass(characterRef.getPlayerClass());
-
-        newPlayer.setExperience(characterRef.getExperience());
-        newPlayer.setLevel(characterRef.getLevel());
-        newPlayer.setActiveEffects(characterRef.getActiveEffects());
-        newPlayer.setMaxHP(characterRef.getHitPoints());
-
+        newPlayer.setInfo(CharacterInfo.infoBuilder(characterRef));
 
         return newPlayer;
     }

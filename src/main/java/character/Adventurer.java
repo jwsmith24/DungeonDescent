@@ -1,8 +1,6 @@
 package character;
 
 import utility.index.Condition;
-import utility.index.PlayerClass;
-import utility.index.PlayerRace;
 
 import java.util.ArrayList;
 
@@ -10,37 +8,12 @@ import java.util.ArrayList;
  * Encapsulates a character after it is constructed to be more maintainable
  * when interacting with the rest of the environment and reduce overhead of more decorators.
  */
-public class Adventurer implements Character {
+public class Adventurer {
 
-    // Core Stats
-    int attack;
-    int defense;
-    int hitPoints;
-    int energy;
-    int speed;
-    int luck;
-
-    // Skills
-    int dungeoneering;
-    int lockPicking;
-    int athletics;
-    int arcana;
-    int history;
-
-    // Player Info
-
-    int experience;
-    int level;
-    int maxHP;
-    String name;
-    PlayerRace race;
-    PlayerClass playerClass;
-    String specialAbility;
-    String racialAbility;
-    String attackType;
-    String characterSheet;
+    CharacterInfo info;
+    CharacterStats stats;
+    CharacterSkills skills;
     ArrayList<Condition> activeEffects;
-
 
 
     /**
@@ -51,35 +24,75 @@ public class Adventurer implements Character {
 
     }
 
+    public ArrayList<Condition> getActiveEffects() {
+        return new ArrayList<>(activeEffects);
+    }
+    public void setActiveEffects(ArrayList<Condition> activeEffects) {
+        this.activeEffects = new ArrayList<> (activeEffects);
+    }
+
+
     /**
      * Rather than a level system, skills will improve by the player spending the xp
      * they earn from defeating monsters in the dungeon.
      * @param xpSpent amount to subtract from player's total
      */
     public void spendXP(int xpSpent) {
-        this.experience = (this.experience - xpSpent);
+        // ensure xpspent is positive
+        if (xpSpent < 0) {
+            System.out.println("XP spent cannot be negative");
+            return;
+        }
+
+        int xp = this.info.getExperience();
+        int newXp = xp - xpSpent;
+
+        // Ensure player has enough experience to purchase a skill upgrade
+        if (newXp < 0) {
+            System.out.println("Insufficient XP. Current balance: " + xp);
+
+
+        } else {
+            this.info.setExperience(newXp);
+
+        }
+
     }
+
     public void gainXP(int xpGained) {
-        this.experience = this.experience + xpGained;
+        // ensure xpGained is positive
+        if (xpGained < 0) {
+            System.out.println("XP gained cannot be negative");
+            return;
+        }
+
+        int currentXP = this.info.getExperience();
+
+        this.info.setExperience(currentXP + xpGained);
     }
 
     public void takeDamage(int damage) {
-        int newHP = this.hitPoints - damage;
 
-        // check to see if damage kills player
-        if (newHP <= 0) {
+       // check that damage is a positive value
+        if (damage < 0) {
+            throw new IllegalArgumentException("Damage value cannot be negative!");
+        }
+
+        int currentHP = this.stats.getHitPoints();
+         currentHP -= damage;
+
+        // check to see if damage kills player and set hp to 0
+        if (currentHP <= 0) {
             System.out.println("The damage is fatal.");
-
-        } else {
-            this.hitPoints = newHP;
+            this.stats.setHitPoints(0);
         }
     }
 
     public void healPlayer(int healingReceived) {
-        int newHp = this.hitPoints + healingReceived;
+        int newHp = this.stats.getHitPoints() + healingReceived;
 
         // if healing would bring player over max hp, just set hp to max
-        this.hitPoints = Math.min(newHp, maxHP);
+        this.stats.setHitPoints(Math.min(newHp, this.stats.getMaxHP()));
     }
 
 
@@ -116,194 +129,37 @@ public class Adventurer implements Character {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Getters and Setters
 
+    public void setInfo(CharacterInfo info) {
+        this.info = info;
+    }
 
-    // Foundational Getters/Setters
+    public CharacterInfo getInfo() {
+        return this.info;
+    }
 
-    @Override
-    public int getAttack() {
-        return attack;
+    public void setStats(CharacterStats stats) {
+        this.stats = stats;
+    }
+
+    public CharacterStats getStats() {
+        return this.stats;
+    }
+
+    public void setSkills(CharacterSkills skills) {
+        this.skills = skills;
+    }
+
+    public CharacterSkills getSkills() {
+        return this.skills;
     }
 
 
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    @Override
-    public int getDefense() {
-        return this.defense;
-    }
-
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
-    @Override
-    public int getHitPoints() {
-        return hitPoints;
-    }
-
-    public void setHitPoints(int hitPoints) {
-        this.hitPoints = hitPoints;
-    }
-
-    public int getMaxHP() {
-        return maxHP;
-    }
-    public void setMaxHP(int maxHp) {
-        this.maxHP = maxHp;
-    }
-
-    @Override
-    public int getEnergy() {
-        return energy;
-    }
-
-    public void setEnergy(int energy) {
-        this.energy = energy;
-    }
-
-    @Override
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    @Override
-    public int getLuck() {
-        return luck;
-    }
-
-    public void setLuck(int luck) {
-        this.luck = luck;
-    }
-
-    @Override
-    public int getDungeoneering() {
-        return dungeoneering;
-    }
-
-    public void setDungeoneering(int dungeoneering) {
-        this.dungeoneering = dungeoneering;
-    }
-
-    @Override
-    public int getLockPicking() {
-        return lockPicking;
-    }
-
-    public void setLockPicking(int lockPicking) {
-        this.lockPicking = lockPicking;
-    }
-
-    @Override
-    public int getAthletics() {
-        return athletics;
-    }
-
-    public void setAthletics(int athletics) {
-        this.athletics = athletics;
-    }
-
-    @Override
-    public int getArcana() {
-        return arcana;
-    }
-
-    public void setArcana(int arcana) {
-        this.arcana = arcana;
-    }
-
-    @Override
-    public int getHistory() {
-        return history;
-    }
-
-    public void setHistory(int history) {
-        this.history = history;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
 
-    public void setRace(PlayerRace race) {
-        this.race = race;
-    }
 
-    @Override
-    public int getExperience() {
-        return experience;
-    }
 
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
-    @Override
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    @Override
-    public ArrayList<Condition> getActiveEffects() {
-        return new ArrayList<>(activeEffects);
-    }
-
-    @Override
-    public PlayerRace getPlayerRace() {
-        return race;
-    }
-
-    public void setActiveEffects(ArrayList<Condition> activeEffects) {
-        this.activeEffects = new ArrayList<> (activeEffects);
-    }
-
-    @Override
-    public PlayerClass getPlayerClass() {
-        return playerClass;
-    }
-
-    public void setPlayerClass(PlayerClass playerClass) {
-        this.playerClass = playerClass;
-    }
-
-    @Override
-    public String getCharacterSheet() {
-        return characterSheet;
-    }
-
-    public void setCharacterSheet(String characterSheet) {
-        this.characterSheet = characterSheet;
-    }
 
 
 
