@@ -1,6 +1,8 @@
 package character;
 
 import utility.index.Condition;
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
 
 import java.util.ArrayList;
 
@@ -29,9 +31,10 @@ public class Adventurer implements Character {
 
     int experience;
     int level;
+    int maxHP;
     String name;
-    String race;
-    String playerClass;
+    PlayerRace race;
+    PlayerClass playerClass;
     String specialAbility;
     String racialAbility;
     String attackType;
@@ -59,6 +62,28 @@ public class Adventurer implements Character {
     public void gainXP(int xpGained) {
         this.experience = this.experience + xpGained;
     }
+
+    public void takeDamage(int damage) {
+        int newHP = this.hitPoints - damage;
+
+        // check to see if damage kills player
+        if (newHP <= 0) {
+            System.out.println("The damage is fatal.");
+
+        } else {
+            this.hitPoints = newHP;
+        }
+    }
+
+    public void healPlayer(int healingReceived) {
+        int newHp = this.hitPoints + healingReceived;
+
+        // if healing would bring player over max hp, just set hp to max
+        this.hitPoints = Math.min(newHp, maxHP);
+    }
+
+
+
 
 
 
@@ -106,11 +131,6 @@ public class Adventurer implements Character {
 
     // Getters and Setters
 
-    // Adventurer-Specific
-
-
-
-
 
     // Foundational Getters/Setters
 
@@ -140,6 +160,13 @@ public class Adventurer implements Character {
 
     public void setHitPoints(int hitPoints) {
         this.hitPoints = hitPoints;
+    }
+
+    public int getMaxHP() {
+        return maxHP;
+    }
+    public void setMaxHP(int maxHp) {
+        this.maxHP = maxHp;
     }
 
     @Override
@@ -224,7 +251,7 @@ public class Adventurer implements Character {
     }
 
 
-    public void setRace(String race) {
+    public void setRace(PlayerRace race) {
         this.race = race;
     }
 
@@ -252,7 +279,7 @@ public class Adventurer implements Character {
     }
 
     @Override
-    public String getPlayerRace() {
+    public PlayerRace getPlayerRace() {
         return race;
     }
 
@@ -261,39 +288,12 @@ public class Adventurer implements Character {
     }
 
     @Override
-    public String getPlayerClass() {
+    public PlayerClass getPlayerClass() {
         return playerClass;
     }
 
-    public void setPlayerClass(String playerClass) {
+    public void setPlayerClass(PlayerClass playerClass) {
         this.playerClass = playerClass;
-    }
-
-    @Override
-    public String getSpecialAbility() {
-        return specialAbility;
-    }
-
-    public void setSpecialAbility(String specialAbility) {
-        this.specialAbility = specialAbility;
-    }
-
-    @Override
-    public String getRacialAbility() {
-        return racialAbility;
-    }
-
-    public void setRacialAbility(String racialAbility) {
-        this.racialAbility = racialAbility;
-    }
-
-    @Override
-    public String getAttackType() {
-        return attackType;
-    }
-
-    public void setAttackType(String attackType) {
-        this.attackType = attackType;
     }
 
     @Override

@@ -3,7 +3,8 @@ package character;
 import java.util.ArrayList;
 
 import utility.index.Condition;
-
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
 
 
 /**
@@ -48,15 +49,9 @@ public interface Character {
 
     ArrayList<Condition> getActiveEffects();
 
-    String getPlayerRace();
+    PlayerRace getPlayerRace();
 
-    String getSpecialAbility();
-
-    String getRacialAbility();
-
-    String getPlayerClass();
-
-    String getAttackType();
+    PlayerClass getPlayerClass();
 
     String getCharacterSheet();
 

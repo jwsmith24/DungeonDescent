@@ -66,7 +66,7 @@ public class Main {
 
         System.out.println("Hi, I'm still " + craig.getName() + " and I'm a "
                 + craig.getPlayerRace() + "!"
-                + "\nIf we were to fight right now, I would use a: " + craig.getAttackType());
+                + "\nIf we were to fight right now, I would use a: " + craig.getPlayerClass().getAttackText());
 
         System.out.println(craig.getCharacterSheet());
 
@@ -76,7 +76,7 @@ public class Main {
         System.out.println("\nI'm seriously still " + craig.getName()
                 + " the " + craig.getPlayerRace()
                 + ", but now I'm also a " + craig.getPlayerClass() + "!"
-                + " If we were to fight, I would use a: " + craig.getAttackType());
+                + " If we were to fight, I would use a: " + craig.getPlayerClass().getAttackText());
 
         System.out.println(craig.getCharacterSheet());
 
@@ -89,6 +89,6 @@ public class Main {
     }
 
     private static void runDungeon() {
-        Dungeon.runDungeon();
+        DungeonMaster.runDungeon();
     }
 }

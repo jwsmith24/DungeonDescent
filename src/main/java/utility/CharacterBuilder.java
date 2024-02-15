@@ -258,16 +258,14 @@ public class CharacterBuilder {
         // Extract Info
         newPlayer.setName(characterRef.getName());
         newPlayer.setCharacterSheet(characterRef.getCharacterSheet());
-        newPlayer.setRace(characterRef.getPlayerRace());
-        newPlayer.setRacialAbility(characterRef.getRacialAbility());
 
+        newPlayer.setRace(characterRef.getPlayerRace());
         newPlayer.setPlayerClass(characterRef.getPlayerClass());
-        newPlayer.setSpecialAbility(characterRef.getSpecialAbility());
-        newPlayer.setAttackType(characterRef.getAttackType());
 
         newPlayer.setExperience(characterRef.getExperience());
         newPlayer.setLevel(characterRef.getLevel());
         newPlayer.setActiveEffects(characterRef.getActiveEffects());
+        newPlayer.setMaxHP(characterRef.getHitPoints());
 
 
         return newPlayer;

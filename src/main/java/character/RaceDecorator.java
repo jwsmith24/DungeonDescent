@@ -23,14 +23,10 @@ public class RaceDecorator extends CharacterDecorator {
     // Generic Racial Overrides
 
     @Override
-    public String getPlayerRace() {
-        return playerRace.getRaceDescription();
+    public PlayerRace getPlayerRace() {
+        return playerRace;
     }
 
-    @Override
-    public String getRacialAbility() {
-        return playerRace.getRacialBonusText();
-    }
 
     @Override
     public String getCharacterSheet() {

@@ -18,7 +18,7 @@ public class CharacterSheetBuilder {
         return String.format(
                 "==================================%n"
                 + "| Race: %s%n"
-                + "| Racial ability: %s%n"
+                + "| Racial bonus: %s%n"
                 + "==================================%n"
                 + "|\t\t\t  Stats%n"
                 + "==================================%n"
@@ -30,7 +30,7 @@ public class CharacterSheetBuilder {
                 + "| Luck: %s%n",
 
                 decoratedRace.getPlayerRace(),
-                decoratedRace.getRacialAbility(),
+                decoratedRace.getPlayerRace().getRacialBonusText(),
                 decoratedRace.getAttack(),
                 decoratedRace.getDefense(),
                 decoratedRace.getHitPoints(),
@@ -54,8 +54,8 @@ public class CharacterSheetBuilder {
                 + "| Special Ability: %s%n"
                 + "==================================%n",
 
-                decoratedClass.getPlayerClass(), decoratedClass.getAttackType(),
-                decoratedClass.getSpecialAbility()
+                decoratedClass.getPlayerClass(), decoratedClass.getPlayerClass().getAttackText(),
+                decoratedClass.getPlayerClass().getSpecialAbilityText()
         );
     }
 

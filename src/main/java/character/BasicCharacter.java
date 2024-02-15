@@ -37,12 +37,12 @@ public class BasicCharacter implements Character {
 
     // Player Info
     String name;
-    String race;
+    PlayerRace race;
     int experience;
     int level;
     ArrayList<Condition> activeEffects = new ArrayList<>();
 
-    String playerClass;
+    PlayerClass playerClass;
     String specialAbility;
     String racialAbility;
     String attackType;
@@ -75,11 +75,11 @@ public class BasicCharacter implements Character {
         this.level = 1;
         this.activeEffects.add(Condition.NEUTRAL);
 
-        this.playerClass = PlayerClass.NO_CLASS.getClassDescription();
+        this.playerClass = PlayerClass.NO_CLASS;
         this.attackType = PlayerClass.NO_CLASS.getAttackText();
         this.specialAbility = PlayerClass.NO_CLASS.getSpecialAbilityText();
 
-        this.race = PlayerRace.NEW_CHARACTER.getRaceDescription();
+        this.race = PlayerRace.NEW_CHARACTER;
         this.racialAbility = PlayerRace.NEW_CHARACTER.getRacialBonusText();
     }
 
@@ -170,30 +170,17 @@ public class BasicCharacter implements Character {
     }
 
     @Override
-    public String getPlayerClass() {
+    public PlayerClass getPlayerClass() {
         return playerClass;
     }
 
-    @Override
-    public String getAttackType() {
-        return attackType;
-    }
 
     @Override
-    public String getSpecialAbility() {
-        return specialAbility;
-    }
-
-
-    @Override
-    public String getPlayerRace() {
+    public PlayerRace getPlayerRace() {
         return race;
     }
 
-    @Override
-    public String getRacialAbility() {
-        return racialAbility;
-    }
+
 
 
     @Override
