@@ -27,16 +27,12 @@ public class Combat {
     }
 
 
-    public static Combat encounterGenerator(Adventurer player, Monster monster) {
-
-        return new Combat(player, monster);
-
-    }
-
     /**
      * Executes the combat sequence.
+     *
+     * @return if player is alive or dead after combat
      */
-    public void combat() {
+    public boolean combat() {
 
         System.out.println("==================================");
         System.out.println("============= COMBAT! ============");
@@ -62,6 +58,11 @@ public class Combat {
 
         }
 
+        // Combat ends when either the player or monster is no longer alive. Return true if player is alive,
+        // otherwise return false so that the main loop can end.
+
+        return player.isAlive();
+
     }
 
 
@@ -70,7 +71,7 @@ public class Combat {
         //todo: implement check for condition status like restrained,paralyzed, etc
         if (player.isAlive()) {
             takePlayerAction();
-            takePlayerBonusAction();
+            //takePlayerBonusAction();
         }
     }
 
@@ -82,47 +83,57 @@ public class Combat {
     }
 
     /**
-     * On each turn, a player takes an action and a bonus action.
+     * On each turn, a player can choose an action
      */
     private void takePlayerAction() {
 
         // display options to the player for their action
         displayActionOptions();
 
+
         boolean playerDeciding = true;
 
         while (playerDeciding) {
 
+            System.out.println("Enter the number corresponding to your choice:");
+
+
             try {
-                int input = playerInput.nextInt();
+
+                if (playerInput.hasNextLine()) {
+                    int playerChoice = playerInput.nextInt();
+                    playerInput.nextLine();
+
+                    if (playerChoice == 1) {
+                        // basic attack
+                        basicAttackMonster();
+                        playerDeciding = false;
 
 
-                if (input == 1) {
-                    // basic attack
-                    basicAttackMonster();
-                    playerDeciding = false;
+                    } else if (playerChoice == 2) {
+                        // special ability
+                        useSpecialAbility();
+                        playerDeciding = false;
 
 
-                } else if (input == 2) {
-                    // special ability
-                    useSpecialAbility();
-                    playerDeciding = false;
+                    } else if (playerChoice == 3) {
+                        // drink a potion
+                        System.out.println("You drink a potion!");
+                        //todo: actually implement
 
+                        playerDeciding = false;
 
-                } else if (input == 3) {
-                    // run away
-                    System.out.println("You cannot escape.");
-                    //todo: actually implement
+                    } else {
+                        System.out.println("Enter a valid selection.");
 
-                    playerDeciding = false;
-
-                } else {
-                    System.out.println("Enter a valid selection.");
+                    }
 
                 }
+
             } catch (Exception e) {
                 System.out.println("Enter a valid selection");
-                playerInput.nextLine(); // clear the bad line
+                playerInput.nextLine();
+
             }
         }
 
@@ -138,46 +149,8 @@ public class Combat {
         System.out.println("1. Basic Attack: " + player.getInfo().getPlayerClass().getAttackText());
         System.out.println("2. Special Ability: " + player.getInfo().getPlayerClass().getSpecialAbilityText());
         System.out.println("3. Run Away");
-        System.out.println("Enter the number corresponding to your choice:");
-
-    }
-
-    /**
-     * Executes player bonus action
-     */
-    private void takePlayerBonusAction() {
-        displayBonusActionOptions();
-
-        boolean playerDeciding = true;
-
-        while (playerDeciding) {
-
-            try {
-                int input = playerInput.nextInt();
-
-                // Use a potion
-                if (input == 1) {
-                    //todo: implement use a potion
-                    playerDeciding = false;
-
-                } else {
-                    System.out.println("Enter a valid selection.");
-
-                }
-            } catch (Exception e) {
-                System.out.println("Enter a valid selection");
-                playerInput.nextLine(); // clear the bad line
-            }
-        }
-
-    }
 
 
-    private void displayBonusActionOptions() {
-
-        System.out.println("Bonus Action Options:");
-        System.out.println("1. Use an Item");
-        System.out.println("Please enter the number corresponding to your choice:");
     }
 
 

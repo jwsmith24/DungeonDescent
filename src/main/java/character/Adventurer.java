@@ -24,16 +24,6 @@ public class Adventurer {
 
     }
 
-    /**
-     * Logic for using an ultimate ability.
-     */
-    public void useUltimateAbility() {
-
-        // Each player has a limited number of ultimate charges (starts at 1/rest)
-        // All ultimate abilities do double damage
-
-    }
-
 
     /**
      * Determines if player is still alive.

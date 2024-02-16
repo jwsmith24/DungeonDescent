@@ -121,7 +121,7 @@ public class PlayerInventory {
 
         }
 
-        scanner.close();
+
 
     }
 

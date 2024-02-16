@@ -31,17 +31,7 @@ public class Main {
         // It uses the decorator classes to act implicitly as the director to determine how a character sheet is built.
 
 
-
-        //decoratorDemo();
-
-        //userCharacterCreationDemo();
-
-//todo: put dungeon and player together!
-        //runDungeon();
-
-
-
-        //Shop.goShopping(new Scanner(System.in, StandardCharsets.UTF_8));
+        runDungeon();
 
 
     }

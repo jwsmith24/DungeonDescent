@@ -65,7 +65,7 @@ public class CharacterBuilder {
             }
             System.out.println("Restarting character creation!");
         }
-        scanner.close();
+
 
         return player;
     }
@@ -118,6 +118,7 @@ public class CharacterBuilder {
         }
 
 
+
         return null;
     }
 
@@ -156,6 +157,7 @@ public class CharacterBuilder {
             System.out.println("Invalid Entry");
             scanner.nextLine();
         }
+
         return null;
     }
     /**
@@ -186,9 +188,9 @@ public class CharacterBuilder {
 
         PlayerRace raceSelection;
 
-        boolean playerChoosingRace = true;
 
-        while (playerChoosingRace) {
+
+        while (true) {
 
             printRaceOptions();
 
@@ -228,7 +230,6 @@ public class CharacterBuilder {
             }
         }
 
-        return null;
     }
 
     /**
