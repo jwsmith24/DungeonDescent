@@ -69,29 +69,35 @@ public class PlayerInventory {
     /**
      * Equips item to an inventory slot. If item slot is empty, equips item.
      */
-    public static void equipItem(EquipmentSlot slot, Item item) {
+    public static void equipItem(EquipmentSlot slot, Item item, boolean ignoreAlreadyEquipped) {
 
-        // If slot is open, equip new item
-        if (isSlotEmpty(slot)) {
+        if (ignoreAlreadyEquipped) {
+            // override the normal game logic for the script
             inventory.put(slot, item);
-            System.out.println("You have equipped " + getEquippedItem(slot).getItemName()
-                    + " in the " + slot + " slot.");
-
         } else {
-            // Prompts user to replace item if applicable
-            removeItem(slot);
-
-            // If the slot is open now, we equip the new item, otherwise we do nothing.
+            // If slot is open, equip new item
             if (isSlotEmpty(slot)) {
-
                 inventory.put(slot, item);
-
                 System.out.println("You have equipped " + getEquippedItem(slot).getItemName()
                         + " in the " + slot + " slot.");
+
+            } else {
+                // Prompts user to replace item if applicable
+                removeItem(slot);
+
+                // If the slot is open now, we equip the new item, otherwise we do nothing.
+                if (isSlotEmpty(slot)) {
+
+                    inventory.put(slot, item);
+
+                    System.out.println("You have equipped " + getEquippedItem(slot).getItemName()
+                            + " in the " + slot + " slot.");
+                }
+
+
             }
-
-
         }
+
 
         // recalculate item bonuses after change
         calculateItemBonuses();

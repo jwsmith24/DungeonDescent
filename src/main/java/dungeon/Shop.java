@@ -130,7 +130,7 @@ public class Shop {
             // subtract funds
             PlayerInventory.spendGold(item.getItemValue());
             // equip new item
-            PlayerInventory.equipItem(item.getItemType(), item);
+            PlayerInventory.equipItem(item.getItemType(), item, false);
             // display new item equipped
             System.out.println("You have equipped: " + item + "!");
 

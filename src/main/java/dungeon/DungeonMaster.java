@@ -84,7 +84,7 @@ public class DungeonMaster {
         System.out.println("Upon entering the dungeon, you find a chest containing a " + startingWeapon.getItemName());
 
         // equip starting weapon
-        PlayerInventory.equipItem(EquipmentSlot.WEAPON, startingWeapon);
+        PlayerInventory.equipItem(EquipmentSlot.WEAPON, startingWeapon, true);
         //PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SWORD_OF_SLASHING);
 
 

@@ -64,7 +64,7 @@ public class InventoryManagementTest {
         PlayerInventory.initializeInventory();
 
         // Equip a helmet!
-        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET);
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET, true);
 
         // Make sure it's equipped.
         assertEquals(Item.IRON_HELMET, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET));
