@@ -6,7 +6,7 @@ public class Skeleton extends Monster {
      * Builds a monster with skeleton stats.
      */
     public Skeleton() {
-        super("Skeleton", 13, 1, 13, 1, 50);
+        super("Skeleton", 8, 1, 13, 1, 50);
     }
 
     /**

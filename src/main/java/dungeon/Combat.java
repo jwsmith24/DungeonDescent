@@ -50,10 +50,17 @@ public class Combat {
             if (playerFirst) {
                 System.out.println("\n" + player.getInfo().getName() + "'s turn");
                 System.out.println("-------------------------------");
+
                 // player goes first
                 takePlayerTurn();
                 System.out.println("-------------------------------");
-                // then monster
+
+                // end cycle if monster dies in middle of round
+                if (!monster.isAlive()) {
+                    break;
+                }
+
+                // then monster goes
                 System.out.println("\n" + monster.getName() + "'s turn");
                 System.out.println("-------------------------------");
                 attackPlayer();
@@ -64,7 +71,13 @@ public class Combat {
                 System.out.println("-------------------------------");
                 attackPlayer();
                 System.out.println("-------------------------------");
-                // then player
+
+                // end cycle if player dies in middle of round
+                if (!player.isAlive()) {
+                    break;
+                }
+
+                // then player goes
                 System.out.println("\n" + player.getInfo().getName() + "'s turn");
                 System.out.println("-------------------------------");
                 takePlayerTurn();

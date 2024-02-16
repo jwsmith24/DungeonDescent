@@ -42,10 +42,16 @@ public class PlayerInventory {
      */
     public static void equipItem(EquipmentSlot slot, Item item) {
 
+
+
+
+
         inventory.put(slot, item);
 
 
         //todo: logic to prompt player to choose to replace or not
+
+        // also need to update stats based on what is equipped
 
     }
 

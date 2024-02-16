@@ -6,7 +6,7 @@ public class Goblin extends Monster {
      * Builds a monster with goblin stats.
      */
    public Goblin() {
-       super("Goblin", 7, 1, 15, 1, 50);
+       super("Goblin", 7, 1, 12, 1, 50);
    }
 
     /**

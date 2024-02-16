@@ -1,14 +1,17 @@
 package dungeon;
 
 import character.Adventurer;
+import character.PlayerInventory;
 import monsters.Monster;
 import monsters.MonsterFactory;
 import utility.CharacterBuilder;
 import utility.Dice;
+import utility.index.EquipmentSlot;
+import utility.index.Item;
+import utility.index.PlayerClass;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import java.util.Random;
 
 /**
  * Director for all actions in the dungeon. Acts as the mediator to avoid tight coupling of classes.
@@ -23,7 +26,8 @@ public class DungeonMaster {
     // DungeonMaster also knows about the player inventory and the dungeon itself which are
     // both static
 
-    private static int dungeonLevel;
+    private static int dungeonLevel = 1;
+    private static int cycleCount = 1;
     private static final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
 
@@ -46,8 +50,12 @@ public class DungeonMaster {
         // Create character
         spawnCharacter();
 
-        // start dungeon
-        runClassicDungeonCycle();
+        // run tutorial and give starting weapon based on class
+        runTutorial();
+
+        // start the dungeon
+        runDungeonCycle();
+
 
         // run cycle 2 (BOSS) - BEHOLDER
         // run cycle 3
@@ -62,12 +70,60 @@ public class DungeonMaster {
         System.out.println("*                                                     *");
         System.out.println("*******************************************************");
     }
-    private static void runClassicDungeonCycle() {
+
+
+    private static void runTutorial() {
+
+        System.out.println(player.getInfo().getName() + " the " + player.getInfo().getPlayerClass() + " uses "
+                + player.getInfo().getPlayerClass().getAttackText() + " to attack!");
+
+
+        Item startingWeapon = giveStartingWeapon();
+
+        System.out.println("Upon entering the dungeon, you find a chest containing a " + startingWeapon.getItemName());
+
+
+    }
+
+    private static Item giveStartingWeapon() {
+
+        Item startingWeapon;
+
+        switch (player.getInfo().getPlayerClass()) {
+
+            case MAGE:
+                startingWeapon = Item.WARPED_WAND;
+                break;
+
+            case PRIEST:
+                startingWeapon = Item.RUSTY_MACE;
+                break;
+
+            case WARRIOR:
+                startingWeapon = Item.RUSTY_SWORD;
+                break;
+
+            case THIEF:
+                startingWeapon = Item.RUSTY_DAGGER;
+                break;
+
+            default:
+                startingWeapon = Item.NO_WEAPON;
+        }
+
+
+        PlayerInventory.equipItem(EquipmentSlot.WEAPON, startingWeapon);
+        return startingWeapon; // so we can display what it is
+    }
+
+
+    private static void runDungeonCycle() {
 
         int level = 1;
         Combat dungeonCombat;
         boolean playerIsAlive = true;
 
+        //todo: implement this
         System.out.println("Apply cycle effect");
 
         while (level <= 5 && playerIsAlive) {
@@ -80,7 +136,7 @@ public class DungeonMaster {
 
                 // Set active monster to a random medium monster
                 monster = MonsterFactory.randomMediumMonster();
-                System.out.println("A " + monster.getName() + " appears!");
+                System.out.println("A " + monster.getName() + " appears!\n");
 
                 // go to combat
                 dungeonCombat = new Combat(player, monster);
