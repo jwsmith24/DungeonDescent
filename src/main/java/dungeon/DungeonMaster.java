@@ -41,12 +41,13 @@ public class DungeonMaster {
     // Each floor has one fight and a chance to find some loot or a shop
     public static void runDungeon() {
         // welcome text
+        displayWelcomeText();
 
         // Create character
-        spawnCharacter(); // DEBUG: entire character creation segment works good
-        // start dungeon
+        spawnCharacter();
 
-        runClassicDungeonCycle(); // DEBUG: works up until first combat
+        // start dungeon
+        runClassicDungeonCycle();
 
         // run cycle 2 (BOSS) - BEHOLDER
         // run cycle 3
@@ -54,6 +55,13 @@ public class DungeonMaster {
 
     }
 
+    private static void displayWelcomeText() {
+        System.out.println("*******************************************************");
+        System.out.println("*                                                     *");
+        System.out.println("*            Welcome to Dungeon Descent               *");
+        System.out.println("*                                                     *");
+        System.out.println("*******************************************************");
+    }
     private static void runClassicDungeonCycle() {
 
         int level = 1;
