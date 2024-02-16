@@ -24,7 +24,7 @@ public enum Item {
     RUSTY_MACE("Rusty Mace", "Maybe pulling the first weapon you found in the chapel basement wasn't the best idea.", 1, EquipmentSlot.WEAPON, 1),
 
 
-    // Potions
+    // Potions (Only strength and def are going to be used this round)
     POTION_OF_STRENGTH("Potion of Strength", "Drink to increase attack!", 10, EquipmentSlot.POTION, 1),
     POTION_OF_SPEED("Potion of Speed", "Drink to increase speed!", 10, EquipmentSlot.POTION, 1),
     POTION_OF_ENERGY("Potion of Energy", "Drink to increase energy!", 10, EquipmentSlot.POTION, 1),
@@ -45,18 +45,18 @@ public enum Item {
     DRAGONSCALE_SHIELD("Dragonscale Shield", "Strong against swords AND fire!", 100, EquipmentSlot.OFF_HAND, 3),
 
 
-    STEEL_SWORD("Steel Longsword", "Quality craftsmanship!", 30, EquipmentSlot.WEAPON, 2),
-    MAPLE_WAND("Maple Wand", "Ornately crafted", 30, EquipmentSlot.WEAPON, 2),
-    STEEL_MACE("Steel Mace", "Ready to pummel demons!", 30, EquipmentSlot.WEAPON, 2),
-    GLASS_DAGGER("Glass Dagger", "Lightweight, shiny, AND greeen", 50, EquipmentSlot.WEAPON, 2),
+    STEEL_SWORD("Steel Longsword", "Quality craftsmanship!", 30, EquipmentSlot.WEAPON, 3),
+    MAPLE_WAND("Maple Wand", "Ornately crafted", 30, EquipmentSlot.WEAPON, 3),
+    STEEL_MACE("Steel Mace", "Ready to pummel demons!", 30, EquipmentSlot.WEAPON, 3),
+    GLASS_DAGGER("Glass Dagger", "Lightweight, shiny, AND greeen", 50, EquipmentSlot.WEAPON, 3),
 
 
     // Shopkeeper items - filtered by unique price
 
-    SWORD_OF_SLASHING("Sword of Slashing", "Slashes really good. +1 to ATK!", 41, EquipmentSlot.WEAPON, 4),
-    HELMET_OF_PROTECTION("Helmet of Protection", "Wear for protection!", 41, EquipmentSlot.HELMET, 4),
+    SWORD_OF_SLASHING("Sword of Slashing", "Slashes really good. +1 to ATK!", 41, EquipmentSlot.WEAPON, 5),
+    HELMET_OF_PROTECTION("Helmet of Protection", "Wear for protection!", 41, EquipmentSlot.HELMET, 5),
     POTION_OF_HEALING("Potion of Healing", "Drink to restore hit points!", 41, EquipmentSlot.POTION, 5),
-    HAT_OF_STYLE("Hat of Style", "You'll look super cool.", 41, EquipmentSlot.HELMET, 1);
+    HAT_OF_STYLE("Hat of Style", "You'll look super cool.", 41, EquipmentSlot.HELMET, 10);
 
     private final String itemName;
     private final String itemDescription;

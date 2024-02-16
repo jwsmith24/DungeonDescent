@@ -73,14 +73,19 @@ public class DungeonMaster {
 
 
     private static void runTutorial() {
-
-        System.out.println(player.getInfo().getName() + " the " + player.getInfo().getPlayerClass() + " uses "
+        // Porc the Orc Warrior uses sword strike to attack!
+        System.out.println(player.getInfo().getName() + " the " + player.getInfo().getPlayerRace()
+                + " " + player.getInfo().getPlayerClass() + " uses "
                 + player.getInfo().getPlayerClass().getAttackText() + " to attack!");
 
-
+        // determine starting weapon based on class
         Item startingWeapon = giveStartingWeapon();
 
         System.out.println("Upon entering the dungeon, you find a chest containing a " + startingWeapon.getItemName());
+
+        // equip starting weapon
+        PlayerInventory.equipItem(EquipmentSlot.WEAPON, startingWeapon);
+        //PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SWORD_OF_SLASHING);
 
 
     }
@@ -112,11 +117,10 @@ public class DungeonMaster {
         }
 
 
-        PlayerInventory.equipItem(EquipmentSlot.WEAPON, startingWeapon);
         return startingWeapon; // so we can display what it is
     }
 
-
+//todo: implement looting/finding new items, using potions and adding some more flavor text
     private static void runDungeonCycle() {
 
         int level = 1;

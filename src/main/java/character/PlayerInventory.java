@@ -22,6 +22,9 @@ public class PlayerInventory {
 
     static int gold;
 
+    static int itemAttackBonus = 0;
+    static int itemArmorBonus = 0;
+
     public static boolean haveEnoughGold(int value) {
         return (gold >= value);
     }
@@ -34,25 +37,64 @@ public class PlayerInventory {
     public static void spendGold(int value) {
         gold = (gold - value);
     }
+
     private PlayerInventory() {
 
     }
+
+    private static void calculateItemBonuses() {
+        itemAttackBonus = 0;
+        itemArmorBonus = 0;
+
+        if (inventory != null) {
+
+            for (Map.Entry<EquipmentSlot, Item> entry : inventory.entrySet()) {
+
+                // if item in inventory is a weapon, increase attack bonus
+                // otherwise, increase def bonus
+
+                if (entry.getKey().equals(EquipmentSlot.WEAPON)) {
+                    itemAttackBonus = itemAttackBonus + entry.getValue().getBonus();
+
+                } else {
+
+                    if (!entry.getKey().equals(EquipmentSlot.POTION)) {
+                        itemArmorBonus = itemArmorBonus + entry.getValue().getBonus();
+                    }
+                }
+            }
+        }
+    }
+
     /**
-     * Equips item to an inventory slot.
+     * Equips item to an inventory slot. If item slot is empty, equips item.
      */
     public static void equipItem(EquipmentSlot slot, Item item) {
 
+        // If slot is open, equip new item
+        if (isSlotEmpty(slot)) {
+            inventory.put(slot, item);
+            System.out.println("You have equipped " + getEquippedItem(slot).getItemName()
+                    + " in the " + slot + " slot.");
+
+        } else {
+            // Prompts user to replace item if applicable
+            removeItem(slot);
+
+            // If the slot is open now, we equip the new item, otherwise we do nothing.
+            if (isSlotEmpty(slot)) {
+
+                inventory.put(slot, item);
+
+                System.out.println("You have equipped " + getEquippedItem(slot).getItemName()
+                        + " in the " + slot + " slot.");
+            }
 
 
+        }
 
-
-        inventory.put(slot, item);
-
-
-        //todo: logic to prompt player to choose to replace or not
-
-        // also need to update stats based on what is equipped
-
+        // recalculate item bonuses after change
+        calculateItemBonuses();
     }
 
     /**
@@ -62,7 +104,7 @@ public class PlayerInventory {
         inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
         inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
         inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
-        inventory.put(EquipmentSlot.OFF_HAND,Item.NO_OFF_HAND);
+        inventory.put(EquipmentSlot.OFF_HAND, Item.NO_OFF_HAND);
         inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
     }
 
@@ -95,49 +137,49 @@ public class PlayerInventory {
 
             // Only starting equipment has a value of 0
             if (equippedItem.getItemValue() == 0) {
-                // No item equipped in this slot, inform player and move on
+
+                // No item equipped in this slot, inform player and move on.
                 System.out.println(equippedItem.getItemName());
 
             } else {
-                System.out.println("You already have equipment in this slot: \n");
-                System.out.println("EQUIPPED: " + slot.getSlotDescription() + equippedItem.getItemName());
+                System.out.println("You already have " + getEquippedItem(slot).getItemName()
+                        + " equipped in the " + slot + " slot.");
 
                 System.out.println("Would you like to replace it?");
-                System.out.println("Enter 1 - Yes or 2 - No");
+                System.out.println("1 - Yes | 2 - No");
 
-                while(true){
+                while (true) {
+
                     try {
-                        int input = scanner.nextInt();
+                        int result = scanner.nextInt();
+                        scanner.nextLine();
 
-                        if (input == 1) {
-                            //replace it
+                        if (result == 1) {
+                            inventory.remove(slot);
                             break;
-
-                        } else if (input == 2){
-                            // Do nothing and move on
+                        } else if (result == 2) {
                             break;
-
                         }
-                    }catch (IllegalArgumentException e) {
+
+                        System.out.println("1 - Yes | 2 - No");
+
+
+                    } catch (Exception e) {
                         System.out.println("Enter a valid option");
                     }
                 }
             }
 
-
         }
-
-
 
     }
 
     /**
-     * Determine if slot is already equipped or open.
-     * // todo: rework this to make sense
+     * Determine if slot is already equipped or open. // todo: rework this to make sense
      */
-    public static boolean isSlotEquipped(EquipmentSlot slot) {
+    public static boolean isSlotEmpty(EquipmentSlot slot) {
 
-        return inventory.containsKey(slot);
+        return !inventory.containsKey(slot);
     }
 
     /**
