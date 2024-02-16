@@ -52,13 +52,13 @@ public class MonsterTest {
         // Make sure the stats line up
         assertEquals("Goblin", goblin.getName(),
                 "Should be a goblin");
-        assertEquals(26, spider.getHp(),
+        assertEquals(26, spider.getStats().getHp(),
                 "Wrong hp for spider");
-        assertEquals(18, dragon.getArmorClass(),
+        assertEquals(18, dragon.getStats().getArmorClass(),
                 "Wrong AC for dragon");
         assertEquals("Skeleton", skeleton.getName(),
                 "Should be a skeleton");
-        assertEquals(3, slime.getAttackBonus(),
+        assertEquals(3, slime.getStats().getAttackBonus(),
                 "Wrong attack bonus");
         assertEquals("Ogre", ogre.getName(),
                 "Should be an Ogre");

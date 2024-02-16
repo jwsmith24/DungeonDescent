@@ -16,6 +16,7 @@ public class CharacterInfo {
     private PlayerRace race;
     private PlayerClass playerClass;
     private String characterSheet;
+    private int ultimateCharges;
 
 
 
@@ -28,6 +29,7 @@ public class CharacterInfo {
         this.race = race;
         this.playerClass = playerClass;
         this.characterSheet = characterSheet;
+        this.ultimateCharges = 1;
 
     }
 
@@ -104,6 +106,13 @@ public class CharacterInfo {
 
     public void setCharacterSheet(String characterSheet) {
         this.characterSheet = characterSheet;
+    }
+
+    public int getUltimateCharges() {
+        return ultimateCharges;
+    }
+    public void setUltimateCharges(int number) {
+        this.ultimateCharges = number;
     }
 
 

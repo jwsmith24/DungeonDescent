@@ -3,6 +3,7 @@ package dungeon;
 import character.Adventurer;
 import monsters.Monster;
 import monsters.MonsterFactory;
+import utility.Dice;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
@@ -15,20 +16,17 @@ import java.util.Random;
 public class DungeonMaster {
 
     // The dungeon master knows about the player and the monsters.
-    Adventurer player;
-    boolean isPlayerAlive = true;
-    Monster monster;
+    private static Adventurer player;
+    private static boolean isPlayerAlive = true;
+    private static Monster monster;
 
     // DungeonMaster also knows about the player inventory and the dungeon itself which are
     // both static
 
     private static int dungeonLevel;
-    private static final Random d20 = new Random();
     private static final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
-    private static int rollAD20() {
-        return d20.nextInt(20) + 1;
-    }
+
     /**
      * TODO: Implement actual functionality
      */
@@ -46,13 +44,14 @@ public class DungeonMaster {
     private static void runClassicDungeonCycle() {
 
         int level = 1;
+        Combat dungeonCombat;
 
         System.out.println("Apply cycle effect");
 
         while (level <= 5) {
 
             // roll a d20 each floor for chance at finding loot
-            int lootChance = rollAD20();
+            int lootChance = Dice.rollAD20();
 
             // At level 5, fight a medium monster
             if (level == 5) {
@@ -85,6 +84,7 @@ public class DungeonMaster {
                 System.out.println("A " + randomSmallMonster.getName() + " appears!");
 
                 // go to combat
+                Combat.encounterGenerator(player, monster).combat();
                 // resolve combat
 
                 System.out.println("Fight a small monster!");

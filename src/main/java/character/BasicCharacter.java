@@ -56,7 +56,7 @@ public class BasicCharacter implements Character {
 
         // Set base stats
         this.attack = PlayerStats.ATTACK.getBaseValue();
-        this.defence = PlayerStats.DEF.getBaseValue();
+        this.defence = PlayerStats.AC.getBaseValue();
         this.hitPoints = PlayerStats.HP.getBaseValue();
         this.energy = PlayerStats.ENERGY.getBaseValue();
         this.speed = PlayerStats.SPEED.getBaseValue();

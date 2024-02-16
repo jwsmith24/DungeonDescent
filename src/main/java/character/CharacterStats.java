@@ -7,7 +7,7 @@ public class CharacterStats {
 
     // Core Stats
     private int attack;
-    private int defense;
+    private int ac;
     private int hitPoints;
     private int energy;
     private int speed;
@@ -16,9 +16,9 @@ public class CharacterStats {
     private int maxHP;
 
 
-    public CharacterStats(int attack, int defense, int hitPoints, int energy, int speed, int luck) {
+    public CharacterStats(int attack, int ac, int hitPoints, int energy, int speed, int luck) {
         this.attack = attack;
-        this.defense = defense;
+        this.ac = ac;
         this.hitPoints = hitPoints;
         this.energy = energy;
         this.speed = speed;
@@ -52,12 +52,12 @@ public class CharacterStats {
     }
 
 
-    public int getDefense() {
-        return this.defense;
+    public int getAC() {
+        return this.ac;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
+    public void setAc(int ac) {
+        this.ac = ac;
     }
 
 

@@ -5,8 +5,8 @@ import utility.index.Condition;
 import java.util.ArrayList;
 
 /**
- * Encapsulates a character after it is constructed to be more maintainable
- * when interacting with the rest of the environment and reduce overhead of more decorators.
+ * Encapsulates a character after it is constructed to be more maintainable when interacting with
+ * the rest of the environment and reduce overhead of more decorators.
  */
 public class Adventurer {
 
@@ -25,8 +25,27 @@ public class Adventurer {
     }
 
     /**
-     * Rather than a level system, skills will improve by the player spending the xp
-     * they earn from defeating monsters in the dungeon.
+     * Logic for using an ultimate ability.
+     */
+    public void useUltimateAbility() {
+
+        // Each player has a limited number of ultimate charges (starts at 1/rest)
+        // All ultimate abilities do double damage
+
+    }
+
+
+    /**
+     * Determines if player is still alive.
+     */
+    public boolean isAlive() {
+        return stats.getHitPoints() > 0;
+    }
+
+    /**
+     * Rather than a level system, skills will improve by the player spending the xp they earn from
+     * defeating monsters in the dungeon.
+     *
      * @param amount amount to subtract from player's total
      */
     public void spendXP(int amount) {
@@ -54,6 +73,7 @@ public class Adventurer {
 
     /**
      * Used by entities that cause the player to gain xp.
+     *
      * @param amount xp gained
      */
     public void gainXP(int amount) {
@@ -70,17 +90,18 @@ public class Adventurer {
 
     /**
      * Used by entities that cause the player damage.
+     *
      * @param amount damage taken
      */
     public void takeDamage(int amount) {
 
-       // check that damage is a positive value
+        // check that damage is a positive value
         if (amount < 0) {
             System.out.println("Damage cannot be negative!");
         }
 
         int currentHP = this.stats.getHitPoints();
-         currentHP -= amount;
+        currentHP -= amount;
 
         // check to see if damage kills player and set hp to 0
         if (currentHP <= 0) {
@@ -91,6 +112,7 @@ public class Adventurer {
 
     /**
      * Used by entites that cause the character to gain HP.
+     *
      * @param amount hp gained
      */
     public void healPlayer(int amount) {
@@ -99,7 +121,6 @@ public class Adventurer {
         // if healing would bring player over max hp, just set hp to max
         this.stats.setHitPoints(Math.min(newHp, this.stats.getMaxHP()));
     }
-
 
 
     public ArrayList<Condition> getActiveEffects() {
@@ -111,9 +132,10 @@ public class Adventurer {
     }
 
     /**
-     * Applies new condition to character. If this is the first condition applied, remove neutral and apply the
-     * new condition. If this is condition 2+, add the condition. Clearing conditions is clearing the list and
-     * adding neutral to active effects.
+     * Applies new condition to character. If this is the first condition applied, remove neutral
+     * and apply the new condition. If this is condition 2+, add the condition. Clearing conditions
+     * is clearing the list and adding neutral to active effects.
+     *
      * @param newCondition new condition to apply to character.
      */
     public void applyCondition(Condition newCondition) {
@@ -143,7 +165,6 @@ public class Adventurer {
     }
 
 
-
     // Getters and Setters
 
     public void setInfo(CharacterInfo info) {
@@ -169,16 +190,6 @@ public class Adventurer {
     public CharacterSkills getSkills() {
         return this.skills;
     }
-
-
-
-
-
-
-
-
-
-
 
 
 }

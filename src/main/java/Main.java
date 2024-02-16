@@ -36,8 +36,8 @@ public class Main {
 
         //userCharacterCreationDemo();
 
-
-        runDungeon();
+//todo: put dungeon and player together!
+        //runDungeon();
 
 
 
@@ -45,6 +45,10 @@ public class Main {
 
 
     }
+
+
+
+
     private static void userCharacterCreationDemo() {
         Adventurer player = CharacterBuilder.createCharacter();
         System.out.println("Prepare to descend into the dungeon, " + player.getInfo().getName() + "!");

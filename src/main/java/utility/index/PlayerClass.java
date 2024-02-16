@@ -42,5 +42,4 @@ public enum PlayerClass {
         return specialAbilityText;
     }
 
-
 }
