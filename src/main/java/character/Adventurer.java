@@ -1,5 +1,6 @@
 package character;
 
+import utility.Dice;
 import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
@@ -113,6 +114,7 @@ public class Adventurer {
      * @param amount hp gained
      */
     public void healPlayer(int amount) {
+
         int newHp = this.stats.getHitPoints() + amount;
 
         // if healing would bring player over max hp, just set hp to max
@@ -120,6 +122,9 @@ public class Adventurer {
     }
 
 
+    public void applyPower() {
+        stats.applyPowerStatBoost();
+    }
 
 
     /**
@@ -169,6 +174,28 @@ public class Adventurer {
 
     }
 
+
+    public void drinkPotion() {
+
+        if (PlayerInventory.consumePotion()) {
+            int hpGained = Dice.rollAD10();
+
+            System.out.println("You drink a potion of healing and restore "
+                    + hpGained + " hit points!");
+
+            healPlayer(hpGained);
+
+            System.out.println("Remaining hit points: " + getHitPoints() + "/" + getMaxHP());
+
+        } else {
+
+            System.out.println("You rummage through your sack but find no potions");
+        }
+
+
+    }
+
+
     // Spenders
     public void spendUltimateCharges(int amount) {
         info.setUltimateCharges(amount);
@@ -200,21 +227,27 @@ public class Adventurer {
     public String getName() {
         return info.getName();
     }
+
     public int getExperience() {
         return info.getExperience();
     }
+
     public int getLevel() {
         return info.getLevel();
     }
+
     public PlayerRace getPlayerRace() {
         return info.getPlayerRace();
     }
+
     public PlayerClass getPlayerClass() {
         return info.getPlayerClass();
     }
+
     public String getCharacterSheet() {
         return info.getCharacterSheet();
     }
+
     public int getUltimateCharges() {
         return info.getUltimateCharges();
     }
@@ -224,13 +257,9 @@ public class Adventurer {
     }
 
 
-
-
     public int getAC() {
         return stats.getAC();
     }
-
-
 
 
     public int getHitPoints() {
@@ -238,11 +267,9 @@ public class Adventurer {
     }
 
 
-
     public int getMaxHP() {
         return stats.getMaxHP();
     }
-
 
 
     public int getEnergy() {
@@ -250,20 +277,14 @@ public class Adventurer {
     }
 
 
-
-
     public int getSpeed() {
         return stats.getSpeed();
     }
 
 
-
-
     public int getLuck() {
         return stats.getLuck();
     }
-
-
 
 
 }

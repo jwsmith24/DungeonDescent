@@ -21,13 +21,12 @@ public class DungeonMaster {
 
     // The dungeon master knows about the player and the monsters.
     private static Adventurer player;
-    private static Monster monster;
 
     // DungeonMaster also knows about the player inventory and the dungeon itself which are
     // both static
 
     private static int dungeonLevel = 1;
-    private static int cycleCount = 1;
+
     private static final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
 
@@ -38,9 +37,6 @@ public class DungeonMaster {
         player = CharacterBuilder.createCharacter();
     }
 
-    /**
-     * TODO: Implement actual functionality
-     */
 
     // Each floor has one fight and a chance to find some loot or a shop
     public static void runDungeon() {
@@ -66,7 +62,7 @@ public class DungeonMaster {
     private static void displayWelcomeText() {
         System.out.println("*******************************************************");
         System.out.println("*                                                     *");
-        System.out.println("*            Welcome to Dungeon Descent               *");
+        System.out.println("*            Welcome to Dungeon Descent!              *");
         System.out.println("*                                                     *");
         System.out.println("*******************************************************");
     }
@@ -118,11 +114,23 @@ public class DungeonMaster {
         return startingWeapon; // so we can display what it is
     }
 
-    //todo: implement looting/finding new items, using potions and adding some more flavor text
+    //todo:
+    // implement looting/finding new items,
+    // adding some more flavor text
+    // xp gain from killing monsters and spending it on ability score increases.
+    // implement cycle blessings (4 buffs, one of each is applied after finishing a cycle
+    // Modify damage based on floor/cycle so things aren't so brutal
 
-    // todo: implement xp gain from killing monsters and spending it on ability score increases.
-    // todo: implement cycle effects
 
+    private void applyPower() {
+        System.out.println("You feel a presence come from deeper within the dungeon. An overwhelming feeling of "
+                + "joy washes over you, then.. power. It's pleased with the destruction you've left behind.");
+
+        System.out.println("All stats increase by 1");
+        System.out.println("HP increases by 10");
+
+        player.applyPower();
+    }
 
     private static void runDungeonCycle() {
 
@@ -130,7 +138,7 @@ public class DungeonMaster {
         Combat dungeonCombat;
         boolean playerIsAlive = true;
 
-        //todo: implement this
+        // TBD
         System.out.println("Apply cycle effect");
 
         while (level <= 5 && playerIsAlive) {
@@ -139,6 +147,8 @@ public class DungeonMaster {
             int lootChance = Dice.rollAD20();
 
             // At level 5, fight a medium monster
+            Monster monster;
+
             if (level == 5) {
 
                 // Set active monster to a random medium monster
@@ -147,6 +157,7 @@ public class DungeonMaster {
 
                 // go to combat
                 dungeonCombat = new Combat(player, monster);
+
                 // combat resolves into a boolean that's true if player is alive or false if they died.
                 playerIsAlive = dungeonCombat.combat();
 
@@ -161,9 +172,6 @@ public class DungeonMaster {
                 }
 
                 System.out.println("Want to take a long rest? You have X/3 remaining");
-
-                level++;
-                dungeonLevel++;
 
             } else {
 
@@ -182,9 +190,9 @@ public class DungeonMaster {
                 }
 
 
-                level++;
-                dungeonLevel++;
             }
+            level++;
+            dungeonLevel++;
         }
 
         System.out.println("dungeon level after cycle 1 is: " + dungeonLevel);

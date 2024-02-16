@@ -48,7 +48,7 @@ public class Combat {
             // determine initiative by rolling a d20 for each entity and adding speed score as a bonus
 
             if (playerFirst) {
-                System.out.println("\n" + player.getName() + "'s turn");
+                System.out.println( player.getName() + "'s turn");
                 System.out.println("-------------------------------");
 
                 // player goes first
@@ -61,13 +61,13 @@ public class Combat {
                 }
 
                 // then monster goes
-                System.out.println("\n" + monster.getName() + "'s turn");
+                System.out.println( monster.getName() + "'s turn");
                 System.out.println("-------------------------------");
                 attackPlayer();
 
             } else {
                 // or monster goes first
-                System.out.println("\n" + monster.getName() + "'s turn");
+                System.out.println(monster.getName() + "'s turn");
                 System.out.println("-------------------------------");
                 attackPlayer();
                 System.out.println("-------------------------------");
@@ -78,7 +78,7 @@ public class Combat {
                 }
 
                 // then player goes
-                System.out.println("\n" + player.getName() + "'s turn");
+                System.out.println(player.getName() + "'s turn");
                 System.out.println("-------------------------------");
                 takePlayerTurn();
             }
@@ -145,8 +145,7 @@ public class Combat {
 
                     } else if (playerChoice == 3) {
                         // drink a potion
-                        System.out.println("You drink a potion!");
-                        //todo: actually implement
+                        player.drinkPotion();
 
                         playerDeciding = false;
 
@@ -165,6 +164,11 @@ public class Combat {
         }
 
     }
+
+
+
+
+
 
     /**
      * Displays the options for a player's action to include their ability text.

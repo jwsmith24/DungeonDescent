@@ -38,6 +38,23 @@ public class PlayerInventory {
         gold = (gold - value);
     }
 
+    private static boolean potionIsFilled() {
+        // if player has a potion, return true
+        return getEquippedItem(EquipmentSlot.POTION) != null;
+
+    }
+
+    /**
+     * Specific method to remove potion from inventory that bypasses the removeItem method.
+     */
+    public static boolean consumePotion() {
+        if (potionIsFilled()) {
+            inventory.remove(EquipmentSlot.POTION);
+            return true;
+        }
+        return false;
+    }
+
     private PlayerInventory() {
 
     }

@@ -43,6 +43,18 @@ public class CharacterStats {
         return new CharacterStats(atk, def, hp, eng, speed, luck);
 
     }
+    public void applyPowerStatBoost() {
+
+        this.attack++;
+        this.ac++;
+        this.energy++;
+        this.speed++;
+        this.luck++;
+
+        this.maxHP = maxHP + 10;
+        this.hitPoints = hitPoints + 10;
+
+    }
 
 
     public int getAttack() {
