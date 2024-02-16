@@ -25,7 +25,7 @@ public abstract class Monster {
      */
     public void attackText() {
 
-        System.out.println("The " + this.name + "attacks!");
+        System.out.println("The monster attacks!");
     }
 
     //todo: model after player take damage

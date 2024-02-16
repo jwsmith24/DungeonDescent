@@ -6,7 +6,7 @@ public class Slime extends Monster {
      * Builds a monster with Slime stats.
      */
     public Slime() {
-        super("OOZE", 22, 3, 8, 0, 100);
+        super("OOZE", 22, 1, 8, 0, 100);
     }
 
     /**
