@@ -38,21 +38,35 @@ public class Combat {
         System.out.println("============= COMBAT! ============");
         System.out.println("==================================");
 
+        boolean playerFirst = playerGoesFirst(); // keep out of loop to avoid regenerating init
+        // scores
+
         // while both the player AND the monster are alive, continue combat.
         while (player.isAlive() && monster.isAlive()) {
 
+
             // determine initiative by rolling a d20 for each entity and adding speed score as a bonus
 
-            if (playerGoesFirst()) {
+            if (playerFirst) {
+                System.out.println("\n" + player.getInfo().getName() + "'s turn");
+                System.out.println("-------------------------------");
                 // player goes first
                 takePlayerTurn();
+                System.out.println("-------------------------------");
                 // then monster
+                System.out.println("\n" + monster.getName() + "'s turn");
+                System.out.println("-------------------------------");
                 attackPlayer();
 
             } else {
                 // or monster goes first
+                System.out.println("\n" + monster.getName() + "'s turn");
+                System.out.println("-------------------------------");
                 attackPlayer();
+                System.out.println("-------------------------------");
                 // then player
+                System.out.println("\n" + player.getInfo().getName() + "'s turn");
+                System.out.println("-------------------------------");
                 takePlayerTurn();
             }
 
@@ -192,8 +206,9 @@ public class Combat {
      */
     private void useSpecialAbility() {
 
+        int currentCharges = player.getInfo().getUltimateCharges();
         // character needs to have enough ultimate charges
-        if (player.getInfo().getUltimateCharges() > 0) {
+        if (currentCharges > 0) {
             System.out.println("You use: " + player.getInfo().getPlayerClass().getSpecialAbilityText());
 
             // special deals double damage and is guaranteed to hit
@@ -201,6 +216,7 @@ public class Combat {
             monster.takeDamage(result);
 
             System.out.println("You hit the " + monster.getName() + " for " + result + " damage!");
+            player.getInfo().setUltimateCharges(currentCharges - 1);
         }
 
 
@@ -216,8 +232,10 @@ public class Combat {
 
         // if attack roll beats player ac, player takes damage
         if (attackRoll >= player.getStats().getAC()) {
-            System.out.println("The " + monster.getName() + "'s attack hits!");
-            player.takeDamage(Dice.rollAD10() + monster.getStats().getAttackBonus());
+
+            monster.attackText();
+            int calcDamage = Dice.rollAD10() + monster.getStats().getAttackBonus();
+            player.takeDamage(calcDamage);
 
         } else {
             System.out.println("The " + monster.getName() + "'s attack misses!");
@@ -232,6 +250,7 @@ public class Combat {
      */
     private boolean playerGoesFirst() {
 
+        boolean playerFirst;
         int playerInit = Dice.rollAD20() + player.getStats().getSpeed();
         int monsterInit = Dice.rollAD20() + monster.getStats().getSpeed();
 
@@ -241,13 +260,16 @@ public class Combat {
 
         if (playerInit > monsterInit) {
             System.out.println(player.getInfo().getName() + " goes first!");
-            return true;
+            playerFirst = true;
 
         } else {
             System.out.println(monster.getName() + " goes first!");
-            return false;
+            playerFirst = false;
         }
 
+        System.out.println("===============================");
+
+        return playerFirst;
     }
 
 

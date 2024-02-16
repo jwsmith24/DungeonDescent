@@ -29,6 +29,7 @@ public class CharacterBuilder {
 
     /**
      * Helper method to build a character from user input.
+     *
      * @return finished character
      */
     private static Character manualCharacterCreation() {
@@ -97,7 +98,7 @@ public class CharacterBuilder {
                             classSelection = PlayerClass.MAGE;
                         } else if (choice == 3) {
                             classSelection = PlayerClass.THIEF;
-                        } else{
+                        } else {
                             classSelection = PlayerClass.PRIEST;
                         }
 
@@ -116,7 +117,6 @@ public class CharacterBuilder {
                 break;
             }
         }
-
 
 
         return null;
@@ -160,6 +160,7 @@ public class CharacterBuilder {
 
         return null;
     }
+
     /**
      * Helper method to print out race options.
      */
@@ -179,6 +180,7 @@ public class CharacterBuilder {
 
         System.out.println(raceOptions);
     }
+
     /**
      * Helper method to handle getting race selection from user.
      */
@@ -187,7 +189,6 @@ public class CharacterBuilder {
         System.out.println("Select your race!");
 
         PlayerRace raceSelection;
-
 
 
         while (true) {
@@ -233,8 +234,8 @@ public class CharacterBuilder {
     }
 
     /**
-     *  Once character creation is done, we want to capture the state of the object so that
-     *  updating conditions, level, experience, etc. doesn't scale out of control.
+     * Once character creation is done, we want to capture the state of the object so that updating
+     * conditions, level, experience, etc. doesn't scale out of control.
      */
     public static Adventurer spawnCharacter(Character characterRef) {
 

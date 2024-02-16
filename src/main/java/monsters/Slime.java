@@ -13,7 +13,7 @@ public class Slime extends Monster {
      * Attack a player.
      */
     @Override
-    public void attack() {
+    public void attackText() {
 
         System.out.println("The ooze forms into a massive fist that sails in your direction!");
     }

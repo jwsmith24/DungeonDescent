@@ -13,7 +13,7 @@ public class Goblin extends Monster {
      * Attack a player.
      */
     @Override
-    public void attack() {
+    public void attackText() {
 
         System.out.println("The goblin strikes at you with its short sword!");
     }

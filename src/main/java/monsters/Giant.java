@@ -10,7 +10,7 @@ public class Giant extends Monster {
      * Attack a player.
      */
     @Override
-    public void attack() {
+    public void attackText() {
 
     }
 

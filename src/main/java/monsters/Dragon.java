@@ -13,7 +13,7 @@ public class Dragon extends Monster {
      * Attack a player.
      */
     @Override
-    public void attack() {
+    public void attackText() {
 
         System.out.println("The Dragon roars as the corridor erupts into flames!");
     }

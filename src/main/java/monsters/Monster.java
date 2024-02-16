@@ -1,7 +1,5 @@
 package monsters;
 
-import character.Adventurer;
-
 /**
  * Defines monster actions.
  */
@@ -25,7 +23,10 @@ public abstract class Monster {
     /**
      * Abstract method attack to ensure each monster type overrides with their own flavor text.
      */
-    public abstract void attack();
+    public void attackText() {
+
+        System.out.println("The " + this.name + "attacks!");
+    }
 
     //todo: model after player take damage
     public void takeDamage(int value) {

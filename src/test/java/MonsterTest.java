@@ -89,15 +89,15 @@ public class MonsterTest {
         Monster beholder = MonsterFactory.createBeholder();
         Monster displacerBeast = MonsterFactory.createDisplacerBeast();
 
-        goblin.attack();
-        dragon.attack();
-        spider.attack();
-        slime.attack();
-        skeleton.attack();
-        ogre.attack();
-        giant.attack();
-        beholder.attack();
-        displacerBeast.attack();
+        goblin.attackText();
+        dragon.attackText();
+        spider.attackText();
+        slime.attackText();
+        skeleton.attackText();
+        ogre.attackText();
+        giant.attackText();
+        beholder.attackText();
+        displacerBeast.attackText();
     }
 
 

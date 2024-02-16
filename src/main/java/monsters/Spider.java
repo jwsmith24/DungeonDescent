@@ -13,7 +13,7 @@ public class Spider extends Monster {
      * Attack a player.
      */
     @Override
-    public void attack() {
+    public void attackText() {
         System.out.println("The spider lunges at you to take a massive bite!");
 
     }

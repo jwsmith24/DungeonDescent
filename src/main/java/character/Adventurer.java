@@ -85,13 +85,17 @@ public class Adventurer {
      */
     public void takeDamage(int amount) {
 
-        // check that damage is a positive value
-        if (amount < 0) {
-            System.out.println("Damage cannot be negative!");
-        }
+        // Update HP to amount after subtracting damage
+        int currentHP = this.stats.getHitPoints() - amount;
+        this.stats.setHitPoints(currentHP);
 
-        int currentHP = this.stats.getHitPoints();
-        currentHP -= amount;
+        // Display how much damage was done by attack
+        System.out.println("The attack hits you for "
+                + amount + " damage!");
+
+        // Display remaining hp to player
+        System.out.println("Remaining hit points: " + this.getStats().getHitPoints()
+                + "/" + this.getStats().getMaxHP());
 
         // check to see if damage kills player and set hp to 0
         if (currentHP <= 0) {

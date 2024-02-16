@@ -13,7 +13,7 @@ public class Ogre extends Monster {
      * Attack a player.
      */
     @Override
-    public void attack() {
+    public void attackText() {
 
         System.out.println("The ogre attacks you with it's massive spiked club!");
     }

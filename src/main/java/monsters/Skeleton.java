@@ -13,7 +13,7 @@ public class Skeleton extends Monster {
      * Attack a player.
      */
     @Override
-    public void attack() {
+    public void attackText() {
 
         System.out.println("The skeleton swings its shattered blade at you");
 
