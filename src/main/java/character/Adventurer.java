@@ -1,6 +1,8 @@
 package character;
 
 import utility.index.Condition;
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
 
 import java.util.ArrayList;
 
@@ -10,17 +12,20 @@ import java.util.ArrayList;
  */
 public class Adventurer {
 
-    private CharacterInfo info;
-    private CharacterStats stats;
-    private CharacterSkills skills;
-    private ArrayList<Condition> activeEffects;
+    private final CharacterInfo info;
+    private final CharacterStats stats;
+    private final CharacterSkills skills;
+    private final ArrayList<Condition> activeEffects;
 
 
     /**
      * Default constructor, Adventurers are built with the character builder classes.
      */
-    public Adventurer() {
-        // empty for now
+    public Adventurer(CharacterInfo info, CharacterStats stats, CharacterSkills skills, ArrayList<Condition> activeEffects) {
+        this.info = info;
+        this.stats = stats;
+        this.skills = skills;
+        this.activeEffects = activeEffects;
 
     }
 
@@ -90,12 +95,10 @@ public class Adventurer {
         this.stats.setHitPoints(currentHP);
 
         // Display how much damage was done by attack
-        System.out.println("The attack hits you for "
-                + amount + " damage!");
+        System.out.println("The attack hits you for " + amount + " damage!");
 
         // Display remaining hp to player
-        System.out.println("Remaining hit points: " + this.getStats().getHitPoints()
-                + "/" + this.getStats().getMaxHP());
+        System.out.println("Remaining hit points: " + this.getHitPoints() + "/" + this.getMaxHP());
 
         // check to see if damage kills player and set hp to 0
         if (currentHP <= 0) {
@@ -117,13 +120,7 @@ public class Adventurer {
     }
 
 
-    public ArrayList<Condition> getActiveEffects() {
-        return activeEffects;
-    }
 
-    public void setActiveEffects(ArrayList<Condition> activeEffects) {
-        this.activeEffects = activeEffects;
-    }
 
     /**
      * Applies new condition to character. If this is the first condition applied, remove neutral
@@ -158,32 +155,115 @@ public class Adventurer {
 
     }
 
+    /**
+     * If player has a certain condition, method will return true.
+     */
+    public boolean hasCondition(Condition type) {
 
-    // Getters and Setters
+        for (Condition condition : this.activeEffects) {
+            if (condition.equals(type)) {
+                return true;
+            }
+        }
+        return false;
 
-    public void setInfo(CharacterInfo info) {
-        this.info = info;
     }
 
-    public CharacterInfo getInfo() {
-        return this.info;
+    // Spenders
+    public void spendUltimateCharges(int amount) {
+        info.setUltimateCharges(amount);
     }
 
-    public void setStats(CharacterStats stats) {
-        this.stats = stats;
+    // Getters
+
+    public int getDungeoneering() {
+        return skills.getDungeoneering();
     }
 
-    public CharacterStats getStats() {
-        return this.stats;
+    public int getLockPicking() {
+        return skills.getLockPicking();
     }
 
-    public void setSkills(CharacterSkills skills) {
-        this.skills = skills;
+    public int getAthletics() {
+        return skills.getAthletics();
     }
 
-    public CharacterSkills getSkills() {
-        return this.skills;
+    public int getArcana() {
+        return skills.getArcana();
     }
+
+    public int getHistory() {
+        return skills.getHistory();
+    }
+
+
+    public String getName() {
+        return info.getName();
+    }
+    public int getExperience() {
+        return info.getExperience();
+    }
+    public int getLevel() {
+        return info.getLevel();
+    }
+    public PlayerRace getPlayerRace() {
+        return info.getPlayerRace();
+    }
+    public PlayerClass getPlayerClass() {
+        return info.getPlayerClass();
+    }
+    public String getCharacterSheet() {
+        return info.getCharacterSheet();
+    }
+    public int getUltimateCharges() {
+        return info.getUltimateCharges();
+    }
+
+    public int getAttack() {
+        return stats.getAttack();
+    }
+
+
+
+
+    public int getAC() {
+        return stats.getAC();
+    }
+
+
+
+
+    public int getHitPoints() {
+        return stats.getHitPoints();
+    }
+
+
+
+    public int getMaxHP() {
+        return stats.getMaxHP();
+    }
+
+
+
+    public int getEnergy() {
+        return stats.getEnergy();
+    }
+
+
+
+
+    public int getSpeed() {
+        return stats.getSpeed();
+    }
+
+
+
+
+    public int getLuck() {
+        return stats.getLuck();
+    }
+
+
 
 
 }

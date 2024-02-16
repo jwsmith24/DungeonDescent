@@ -48,7 +48,7 @@ public class Combat {
             // determine initiative by rolling a d20 for each entity and adding speed score as a bonus
 
             if (playerFirst) {
-                System.out.println("\n" + player.getInfo().getName() + "'s turn");
+                System.out.println("\n" + player.getName() + "'s turn");
                 System.out.println("-------------------------------");
 
                 // player goes first
@@ -78,7 +78,7 @@ public class Combat {
                 }
 
                 // then player goes
-                System.out.println("\n" + player.getInfo().getName() + "'s turn");
+                System.out.println("\n" + player.getName() + "'s turn");
                 System.out.println("-------------------------------");
                 takePlayerTurn();
             }
@@ -173,8 +173,8 @@ public class Combat {
 
         System.out.println("What would you like to do?");
         System.out.println("Action Options:");
-        System.out.println("1. Basic Attack: " + player.getInfo().getPlayerClass().getAttackText());
-        System.out.println("2. Special Ability: " + player.getInfo().getPlayerClass().getSpecialAbilityText());
+        System.out.println("1. Basic Attack: " + player.getPlayerClass().getAttackText());
+        System.out.println("2. Special Ability: " + player.getPlayerClass().getSpecialAbilityText());
         System.out.println("3. Run Away");
 
 
@@ -195,14 +195,14 @@ public class Combat {
     private void basicAttackMonster() {
 
         // roll a d20 and add attack bonus
-        int attackRoll = Dice.rollAD20() + player.getStats().getAttack();
+        int attackRoll = Dice.rollAD20() + player.getAttack();
 
-        System.out.println("You attack with: " + player.getInfo().getPlayerClass().getAttackText());
+        System.out.println("You attack with: " + player.getPlayerClass().getAttackText());
 
         // Attack roll = d20 + attack bonus, damage roll = d10 + attack bonus
-        if (attackRoll >= monster.getStats().getArmorClass()) {
+        if (attackRoll >= monster.getArmorClass()) {
 
-            int result = Dice.rollAD10() + player.getStats().getAttack();
+            int result = Dice.rollAD10() + player.getAttack();
 
             System.out.println("You hit the " + monster.getName() + " for " + result + " damage!");
 
@@ -219,17 +219,17 @@ public class Combat {
      */
     private void useSpecialAbility() {
 
-        int currentCharges = player.getInfo().getUltimateCharges();
+        int currentCharges = player.getUltimateCharges();
         // character needs to have enough ultimate charges
         if (currentCharges > 0) {
-            System.out.println("You use: " + player.getInfo().getPlayerClass().getSpecialAbilityText());
+            System.out.println("You use: " + player.getPlayerClass().getSpecialAbilityText());
 
             // special deals double damage and is guaranteed to hit
-            int result = 2 * (Dice.rollAD10() + player.getStats().getAttack());
+            int result = 2 * (Dice.rollAD10() + player.getAttack());
             monster.takeDamage(result);
 
             System.out.println("You hit the " + monster.getName() + " for " + result + " damage!");
-            player.getInfo().setUltimateCharges(currentCharges - 1);
+            player.spendUltimateCharges(currentCharges - 1);
         }
 
 
@@ -241,13 +241,13 @@ public class Combat {
      */
     private void attackPlayer() {
 
-        int attackRoll = Dice.rollAD20() + monster.getStats().getAttackBonus();
+        int attackRoll = Dice.rollAD20() + monster.getAttackBonus();
 
         // if attack roll beats player ac, player takes damage
-        if (attackRoll >= player.getStats().getAC()) {
+        if (attackRoll >= player.getAC()) {
 
             monster.attackText();
-            int calcDamage = Dice.rollAD10() + monster.getStats().getAttackBonus();
+            int calcDamage = Dice.rollAD10() + monster.getAttackBonus();
             player.takeDamage(calcDamage);
 
         } else {
@@ -264,15 +264,15 @@ public class Combat {
     private boolean playerGoesFirst() {
 
         boolean playerFirst;
-        int playerInit = Dice.rollAD20() + player.getStats().getSpeed();
-        int monsterInit = Dice.rollAD20() + monster.getStats().getSpeed();
+        int playerInit = Dice.rollAD20() + player.getSpeed();
+        int monsterInit = Dice.rollAD20() + monster.getSpeed();
 
         System.out.println("Initiative rolls!");
-        System.out.println(player.getInfo().getName() + ": " + playerInit);
+        System.out.println(player.getName() + ": " + playerInit);
         System.out.println(monster.getName() + ": " + monsterInit);
 
         if (playerInit > monsterInit) {
-            System.out.println(player.getInfo().getName() + " goes first!");
+            System.out.println(player.getName() + " goes first!");
             playerFirst = true;
 
         } else {

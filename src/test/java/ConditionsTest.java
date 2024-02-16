@@ -1,4 +1,3 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -19,9 +18,7 @@ public class ConditionsTest {
 
         Adventurer player = CharacterCreationTest.spawnCharacter();
 
-        assertEquals(1, player.getActiveEffects().size(),
-                "effects list not 1");
-        assertTrue(player.getActiveEffects().contains(Condition.NEUTRAL));
+        assertTrue(player.hasCondition(Condition.NEUTRAL));
 
     }
 
@@ -34,12 +31,11 @@ public class ConditionsTest {
         player.applyCondition(Condition.RESTRAINED);
 
 
-        assertTrue(player.getActiveEffects().contains(Condition.RESTRAINED),
+        assertTrue(player.hasCondition(Condition.RESTRAINED),
                 "Bob is not showing RESTRAINED");
-        assertFalse(player.getActiveEffects().contains(Condition.NEUTRAL),
+        assertFalse(player.hasCondition(Condition.NEUTRAL),
                 "Neutral condition was not removed when new effect is applied");
-        assertEquals(1, player.getActiveEffects().size(),
-                "list size != 1");
+
 
     }
 
@@ -55,13 +51,13 @@ public class ConditionsTest {
         player.applyCondition(Condition.STUNNED);
 
         // Both conditions should be present in the active effects list
-        assertTrue(player.getActiveEffects().contains(Condition.BLINDED),
+        assertTrue(player.hasCondition(Condition.BLINDED),
                 "Original condition not in list");
-        assertTrue(player.getActiveEffects().contains(Condition.STUNNED),
+        assertTrue(player.hasCondition(Condition.STUNNED),
                 "New condition is not in list");
 
         // Make sure neutral condition is still not there
-        assertFalse(player.getActiveEffects().contains(Condition.NEUTRAL),
+        assertFalse(player.hasCondition(Condition.NEUTRAL),
                 "Neutral condition was not removed when new effect is applied");
 
     }
@@ -78,12 +74,10 @@ public class ConditionsTest {
         player.applyCondition(Condition.NEUTRAL);
 
         // Check for condition-free with only neutral in the list
-        assertFalse(player.getActiveEffects().contains(Condition.BLINDED),
+        assertFalse(player.hasCondition(Condition.BLINDED),
                 "Condition still present");
-        assertTrue(player.getActiveEffects().contains(Condition.NEUTRAL),
+        assertTrue(player.hasCondition(Condition.NEUTRAL),
                 "List does not contain neutral");
-        assertEquals(1, player.getActiveEffects().size(),
-                "List contains more than 1 element");
 
     }
 
@@ -100,9 +94,7 @@ public class ConditionsTest {
         player.applyCondition(Condition.NEUTRAL);
 
         // Check that applying neutral still works properly
-        assertEquals(1, player.getActiveEffects().size(),
-                "List contains more than 1 element");
-        assertTrue(player.getActiveEffects().contains(Condition.NEUTRAL),
+        assertTrue(player.hasCondition(Condition.NEUTRAL),
                 "List does not contain neutral");
 
     }

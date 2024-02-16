@@ -45,9 +45,28 @@ public abstract class Monster {
         return name;
     }
 
-    public MonsterStats getStats() {
-        return stats;
+
+    public int getArmorClass() {
+        return stats.getArmorClass();
     }
+
+    public int getAttackBonus() {
+        return stats.getAttackBonus();
+    }
+
+    public int getHP() {
+        return stats.getHp();
+    }
+
+    public int getSpeed() {
+        return stats.getSpeed();
+    }
+
+    public int getXP() {
+        return stats.getXP();
+    }
+
+
 
 
 }

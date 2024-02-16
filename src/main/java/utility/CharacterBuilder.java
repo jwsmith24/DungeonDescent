@@ -2,10 +2,12 @@ package utility;
 
 import character.*;
 import character.Character;
+import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -240,21 +242,13 @@ public class CharacterBuilder {
     public static Adventurer spawnCharacter(Character characterRef) {
 
         // Create Adventurer object that captures state of decorated object
-        Adventurer newPlayer = new Adventurer();
+        CharacterStats stats = CharacterStats.statBuilder(characterRef);
+        CharacterSkills skills = CharacterSkills.skillBuilder(characterRef);
+        CharacterInfo info = CharacterInfo.infoBuilder(characterRef);
 
-        // Stats
-        newPlayer.setStats(CharacterStats.statBuilder(characterRef));
+        ArrayList<Condition> activeEffects = characterRef.getActiveEffects();
 
-        // Skills
-        newPlayer.setSkills(CharacterSkills.skillBuilder(characterRef));
-
-        // Info
-        newPlayer.setInfo(CharacterInfo.infoBuilder(characterRef));
-
-        // Conditions
-        newPlayer.setActiveEffects(characterRef.getActiveEffects());
-
-        return newPlayer;
+        return new Adventurer(info, stats, skills, activeEffects);
     }
 
     /**

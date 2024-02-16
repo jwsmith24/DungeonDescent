@@ -43,9 +43,6 @@ public class BasicCharacter implements Character {
     ArrayList<Condition> activeEffects = new ArrayList<>();
 
     PlayerClass playerClass;
-    String specialAbility;
-    String racialAbility;
-    String attackType;
 
 
     /**
@@ -76,11 +73,33 @@ public class BasicCharacter implements Character {
         this.activeEffects.add(Condition.NEUTRAL);
 
         this.playerClass = PlayerClass.NO_CLASS;
-        this.attackType = PlayerClass.NO_CLASS.getAttackText();
-        this.specialAbility = PlayerClass.NO_CLASS.getSpecialAbilityText();
-
         this.race = PlayerRace.NEW_CHARACTER;
-        this.racialAbility = PlayerRace.NEW_CHARACTER.getRacialBonusText();
+
+    }
+
+    /**
+     * Copy constructor
+     */
+    public BasicCharacter(Character characterRef) {
+
+        this.attack = characterRef.getAttack();
+        this.defence = characterRef.getDefense();
+        this.hitPoints = characterRef.getHitPoints();
+        this.energy = characterRef.getEnergy();
+        this.speed = characterRef.getSpeed();
+        this.luck = characterRef.getLuck();
+        this.dungeoneering = characterRef.getDungeoneering();
+        this.lockPicking = characterRef.getLockPicking();
+        this.athletics = characterRef.getAthletics();
+        this.arcana = characterRef.getArcana();
+        this.history = characterRef.getHistory();
+        this.name = characterRef.getName();
+        this.race = characterRef.getPlayerRace();
+        this.experience = characterRef.getExperience();
+        this.level = characterRef.getLevel();
+        this.activeEffects = new ArrayList<>(characterRef.getActiveEffects());
+        this.playerClass = characterRef.getPlayerClass();
+
     }
 
 

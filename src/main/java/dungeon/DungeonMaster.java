@@ -74,9 +74,9 @@ public class DungeonMaster {
 
     private static void runTutorial() {
         // Porc the Orc Warrior uses sword strike to attack!
-        System.out.println(player.getInfo().getName() + " the " + player.getInfo().getPlayerRace()
-                + " " + player.getInfo().getPlayerClass() + " uses "
-                + player.getInfo().getPlayerClass().getAttackText() + " to attack!");
+        System.out.println(player.getName() + " the " + player.getPlayerRace()
+                + " " + player.getPlayerClass() + " uses "
+                + player.getPlayerClass().getAttackText() + " to attack!");
 
         // determine starting weapon based on class
         Item startingWeapon = giveStartingWeapon();
@@ -94,7 +94,7 @@ public class DungeonMaster {
 
         Item startingWeapon;
 
-        switch (player.getInfo().getPlayerClass()) {
+        switch (player.getPlayerClass()) {
 
             case MAGE:
                 startingWeapon = Item.WARPED_WAND;

@@ -28,16 +28,19 @@ public class CharacterStats {
     }
 
     public static CharacterStats statBuilder(Character character) {
+        // copy all the character stats and return a new character with the copied stats
+        // Ensures complete separation for the adventurer object
 
-        return new CharacterStats(
-                character.getAttack(),
-                character.getDefense(),
-                character.getHitPoints(),
-                character.getEnergy(),
-                character.getSpeed(),
-                character.getLuck()
-        );
+        Character copy = new BasicCharacter(character);
+        int atk = copy.getAttack();
+        int def = copy.getDefense();
+        int hp = copy.getHitPoints();
+        int eng = copy.getEnergy();
+        int speed = copy.getSpeed();
+        int luck = copy.getLuck();
 
+
+        return new CharacterStats(atk, def, hp, eng, speed, luck);
 
     }
 
