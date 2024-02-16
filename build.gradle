@@ -51,5 +51,11 @@ spotbugs {
     ignoreFailures = true
     showProgress = true
     effort = 'max'
-}
 
+}
+spotbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}

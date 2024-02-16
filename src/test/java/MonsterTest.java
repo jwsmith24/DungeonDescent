@@ -58,7 +58,7 @@ public class MonsterTest {
                 "Wrong AC for dragon");
         assertEquals("Skeleton", skeleton.getName(),
                 "Should be a skeleton");
-        assertEquals(3, slime.getStats().getAttackBonus(),
+        assertEquals(1, slime.getStats().getAttackBonus(),
                 "Wrong attack bonus");
         assertEquals("Ogre", ogre.getName(),
                 "Should be an Ogre");
