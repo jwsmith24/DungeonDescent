@@ -12,10 +12,10 @@ public class CharacterInfo {
 
     private int experience;
     private int level;
-    private String name;
-    private PlayerRace race;
-    private PlayerClass playerClass;
-    private String characterSheet;
+    private final String name;
+    private final PlayerRace race;
+    private final PlayerClass playerClass;
+    private final String characterSheet;
     private int ultimateCharges;
 
 
@@ -63,7 +63,11 @@ public class CharacterInfo {
         return experience;
     }
 
-    public void gainExperience(int experience) {
+    protected void resetXP() {
+        this.experience = 0;
+    }
+
+    protected void gainExperience(int experience) {
 
         this.experience += experience;
     }
@@ -76,7 +80,7 @@ public class CharacterInfo {
     /**
      * Increment player level by 1
      */
-    public void gainLevel() {
+    protected void gainLevel() {
 
         this.level += 1;
     }
@@ -102,13 +106,13 @@ public class CharacterInfo {
     public int getUltimateCharges() {
         return ultimateCharges;
     }
-    public void gainUltimateCharge() {
+    protected void gainUltimateCharge() {
 
         this.ultimateCharges += 1;
 
     }
 
-    public boolean spendUltimateCharge() {
+    protected boolean spendUltimateCharge() {
         if (ultimateCharges > 0) {
             this.ultimateCharges -= 1;
             return true;

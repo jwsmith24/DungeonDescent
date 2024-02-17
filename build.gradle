@@ -1,3 +1,5 @@
+import com.github.spotbugs.snom.SpotBugsReport
+
 plugins {
     id "com.github.spotbugs" version "5.0.12"
     id "checkstyle"
@@ -54,8 +56,9 @@ spotbugs {
 
 }
 spotbugsMain {
-    reports {
+    reports(({
         xml.enabled = false
         html.enabled = true
-    }
+    } as Closure<NamedDomainObjectContainer<? extends SpotBugsReport>>))
 }
+

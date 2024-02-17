@@ -117,52 +117,10 @@ public class DungeonMaster {
 
     //todo:
     // implement looting/finding new items,
-    // implement gold and xp drops
-    // make UI prettier/add a clean up and loot phase between encounters
-    // adding some more flavor text
     // xp gain from killing monsters and leveling up (apply bonus to attack and HP)
     // implement long rest after floors 5 and 10
     //
 
-    /**
-     * Helper method to run the medium monster encounter every major level.
-     *
-     * @return boolean isPlayerAlive
-     */
-    private static boolean runMediumMonsterFloor(Adventurer player, int cycleCount) {
-        boolean playerIsAlive;
-        int lootChance = DungeonUtil.rollAD20();
-
-        // applies a stacking buff every 5 floors
-        player.applyPower();
-
-        // Set active monster to a random medium monster
-        Monster monster = MonsterFactory.randomMediumMonster();
-        System.out.println("A " + monster.getName() + " appears!\n");
-
-        // go to combat
-        Combat dungeonCombat = new Combat(player, monster, cycleCount);
-
-        // combat resolves into a boolean that's true if player is alive or false if they died.
-        playerIsAlive = dungeonCombat.combat();
-
-        // Chance to find the shopkeeper or loot lying around
-        if (playerIsAlive && (lootChance) > 15) {
-
-            Shop.shopKeeperEncounter(scanner);
-
-        } else if (playerIsAlive && (lootChance > 10)) {
-            System.out.println("The " + monster.getName() + " leaves behind some loot!");
-            lootTheRoom();
-        }
-
-        // player can long rest to recover stats
-        if (playerIsAlive) {
-            promptLongRest();
-        }
-
-        return playerIsAlive;
-    }
 
     /**
      * Asks the user if they want to take a long rest and execute if yes.
@@ -180,6 +138,51 @@ public class DungeonMaster {
     }
 
     /**
+     * Helper method to run the medium monster encounter every major level.
+     *
+     * @return boolean isPlayerAlive
+     */
+    private static boolean runMediumMonsterFloor(Adventurer player, int cycleCount) {
+        boolean playerIsAlive;
+        int lootChance = DungeonUtil.rollAD20();
+
+        // applies a stacking buff every 5 floors
+        player.applyPower();
+
+        // Set active monster to a random medium monster
+        Monster monster = MonsterFactory.randomMediumMonster();
+
+        DungeonUtil.printSpecialWrapper();
+        System.out.println("A " + monster.getName() + " appears!\n");
+        DungeonUtil.printSpecialWrapper();
+
+        // go to combat
+        Combat dungeonCombat = new Combat(player, monster, cycleCount);
+
+        // combat resolves into a boolean that's true if player is alive or false if they died.
+        playerIsAlive = dungeonCombat.combat();
+
+        // Chance to find the shopkeeper or loot lying around
+        if (playerIsAlive && (lootChance) > 15) {
+
+            Shop.shopKeeperEncounter(scanner);
+
+        } else if (playerIsAlive && (lootChance > 10)) {
+            System.out.println("The " + monster.getName() + " leaves behind some loot!");
+            lootTheRoom();
+        }
+
+        // If player is alive at the end of encounter, apply XP and give option to long rest.
+        if (playerIsAlive) {
+            player.gainMediumXP();
+            promptLongRest();
+        }
+
+        return playerIsAlive;
+    }
+
+
+    /**
      * Helper method to run the small monster encounter every minor level.
      *
      * @return if player is still alive at the end of the encounter
@@ -190,7 +193,10 @@ public class DungeonMaster {
 
         // set active monster to a random small monster
         Monster monster = MonsterFactory.randomSmallMonster();
+
+        DungeonUtil.printSpecialWrapper();
         System.out.println("A " + monster.getName() + " appears!");
+        DungeonUtil.printSpecialWrapper();
 
         // go to combat
         Combat dungeonCombat = new Combat(player, monster, cycleCount);
@@ -202,6 +208,11 @@ public class DungeonMaster {
         if (playerIsAlive && lootChance > 12) {
             System.out.println("The " + monster.getName() + " leaves behind some loot!");
             lootTheRoom();
+        }
+
+        // If player is alive at the end of encounter, apply XP.
+        if (playerIsAlive) {
+            player.gainSmallXP();
         }
 
         return playerIsAlive;
@@ -221,7 +232,10 @@ public class DungeonMaster {
 
         // Set active monster to a random medium monster
         Monster monster = MonsterFactory.randomLargeMonster();
+
+        DungeonUtil.printSpecialWrapper();
         System.out.println("A " + monster.getName() + " appears!\n");
+        DungeonUtil.printSpecialWrapper();
 
         // go to combat
         Combat dungeonCombat = new Combat(player, monster, cycleCount);
@@ -229,6 +243,13 @@ public class DungeonMaster {
         // combat resolves into a boolean that's true if player is alive or false if they died.
         playerIsAlive = dungeonCombat.combat();
 
+        // If player is alive at the end of encounter, apply XP, option to shop
+        // and give option to long rest.
+        if (playerIsAlive) {
+            player.gainBossXP();
+            Shop.shopKeeperEncounter(scanner);
+            promptLongRest();
+        }
 
         return playerIsAlive;
     }
@@ -252,12 +273,6 @@ public class DungeonMaster {
 
                 playerIsAlive = runMediumMonsterFloor(player, cycleCount);
 
-                // buffer for level clean up
-                // display current stats
-                // display total gold and xp
-                // display level
-
-
                 // run boss floor at level 10
             } else if (level == 10) {
                 playerIsAlive = runBossMonsterFloor(player, cycleCount);
@@ -268,11 +283,13 @@ public class DungeonMaster {
 
             }
 
-            // display recap to player at end of the level
+            // check for level up and display recap to player at end of the level
+            player.checkLevelUp();
             levelRecap();
 
             level++;
             dungeonLevel++;
+
         }
 
         // at level 10 fight a boss monster
@@ -283,6 +300,7 @@ public class DungeonMaster {
         dungeonLevel++;
 
     }
+
 
 
     /**

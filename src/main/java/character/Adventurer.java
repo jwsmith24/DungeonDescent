@@ -16,13 +16,14 @@ public class Adventurer {
     private final CharacterInfo info;
     private final CharacterStats stats;
     private final CharacterSkills skills;
-    private final ArrayList<Condition> activeEffects;
+    private final CharacterActiveEffects activeEffects;
 
 
     /**
      * Default constructor, Adventurers are built with the character builder classes.
      */
-    public Adventurer(CharacterInfo info, CharacterStats stats, CharacterSkills skills, ArrayList<Condition> activeEffects) {
+    public Adventurer(CharacterInfo info, CharacterStats stats, CharacterSkills skills,
+                      CharacterActiveEffects activeEffects) {
         this.info = info;
         this.stats = stats;
         this.skills = skills;
@@ -64,28 +65,56 @@ public class Adventurer {
         return stats.getCurrentHP() > 0;
     }
 
-
     public void gainSmallXP() {
+        int xp = DungeonUtil.SMALL_XP;
 
-        this.info.gainExperience(100);
+
+        System.out.println("You gained " + xp + " XP!");
+        this.info.gainExperience(DungeonUtil.SMALL_XP);
     }
 
     public void gainMediumXP() {
+        int xp = DungeonUtil.MED_XP;
 
-        this.info.gainExperience(200);
+        System.out.println("You gained " + xp + " XP!");
+        this.info.gainExperience(DungeonUtil.MED_XP);
     }
 
     public void gainBossXP() {
+        int xp = DungeonUtil.BOSS_XP;
 
-        this.info.gainExperience(500);
+        System.out.println("You gained " + xp + " XP!");
+        this.info.gainExperience(DungeonUtil.BOSS_XP);
     }
 
 
-
-
+    /**
+     * XP to next level = next level * 100
+     * Ex: Level 2 player needs to acquire 300 xp to level up.
+     * @return total xp required for next level
+     */
     public int nextLevelXP() {
 
-        return 1000 * this.getLevel();
+        return 100 * (this.getLevel() + 1);
+    }
+
+    /**
+     * If player meets conditions to level up, increase level.
+     */
+    public void checkLevelUp() {
+        // if current xp > amount needed to level up, apply level up
+
+        if (getCurrentXP() >= nextLevelXP()) {
+            info.gainLevel();
+
+            DungeonUtil.printSpecialWrapper();
+            System.out.println("Ding! Level " + getLevel() + " acquired!");
+            DungeonUtil.printSpecialWrapper();
+
+            info.resetXP();
+        }
+
+
     }
 
 
@@ -98,9 +127,8 @@ public class Adventurer {
      */
     public void takeDamage(int amount) {
 
-        // Update HP to amount after subtracting damage
-        int currentHP = this.stats.getCurrentHP() - amount;
-        this.stats.setCurrentHP(currentHP);
+        // apply damage to character
+        stats.takeDamage(amount);
 
         // Display how much damage was done by attack
         System.out.println("The attack hits you for " + amount + " damage!");
@@ -109,86 +137,36 @@ public class Adventurer {
         System.out.println("Remaining hit points: " + this.getCurrentHP() + "/" + this.getMaxHP());
 
         // check to see if damage kills player and set hp to 0
-        if (currentHP <= 0) {
+        if (getCurrentHP() <= 0) {
             System.out.println("The damage is fatal.");
-            this.stats.setCurrentHP(0);
+            this.stats.zeroizeHP();
         }
     }
 
     /**
-     * Used by entites that cause the character to gain HP.
+     * Used by entities that cause the character to gain HP.
      *
      * @param amount hp gained
      */
     public void healPlayer(int amount) {
 
-        int newHp = this.stats.getCurrentHP() + amount;
-
         // if healing would bring player over max hp, just set hp to max
-        this.stats.setCurrentHP(Math.min(newHp, this.stats.getMaxHP()));
+        this.stats.restoreHP(amount);
     }
 
 
     public void applyPower() {
         DungeonUtil.printSpacer();
-        DungeonUtil.printSpecialAbilityWrapper();
+        DungeonUtil.printSpecialWrapper();
 
         System.out.println("You feel a presence come from deep within the dungeon. An overwhelming feeling of "
                 + "joy washes over you, then.. power. It beckons you onward... \n");
         System.out.println("All stats increase by 1");
         System.out.println("HP increases by 10\n");
-        
-        DungeonUtil.printSpecialAbilityWrapper();
+
+        DungeonUtil.printSpecialWrapper();
 
         stats.applyPowerStatBoost();
-    }
-
-
-    /**
-     * Applies new condition to character. If this is the first condition applied, remove neutral
-     * and apply the new condition. If this is condition 2+, add the condition. Clearing conditions
-     * is clearing the list and adding neutral to active effects.
-     *
-     * @param newCondition new condition to apply to character.
-     */
-    public void applyCondition(Condition newCondition) {
-
-
-        // If applying the NEUTRAL condition, we need to clear the list of active effects
-
-        if (newCondition == Condition.NEUTRAL) {
-
-            // Clear the list of all effects, add neutral
-            activeEffects.clear();
-            activeEffects.add(Condition.NEUTRAL);
-
-        } else {
-            // Remove neutral from list before applying new effect
-            activeEffects.removeIf(condition -> condition == Condition.NEUTRAL);
-
-            // Using the removeIf from Iterator instead of an enhanced for loop is safe
-            // to use during concurrent iteration
-
-            // Apply new effect
-            activeEffects.add(newCondition);
-
-
-        }
-
-    }
-
-    /**
-     * If player has a certain condition, method will return true.
-     */
-    public boolean hasCondition(Condition type) {
-
-        for (Condition condition : this.activeEffects) {
-            if (condition.equals(type)) {
-                return true;
-            }
-        }
-        return false;
-
     }
 
 

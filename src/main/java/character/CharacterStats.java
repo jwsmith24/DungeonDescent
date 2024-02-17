@@ -62,61 +62,65 @@ public class CharacterStats {
     }
 
 
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
 
     public int getAC() {
         return this.ac;
     }
 
-    public void setAc(int ac) {
-        this.ac = ac;
-    }
 
 
     public int getCurrentHP() {
         return currentHP;
     }
 
-    public void setCurrentHP(int hitPoints) {
-        this.currentHP = hitPoints;
+
+    /**
+     * Zeroizes hp when hp falls below 0.
+     */
+    protected void zeroizeHP() {
+        this.currentHP = 0;
+    }
+
+    protected void restoreHP(int amount) {
+        int hpAfterHeal = currentHP + amount;
+
+        // prevents current hp from ever going over max
+        this.currentHP = Math.min(maxHP, hpAfterHeal);
+    }
+
+    /**
+     * Applies damage to character.
+     * @param amount of damage taken
+     */
+    protected void takeDamage(int amount) {
+        this.currentHP -= amount;
     }
 
     public int getMaxHP() {
         return maxHP;
     }
-    public void setMaxHP(int maxHp) {
-        this.maxHP = maxHp;
-    }
+
 
 
     public int getEnergy() {
         return energy;
     }
 
-    public void setEnergy(int energy) {
-        this.energy = energy;
-    }
+
 
 
     public int getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
+
 
 
     public int getLuck() {
         return luck;
     }
 
-    public void setLuck(int luck) {
-        this.luck = luck;
-    }
+
 
 }
 

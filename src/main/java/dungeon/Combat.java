@@ -192,15 +192,15 @@ public class Combat {
      */
     private void basicAttack() {
 
-        // roll a d20 and add attack bonus
-        int attackRoll = DungeonUtil.rollAD20() + player.getAttack();
+        // roll a d20 and add player attack bonus + level
+        int attackRoll = DungeonUtil.rollAD20() + player.getAttack() + player.getLevel();
 
         System.out.println("\nYou attack with: " + player.getPlayerClass().getAttackText());
 
         // Attack roll = d20 + attack bonus, damage roll = d10 + attack bonus
         if (attackRoll >= monster.getArmorClass()) {
 
-            int result = DungeonUtil.rollAD10() + player.getAttack();
+            int result = DungeonUtil.rollAD10() + player.getAttack() + player.getLevel();
 
             System.out.println("You hit the " + monster.getName() + " for " + result + " damage!");
 
@@ -220,9 +220,9 @@ public class Combat {
         // character needs to have enough ultimate charges
         if (player.spendUltimateCharge()) {
 
-            DungeonUtil.printSpecialAbilityWrapper();
+            DungeonUtil.printSpecialWrapper();
             System.out.println("You use: " + player.getPlayerClass().getSpecialAbilityText());
-            DungeonUtil.printSpecialAbilityWrapper();
+            DungeonUtil.printSpecialWrapper();
 
             // special deals double damage and is guaranteed to hit
             int result = 2 * (DungeonUtil.rollAD10() + player.getAttack());

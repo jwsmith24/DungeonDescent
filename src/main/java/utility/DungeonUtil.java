@@ -7,6 +7,10 @@ import java.util.Random;
  */
 public class DungeonUtil {
 
+    public static final int SMALL_XP = 100;
+    public static final int MED_XP = 200;
+    public static final int BOSS_XP = 500;
+
     private static final Random d20 = new Random();
 
 
@@ -29,9 +33,9 @@ public class DungeonUtil {
         System.out.println("*\n");
     }
 
-    public static void printSpecialAbilityWrapper() {
+    public static void printSpecialWrapper() {
 
-        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        System.out.println("\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
     }
 
 

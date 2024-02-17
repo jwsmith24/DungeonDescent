@@ -39,8 +39,8 @@ public class CharacterSkills {
         return dungeoneering;
     }
 
-    public void setDungeoneering(int dungeoneering) {
-        this.dungeoneering = dungeoneering;
+    protected void modDungeoneering(int amount) {
+        this.dungeoneering += amount;
     }
 
 
@@ -48,8 +48,8 @@ public class CharacterSkills {
         return lockPicking;
     }
 
-    public void setLockPicking(int lockPicking) {
-        this.lockPicking = lockPicking;
+    protected void modLockPicking(int amount) {
+        this.lockPicking += amount;
     }
 
 
@@ -57,8 +57,8 @@ public class CharacterSkills {
         return athletics;
     }
 
-    public void setAthletics(int athletics) {
-        this.athletics = athletics;
+    protected void modAthletics(int amount) {
+        this.athletics += amount;
     }
 
 
@@ -66,8 +66,8 @@ public class CharacterSkills {
         return arcana;
     }
 
-    public void setArcana(int arcana) {
-        this.arcana = arcana;
+    protected void modArcana(int amount) {
+        this.arcana += amount;
     }
 
 
@@ -75,8 +75,8 @@ public class CharacterSkills {
         return history;
     }
 
-    public void setHistory(int history) {
-        this.history = history;
+    protected void modHistory(int amount) {
+        this.history += amount;
     }
 
 }

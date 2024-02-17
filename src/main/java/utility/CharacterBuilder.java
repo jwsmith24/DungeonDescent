@@ -245,10 +245,9 @@ public class CharacterBuilder {
         CharacterStats stats = CharacterStats.statBuilder(characterRef);
         CharacterSkills skills = CharacterSkills.skillBuilder(characterRef);
         CharacterInfo info = CharacterInfo.infoBuilder(characterRef);
+        CharacterActiveEffects effects = CharacterActiveEffects.effectsBuilder(characterRef);
 
-        ArrayList<Condition> activeEffects = characterRef.getActiveEffects();
-
-        return new Adventurer(info, stats, skills, activeEffects);
+        return new Adventurer(info, stats, skills, effects);
     }
 
     /**
