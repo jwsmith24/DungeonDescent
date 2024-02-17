@@ -1,4 +1,3 @@
-import character.Adventurer;
 import character.PlayerInventory;
 import org.junit.jupiter.api.Test;
 import utility.index.Condition;
@@ -10,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * This class contains tests for player actions in the dungeon (in and out of combat).
  */
-public class AdventurerCombatTest extends AdventurerTests {
+public class AdventurerActionsTest extends AdventurerTests {
 
 
     @Test
@@ -62,7 +61,8 @@ public class AdventurerCombatTest extends AdventurerTests {
 
 
     /**
-     * Checks that healing potion applies health, doesn't raise the max hp, and doesn't go over max hp
+     * Checks that healing potion applies health, doesn't raise the max hp, and doesn't go over max
+     * hp
      */
     @Test
     void testDrinkPotionWithOneEquipped() {

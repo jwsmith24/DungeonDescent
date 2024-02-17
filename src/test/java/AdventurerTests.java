@@ -1,5 +1,7 @@
 import character.*;
 import character.Character;
+import monsters.Monster;
+import monsters.MonsterFactory;
 import utility.CharacterBuilder;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
@@ -7,6 +9,9 @@ import utility.index.PlayerRace;
 public abstract class AdventurerTests {
 
     Adventurer player = spawnCharacter();
+    Monster goblin = MonsterFactory.createGoblin();
+    Monster giantSpider = MonsterFactory.createSpider();
+    Monster dragon = MonsterFactory.createDragon();
 
     /**
      * Helper method to spawn in a test Player named "Cloud".

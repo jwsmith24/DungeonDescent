@@ -4,7 +4,6 @@ import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
 
-
 /**
  * Builder for character info.
  */
@@ -12,12 +11,11 @@ public class CharacterInfo {
 
     private int experience;
     private int level;
+    private int ultimateCharges;
     private final String name;
     private final PlayerRace race;
     private final PlayerClass playerClass;
     private final String characterSheet;
-    private int ultimateCharges;
-
 
 
     public CharacterInfo(int experience, int level, String name, PlayerRace race, PlayerClass playerClass,
@@ -35,7 +33,7 @@ public class CharacterInfo {
 
     /**
      * Handles construction of the character's information
-     * @param character
+     *
      * @return characterInfo object
      */
     public static CharacterInfo infoBuilder(Character character) {
@@ -50,9 +48,6 @@ public class CharacterInfo {
                 character.getCharacterSheet());
 
     }
-
-
-
 
     public String getName() {
         return name;
@@ -91,12 +86,9 @@ public class CharacterInfo {
     }
 
 
-
-
     public PlayerClass getPlayerClass() {
         return playerClass;
     }
-
 
 
     public String getCharacterSheet() {
@@ -106,6 +98,7 @@ public class CharacterInfo {
     public int getUltimateCharges() {
         return ultimateCharges;
     }
+
     protected void gainUltimateCharge() {
 
         this.ultimateCharges += 1;

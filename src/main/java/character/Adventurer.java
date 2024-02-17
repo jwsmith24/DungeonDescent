@@ -31,6 +31,49 @@ public class Adventurer {
 
     }
 
+    public int basicAttackRoll() {
+        // roll a d20 and add player attack bonus + level
+        int attackRoll = DungeonUtil.rollAD20() + stats.getAttack() + info.getLevel();
+
+        System.out.println("\nYou attack with: " + info.getPlayerClass().getAttackText());
+        System.out.println("You rolled a " + attackRoll + " to hit!");
+
+        return attackRoll;
+    }
+
+    public int basicAttackDamage() {
+        int result = DungeonUtil.rollAD10() + stats.getAttack() + info.getLevel();
+
+        System.out.println("Your attack hits for " + result + " damage!");
+
+        return result;
+    }
+
+    /**
+     * If player has charges to use, calculate special ability damage. Otherwise, return 0 damage.
+     * @return special ability damage.
+     */
+    public int useSpecialAttack() {
+
+        if (info.spendUltimateCharge()) {
+
+            DungeonUtil.printSpecialWrapper();
+            System.out.println("You use: " + info.getPlayerClass().getSpecialAbilityText());
+            DungeonUtil.printSpecialWrapper();
+
+            // special deals double damage and is guaranteed to hit
+            int result = 2 * (DungeonUtil.rollAD10() + stats.getAttack());
+
+            System.out.println("Your special attack hits for " + result + " damage!");
+
+            return result;
+
+        } else {
+
+            return 0;
+        }
+    }
+
     /**
      * Resets hp to max hp, resets ultimate charges, and clears conditions
      */

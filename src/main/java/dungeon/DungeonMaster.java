@@ -117,8 +117,7 @@ public class DungeonMaster {
 
     //todo:
     // implement looting/finding new items,
-    // xp gain from killing monsters and leveling up (apply bonus to attack and HP)
-    // implement long rest after floors 5 and 10
+    // implement traps that apply conditions
     //
 
 
@@ -256,6 +255,12 @@ public class DungeonMaster {
 
     /**
      * Logic for running a dungeon cycle that consists of 10 levels.
+     *
+     * <p>Levels 3 and 7 are trap levels. </p>
+     *
+     * <p>Levels 5 and 10 are medium boss and large boss respectively.</p>
+     *
+     * <p>All other levels are small monster encounters.</p>
      */
     private static void runDungeonCycle() {
 
@@ -268,39 +273,43 @@ public class DungeonMaster {
 
         while (level <= 10 && playerIsAlive) {
 
-            // At level 5, fight a medium monster
-            if (level == 5) {
+            if (level == 3) {
+                System.out.println("It's a trap!");
+
+            } else if (level == 5) {
 
                 playerIsAlive = runMediumMonsterFloor(player, cycleCount);
 
                 // run boss floor at level 10
+            } else if (level == 7) {
+                System.out.println("It's a trap!");
+
+                // cycle boss
             } else if (level == 10) {
                 playerIsAlive = runBossMonsterFloor(player, cycleCount);
 
-                // other run normal floor with small monster
+                // otherwise run normal floor with small monster
             } else {
                 playerIsAlive = runSmallMonsterFloor(player, cycleCount);
 
             }
 
-            // check for level up and display recap to player at end of the level
-            player.checkLevelUp();
-            levelRecap();
+            // if player is still alive after combat cycle, clean up level and move on
+            if (playerIsAlive) {
+                // check for level up and display recap to player at end of the level
+                player.checkLevelUp();
+                levelRecap();
 
-            level++;
-            dungeonLevel++;
+                level++;
+                dungeonLevel++;
+            }
 
         }
 
-        // at level 10 fight a boss monster
-
-
         // after the 10th level, increase cycle count (which modifies monster difficulty)
         cycleCount++;
-        dungeonLevel++;
 
     }
-
 
 
     /**
@@ -323,8 +332,6 @@ public class DungeonMaster {
     }
 
 
-
-
     /**
      * Handles random gold drops and adding to inventory at the end of a room.
      */
@@ -332,7 +339,6 @@ public class DungeonMaster {
         int goldFound = DungeonUtil.rollAD20();
         PlayerInventory.pickUpGold(goldFound);
     }
-
 
 
 }
