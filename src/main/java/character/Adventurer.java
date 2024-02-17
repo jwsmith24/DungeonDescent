@@ -4,8 +4,7 @@ import utility.DungeonUtil;
 import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
-
-import java.util.ArrayList;
+import utility.index.PlayerSkills;
 
 /**
  * Encapsulates a character after it is constructed to be more maintainable when interacting with
@@ -75,6 +74,32 @@ public class Adventurer {
     }
 
     /**
+     * Handles player rolling a skill check for the passed skill.
+     * @param skill skill used for the check
+     * @return result of the skill check
+     */
+    public int rollSkillCheck(PlayerSkills skill) {
+
+        int roll = DungeonUtil.rollAD20();
+
+        switch (skill) {
+            case ARCANA: roll += skills.getArcana();
+            case ATHLETICS: roll += skills.getAthletics();
+            case HISTORY: roll += skills.getHistory();
+            case DUNGEONEERING: roll += skills.getDungeoneering();
+            case LOCK_PICKING: roll += skills.getLockPicking();
+            default: roll += 1;
+        }
+
+        System.out.println("Roll for " + skill.name() + "!");
+        System.out.println("Result: " + roll);
+
+        return roll;
+
+
+    }
+
+                              /**
      * Resets hp to max hp, resets ultimate charges, and clears conditions
      */
     public void takeLongRest() {

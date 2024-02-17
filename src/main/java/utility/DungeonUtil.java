@@ -13,6 +13,8 @@ public class DungeonUtil {
 
     public static final int TRAP_DAMAGE = 6;
 
+    public static final int TRAP_DC = 12;
+
     private static final Random d20 = new Random();
 
 

@@ -38,6 +38,8 @@ public class CharacterActiveEffects {
             activeEffects.clear();
             activeEffects.add(Condition.NEUTRAL);
 
+            System.out.println("Conditions are cleared!");
+
         } else {
             // Remove neutral from list before applying new effect
             activeEffects.removeIf(condition -> condition == Condition.NEUTRAL);
@@ -48,8 +50,11 @@ public class CharacterActiveEffects {
             // Apply new effect
             activeEffects.add(newCondition);
 
+            System.out.println("You are now " + newCondition.name());
+            System.out.println(newCondition.getDescription());
 
         }
+
 
     }
 

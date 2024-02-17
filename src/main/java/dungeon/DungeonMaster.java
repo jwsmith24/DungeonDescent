@@ -224,7 +224,6 @@ public class DungeonMaster {
      */
     private static boolean runBossMonsterFloor(Adventurer player, int cycleCount) {
         boolean playerIsAlive;
-        int lootChance = DungeonUtil.rollAD20();
 
         // applies a stacking buff every 5 floors
         player.applyPower();
@@ -274,7 +273,8 @@ public class DungeonMaster {
         while (level <= 10 && playerIsAlive) {
 
             if (level == 3) {
-                System.out.println("It's a trap!");
+
+                runTeleportTrap();
 
             } else if (level == 5) {
 
@@ -282,7 +282,8 @@ public class DungeonMaster {
 
                 // run boss floor at level 10
             } else if (level == 7) {
-                System.out.println("It's a trap!");
+
+                runFalseFloorTrap();
 
                 // cycle boss
             } else if (level == 10) {
@@ -311,6 +312,39 @@ public class DungeonMaster {
 
     }
 
+    private static void runTeleportTrap() {
+        Trap teleportTrap = TeleportTrap.teleportTrapBuilder();
+
+        DungeonUtil.printSpacer();
+
+        // prompt player there is something interesting ahead
+        teleportTrap.displayDiscoveryText();
+
+        // roll a skill check that corresponds to the trap's check
+
+        // if player passes, they avoid the trap and get some xp
+        int skillCheck  = player.rollSkillCheck(teleportTrap.getSkillCheckType());
+
+        if (teleportTrap.doesPlayerBeatAC(skillCheck)) {
+
+            teleportTrap.displaySuccessText();
+            player.gainMediumXP();
+
+            // if player fails: display failure, deal damage, and apply condition
+
+        } else {
+            teleportTrap.displayFailureText();
+            player.takeDamage(teleportTrap.getDamage());
+            player.applyCondition(teleportTrap.getEffectType());
+        }
+
+
+    }
+
+    private static void runFalseFloorTrap() {
+
+    }
+
 
     /**
      * Displays important info to player at the end of the level.
@@ -321,11 +355,11 @@ public class DungeonMaster {
 
         System.out.println("*******************************************************");
         System.out.println("*                    Level Recap                      *");
-        System.out.printf("*   Dungeon Level: %d                                  *\n", dungeonLevel);
-        System.out.printf("*   Player Level: %d                                   *\n", player.getLevel());
-        System.out.printf("*   Player HP: %d/%d                                  *\n", player.getCurrentHP(), player.getMaxHP());
-        System.out.printf("*   Player XP: %d/%d                                    *\n", player.getCurrentXP(), player.nextLevelXP());
-        System.out.printf("*   Player Gold: %d                                    *\n", PlayerInventory.currentGoldBalance());
+        System.out.printf("*   Dungeon Level: %d                                  *%n", dungeonLevel);
+        System.out.printf("*   Player Level: %d                                   *%n", player.getLevel());
+        System.out.printf("*   Player HP: %d/%d                                  *%n", player.getCurrentHP(), player.getMaxHP());
+        System.out.printf("*   Player XP: %d/%d                                    *%n", player.getCurrentXP(), player.nextLevelXP());
+        System.out.printf("*   Player Gold: %d                                    *%n", PlayerInventory.currentGoldBalance());
         System.out.println("*******************************************************");
 
         DungeonUtil.printSpacer();
@@ -333,12 +367,12 @@ public class DungeonMaster {
 
 
     /**
-     * Handles random gold drops and adding to inventory at the end of a room. Adds luck score
-     * to amount of gold found.
+     * Handles random gold drops and adding to inventory at the end of a room. Adds luck score to
+     * amount of gold found.
      */
     private static void lootTheRoom() {
         int goldFound = DungeonUtil.rollAD20() + player.getLuck();
-        PlayerInventory.pickUpGold(goldFound) ;
+        PlayerInventory.pickUpGold(goldFound);
     }
 
 

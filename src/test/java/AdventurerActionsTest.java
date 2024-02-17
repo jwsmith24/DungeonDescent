@@ -1,8 +1,10 @@
 import character.PlayerInventory;
 import org.junit.jupiter.api.Test;
+import utility.DungeonUtil;
 import utility.index.Condition;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
+import utility.index.PlayerSkills;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,6 +12,60 @@ import static org.junit.jupiter.api.Assertions.*;
  * This class contains tests for player actions in the dungeon (in and out of combat).
  */
 public class AdventurerActionsTest extends AdventurerTests {
+
+
+    @Test
+    void testCheckLevelUpWithNotEnoughXP() {
+        player.checkLevelUp();
+
+        assertEquals(1, player.getLevel());
+    }
+
+    @Test
+    void testCheckLevelUpWithEnoughXP() {
+        player.gainBossXP();
+
+        player.checkLevelUp();
+
+        assertEquals(2, player.getLevel());
+    }
+
+    @Test
+    void testBasicAttackDamage() {
+        int result = player.basicAttackDamage();
+
+        assertTrue(result > player.getAttack() + player.getLevel());
+    }
+
+    @Test
+    void testBasicAttackRoll() {
+        int result = player.basicAttackRoll();
+
+        assertTrue(result > player.getAttack() + player.getLevel());
+    }
+    @Test
+    void testGainSmallXP() {
+        player.gainSmallXP();
+
+        assertEquals(DungeonUtil.SMALL_XP, player.getCurrentXP(),
+                "Wrong amount of xp applied");
+    }
+
+    @Test
+    void testGainMediumXP() {
+        player.gainMediumXP();
+
+        assertEquals(DungeonUtil.MED_XP, player.getCurrentXP(),
+                "Wrong amount of xp applied");
+    }
+
+    @Test
+    void testGainBossXP() {
+        player.gainBossXP();
+
+        assertEquals(DungeonUtil.BOSS_XP, player.getCurrentXP(),
+                "Wrong amount of xp applied");
+    }
 
 
     @Test
@@ -126,6 +182,49 @@ public class AdventurerActionsTest extends AdventurerTests {
         // make sure can't over heal
         player.healPlayer(500);
         assertEquals(10, player.getCurrentHP());
+    }
+
+    @Test
+    void rollASkillCheck() {
+
+        assertTrue(player.rollSkillCheck(PlayerSkills.ARCANA) > player.getArcana());
+        assertTrue(player.rollSkillCheck(PlayerSkills.ATHLETICS) > player.getAthletics());
+        assertTrue(player.rollSkillCheck(PlayerSkills.HISTORY) > player.getHistory());
+        assertTrue(player.rollSkillCheck(PlayerSkills.DUNGEONEERING) > player.getDungeoneering());
+        assertTrue(player.rollSkillCheck(PlayerSkills.LOCK_PICKING) > player.getLockPicking());
+    }
+
+    @Test
+    void useSpecialAttackWithFullUltimateCharges() {
+        assertTrue(player.useSpecialAttack() > 0,
+                "No special damage was applied.");
+    }
+
+    @Test
+    void useSpecialAttackWithNoUltimateCharges() {
+
+        player.spendUltimateCharge();
+        player.spendUltimateCharge();
+
+        assertEquals(0, player.useSpecialAttack(),
+                "special attack damage applied without any charges");
+    }
+
+
+
+    @Test
+    void testSpendingUltimateChargesWithCharges() {
+        assertTrue(player.spendUltimateCharge(),
+                "Player not starting with at least one ult charge");
+    }
+    @Test
+    void testSpendingUltimateChargeWithNoCharges() {
+        player.spendUltimateCharge();
+        player.spendUltimateCharge();
+
+
+        assertFalse(player.spendUltimateCharge(),
+        "player's ult charges are not being spent");
     }
 
 }

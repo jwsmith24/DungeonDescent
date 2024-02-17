@@ -8,8 +8,11 @@ public class TeleportTrap extends Trap {
 
 
     private TeleportTrap(Condition effectType, int damage, PlayerSkills skillCheckType,
-                         String discoveryText, String successText, String failureText, String surpriseText) {
-        super(effectType, damage, skillCheckType, discoveryText, successText, failureText, surpriseText);
+                         String discoveryText, String successText, String failureText,
+                         String surpriseText, int difficultyCheck) {
+
+        super(effectType, damage, skillCheckType, discoveryText, successText, failureText,
+                surpriseText, difficultyCheck);
     }
 
     public static TeleportTrap teleportTrapBuilder() {
@@ -32,7 +35,7 @@ public class TeleportTrap extends Trap {
 
 
         return new TeleportTrap(Condition.POISONED, DungeonUtil.TRAP_DAMAGE, PlayerSkills.ARCANA, discoveryText,
-                successText, failureText, surpriseText
+                successText, failureText, surpriseText, DungeonUtil.TRAP_DC
         );
     }
 
