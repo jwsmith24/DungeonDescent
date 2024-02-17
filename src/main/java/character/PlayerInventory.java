@@ -20,7 +20,7 @@ public class PlayerInventory {
 
     static HashMap<EquipmentSlot, Item> inventory = new HashMap<>();
 
-    static int gold;
+    static int gold = 0;
 
     static int itemAttackBonus = 0;
     static int itemArmorBonus = 0;
@@ -29,8 +29,12 @@ public class PlayerInventory {
         return (gold >= value);
     }
 
-    public static int acquireGold() {
+    public static void pickUpGold(int amount) {
+        gold += amount;
+        System.out.println("You've picked up " + amount + " gold!");
+    }
 
+    public static int currentGoldBalance() {
         return gold;
     }
 

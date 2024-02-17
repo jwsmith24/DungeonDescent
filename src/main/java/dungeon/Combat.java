@@ -129,7 +129,7 @@ public class Combat {
 
                     if (playerChoice == 1) {
                         // basic attack
-                        basicAttackMonster();
+                        basicAttack();
                         playerDeciding = false;
 
 
@@ -175,24 +175,15 @@ public class Combat {
         System.out.println("Action Options:");
         System.out.println("1. Basic Attack: " + player.getPlayerClass().getAttackText());
         System.out.println("2. Special Ability: " + player.getPlayerClass().getSpecialAbilityText());
-        System.out.println("3. Run Away");
+        System.out.println("3. Drink a Potion");
 
 
     }
 
-
-    // monsters will only attack each turn
-
-    // players have an action and bonus action
-
-    // On action - can use basic attack or special ability or run away (implement later)
-    // On bonus action - can use an item (potion - only item type so far)
-
-
     /**
      * If player chooses basic attack.
      */
-    private void basicAttackMonster() {
+    private void basicAttack() {
 
         // roll a d20 and add attack bonus
         int attackRoll = Dice.rollAD20() + player.getAttack();

@@ -30,6 +30,24 @@ public class Adventurer {
 
     }
 
+    /**
+     * Resets hp to max hp, resets ultimate charges, and clears conditions
+     */
+    public void takeLongRest() {
+        System.out.println("You find a cozy spot to rest");
+        System.out.println("*\n");
+        System.out.println("*\n");
+        System.out.println("*\n");
+
+        healPlayer(this.getMaxHP());
+        info.setUltimateCharges(stats.getEnergy());
+        applyCondition(Condition.NEUTRAL);
+
+        System.out.println("HP restored to full");
+        System.out.println("Ultimate Charges Reset");
+        System.out.println("Conditions have been cleared");
+
+    }
 
     /**
      * Determines if player is still alive.

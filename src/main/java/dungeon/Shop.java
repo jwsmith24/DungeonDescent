@@ -1,8 +1,6 @@
 package dungeon;
 
-import character.Adventurer;
 import character.PlayerInventory;
-import utility.index.EquipmentSlot;
 import utility.index.Item;
 
 import java.util.Scanner;
@@ -120,7 +118,7 @@ public class Shop {
         if (!PlayerInventory.haveEnoughGold(item.getItemValue())) {
 
             System.out.println("You don't have enough gold!'");
-            System.out.println("Current funds: " + PlayerInventory.acquireGold());
+            System.out.println("Current funds: " + PlayerInventory.currentGoldBalance());
 
             System.out.println("The shopkeeper seemed displeased as you were rummaging through your coins. "
                     + "When you look up, they're nowhere to be seen.");
@@ -129,10 +127,9 @@ public class Shop {
 
             // subtract funds
             PlayerInventory.spendGold(item.getItemValue());
+
             // equip new item
             PlayerInventory.equipItem(item.getItemType(), item, false);
-            // display new item equipped
-            System.out.println("You have equipped: " + item + "!");
 
             System.out.println("You look up from inspecting your new item and the shopkeeper has vanished without a trace...");
 

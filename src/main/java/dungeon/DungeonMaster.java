@@ -8,9 +8,9 @@ import utility.CharacterBuilder;
 import utility.Dice;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
-import utility.index.PlayerClass;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -32,7 +32,7 @@ public class DungeonMaster {
 
 
     /**
-     * Uses the Character Builder class to allow the user to build their chracter.
+     * Uses the Character Builder class to allow the user to build their character.
      */
     private static void spawnCharacter() {
         player = CharacterBuilder.createCharacter();
@@ -117,10 +117,117 @@ public class DungeonMaster {
 
     //todo:
     // implement looting/finding new items,
-    // make UI prettier
+    // implement gold and xp drops
+    // make UI prettier/add a clean up and loot phase between encounters
     // adding some more flavor text
-    // xp gain from killing monsters and spending it on ability score increases.
+    // xp gain from killing monsters and leveling up (apply bonus to attack and HP)
+    // implement long rest after floors 5 and 10
+    //
 
+    /**
+     * Helper method to run the medium monster encounter every major level.
+     *
+     * @return boolean isPlayerAlive
+     */
+    private static boolean runMediumMonsterFloor(Adventurer player, int cycleCount) {
+        boolean playerIsAlive;
+        int lootChance = Dice.rollAD20();
+
+        // applies a stacking buff every 5 floors
+        player.applyPower();
+
+        // Set active monster to a random medium monster
+        Monster monster = MonsterFactory.randomMediumMonster();
+        System.out.println("A " + monster.getName() + " appears!\n");
+
+        // go to combat
+        Combat dungeonCombat = new Combat(player, monster, cycleCount);
+
+        // combat resolves into a boolean that's true if player is alive or false if they died.
+        playerIsAlive = dungeonCombat.combat();
+
+        // Chance to find the shopkeeper or loot lying around
+        if (playerIsAlive && (lootChance) > 15) {
+
+            Shop.shopKeeperEncounter(scanner);
+
+        } else if (playerIsAlive && (lootChance > 10)) {
+            System.out.println("The " + monster.getName() + " leaves behind some loot!");
+            lootTheRoom();
+        }
+
+        // player can long rest to recover stats
+        if (playerIsAlive) {
+            promptLongRest();
+        }
+
+        return playerIsAlive;
+    }
+
+    /**
+     * Asks the user if they want to take a long rest.
+     */
+    private static void promptLongRest() {
+        System.out.println("Do you want to take a long rest?");
+        int result = scanner.nextInt();
+        scanner.nextLine();
+
+        if (result == 1) {
+            player.takeLongRest();
+        }
+
+
+    }
+
+    /**
+     * Helper method to run the small monster encounter every minor level.
+     *
+     * @return
+     */
+    private static boolean runSmallMonsterFloor(Adventurer player, int cycleCount) {
+        boolean playerIsAlive;
+        int lootChance = Dice.rollAD20(); // roll a d20 each floor for chance at finding loot
+
+        // set active monster to a random small monster
+        Monster monster = MonsterFactory.randomSmallMonster();
+        System.out.println("A " + monster.getName() + " appears!");
+
+        // go to combat
+        Combat dungeonCombat = new Combat(player, monster, cycleCount);
+
+        // combat resolves into a boolean that's true if player is alive or false if they died.
+        playerIsAlive = dungeonCombat.combat();
+
+        // As long as the player is still alive, they get a chance to find loot.
+        if (playerIsAlive && lootChance > 12) {
+            System.out.println("The " + monster.getName() + " leaves behind some loot!");
+            lootTheRoom();
+        }
+
+        return playerIsAlive;
+    }
+
+
+    private static boolean runBossMonsterFloor(Adventurer player, int cycleCount) {
+        boolean playerIsAlive;
+        int lootChance = Dice.rollAD20();
+
+        // applies a stacking buff every 5 floors
+        player.applyPower();
+
+        // Set active monster to a random medium monster
+        Monster monster = MonsterFactory.randomLargeMonster();
+        System.out.println("A " + monster.getName() + " appears!\n");
+
+        // go to combat
+        Combat dungeonCombat = new Combat(player, monster, cycleCount);
+
+        // combat resolves into a boolean that's true if player is alive or false if they died.
+        playerIsAlive = dungeonCombat.combat();
+
+
+        return playerIsAlive;
+    }
 
     private static void runDungeonCycle() {
 
@@ -131,71 +238,37 @@ public class DungeonMaster {
         // extra shot of buffs to start off the cycle
         player.applyPower();
 
-        while (level <= 10 && playerIsAlive) {
-
-            // roll a d20 each floor for chance at finding loot
-            int lootChance = Dice.rollAD20();
+        while (level < 10 && playerIsAlive) {
 
             // At level 5, fight a medium monster
-            Monster monster;
-
             if (level == 5) {
 
-                // applies a stacking buff every 5 floors
-                player.applyPower();
+                playerIsAlive = runMediumMonsterFloor(player, cycleCount);
 
-                // Set active monster to a random medium monster
-                monster = MonsterFactory.randomMediumMonster();
-                System.out.println("A " + monster.getName() + " appears!\n");
-
-                // go to combat
-                dungeonCombat = new Combat(player, monster, cycleCount);
-
-                // combat resolves into a boolean that's true if player is alive or false if they died.
-                playerIsAlive = dungeonCombat.combat();
-
-                // Chance to find the shopkeeper or loot lying around
-                if (playerIsAlive && (lootChance) > 15) {
-
-                    Shop.shopKeeperEncounter(scanner);
-
-                } else if (playerIsAlive && (lootChance > 10)) {
-                    System.out.println("The monster leaves behind some loot!");
-
-                }
-
-                System.out.println("Want to take a long rest? You have X/3 remaining");
 
             } else {
 
-                // set active monster to a random small monster
-                monster = MonsterFactory.randomSmallMonster();
-                System.out.println("A " + monster.getName() + " appears!");
-
-                // go to combat
-                dungeonCombat = new Combat(player, monster, cycleCount);
-                // combat resolves into a boolean that's true if player is alive or false if they died.
-                playerIsAlive = dungeonCombat.combat();
-
-                // As long as the player is still alive, they get a chance to find loot.
-                if (playerIsAlive && lootChance > 12) {
-                    System.out.println("The monsters leaves behind some loot!");
-                }
-
+                playerIsAlive = runSmallMonsterFloor(player, cycleCount);
 
             }
+
             level++;
             dungeonLevel++;
         }
+
+        // at level 10 fight a boss monster
+
 
         // after the 10th level, increase cycle count (which modifies monster difficulty)
         cycleCount++;
 
     }
 
-    private static void runMagicDungeonCycle() {
-
+    private static void lootTheRoom() {
+        int goldFound = Dice.rollAD20();
+        PlayerInventory.pickUpGold(goldFound);
     }
+
 
 }
 

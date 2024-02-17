@@ -1,27 +1,27 @@
 import character.Adventurer;
 import character.PlayerInventory;
 import org.junit.jupiter.api.Test;
-import utility.Dice;
+import utility.index.Condition;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class contains tests for player actions in the dungeon (in and out of combat).
+ */
 public class AdventurerCombatTest {
+
+    Adventurer player = getTestCharacter();
+
 
 
     public Adventurer getTestCharacter() {
         return CharacterCreationTest.spawnCharacter();
     }
 
-
-
-
     @Test
     void testPowerBoost() {
-        Adventurer player = getTestCharacter();
-
 
         player.applyPower();
 
@@ -37,7 +37,6 @@ public class AdventurerCombatTest {
      */
     @Test
     void testTakeDamage() {
-        Adventurer player = getTestCharacter();
 
         // test player starts with 10 hp
         player.takeDamage(2);
@@ -50,8 +49,15 @@ public class AdventurerCombatTest {
     }
 
     @Test
+    void testTakeDamagePastZero() {
+        player.takeDamage(100);
+
+        // player HP should still only be at 0
+        assertEquals(0, player.getHitPoints());
+    }
+
+    @Test
     void testDrinkPotionWithoutOneEquipped() {
-        Adventurer player = getTestCharacter();
 
         player.drinkPotion();
 
@@ -67,7 +73,7 @@ public class AdventurerCombatTest {
      */
     @Test
     void testDrinkPotionWithOneEquipped() {
-        Adventurer player = getTestCharacter();
+
         PlayerInventory.equipItem(EquipmentSlot.POTION, Item.POTION_OF_HEALING, true);
 
         // deal 3 damage
@@ -84,4 +90,49 @@ public class AdventurerCombatTest {
         assertTrue(player.getHitPoints() <= player.getMaxHP(),
                 "HP has exceeded max HP");
     }
+
+
+    @Test
+    void testTakeLongRest() {
+
+        // beat up the player
+        player.takeDamage(8);
+        player.applyCondition(Condition.POISONED);
+
+        // take a long rest and everything should clear
+        player.takeLongRest();
+
+        assertEquals(player.getMaxHP(), player.getHitPoints(),
+                "Player is not at max HP");
+        assertFalse(player.hasCondition(Condition.POISONED),
+                "Player's condition was not removed");
+
+
+    }
+
+    @Test
+    void testIsPlayerAlive() {
+        // player should start alive
+        assertTrue(player.isAlive(), "Player should be alive");
+
+        // beat up the player
+        player.takeDamage(8);
+        assertTrue(player.isAlive(), "Player should be alive");
+
+        // kill the player
+        player.takeDamage(50);
+        assertFalse(player.isAlive(), "Player should be dead");
+    }
+
+    @Test
+    void testHealPlayer() {
+        player.takeDamage(3);
+        player.healPlayer(3);
+        assertEquals(10, player.getHitPoints());
+
+        // make sure can't over heal
+        player.healPlayer(500);
+        assertEquals(10, player.getHitPoints());
+    }
+
 }
