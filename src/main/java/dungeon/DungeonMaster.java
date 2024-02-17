@@ -26,6 +26,7 @@ public class DungeonMaster {
     // both static
 
     private static int dungeonLevel = 1;
+    private static int cycleCount = 1;
 
     private static final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
@@ -116,21 +117,10 @@ public class DungeonMaster {
 
     //todo:
     // implement looting/finding new items,
+    // make UI prettier
     // adding some more flavor text
     // xp gain from killing monsters and spending it on ability score increases.
-    // implement cycle blessings (4 buffs, one of each is applied after finishing a cycle
-    // Modify damage based on floor/cycle so things aren't so brutal
 
-
-    private void applyPower() {
-        System.out.println("You feel a presence come from deeper within the dungeon. An overwhelming feeling of "
-                + "joy washes over you, then.. power. It's pleased with the destruction you've left behind.");
-
-        System.out.println("All stats increase by 1");
-        System.out.println("HP increases by 10");
-
-        player.applyPower();
-    }
 
     private static void runDungeonCycle() {
 
@@ -138,10 +128,10 @@ public class DungeonMaster {
         Combat dungeonCombat;
         boolean playerIsAlive = true;
 
-        // TBD
-        System.out.println("Apply cycle effect");
+        // extra shot of buffs to start off the cycle
+        player.applyPower();
 
-        while (level <= 5 && playerIsAlive) {
+        while (level <= 10 && playerIsAlive) {
 
             // roll a d20 each floor for chance at finding loot
             int lootChance = Dice.rollAD20();
@@ -151,12 +141,15 @@ public class DungeonMaster {
 
             if (level == 5) {
 
+                // applies a stacking buff every 5 floors
+                player.applyPower();
+
                 // Set active monster to a random medium monster
                 monster = MonsterFactory.randomMediumMonster();
                 System.out.println("A " + monster.getName() + " appears!\n");
 
                 // go to combat
-                dungeonCombat = new Combat(player, monster);
+                dungeonCombat = new Combat(player, monster, cycleCount);
 
                 // combat resolves into a boolean that's true if player is alive or false if they died.
                 playerIsAlive = dungeonCombat.combat();
@@ -180,7 +173,7 @@ public class DungeonMaster {
                 System.out.println("A " + monster.getName() + " appears!");
 
                 // go to combat
-                dungeonCombat = new Combat(player, monster);
+                dungeonCombat = new Combat(player, monster, cycleCount);
                 // combat resolves into a boolean that's true if player is alive or false if they died.
                 playerIsAlive = dungeonCombat.combat();
 
@@ -195,7 +188,8 @@ public class DungeonMaster {
             dungeonLevel++;
         }
 
-        System.out.println("dungeon level after cycle 1 is: " + dungeonLevel);
+        // after the 10th level, increase cycle count (which modifies monster difficulty)
+        cycleCount++;
 
     }
 

@@ -19,11 +19,13 @@ public class Combat {
     private final Adventurer player;
     private final Monster monster;
     private final Scanner playerInput = new Scanner(System.in, StandardCharsets.UTF_8);
+    private final int difficultyMod;
 
-
-    public Combat(Adventurer player, Monster monster) {
+    public Combat(Adventurer player, Monster monster, int cycleCount) {
         this.player = player;
         this.monster = monster;
+        // as cycle count increases, monster damage reduction decreases
+        this.difficultyMod = 5 - cycleCount;
     }
 
 
@@ -63,13 +65,13 @@ public class Combat {
                 // then monster goes
                 System.out.println( monster.getName() + "'s turn");
                 System.out.println("-------------------------------");
-                attackPlayer();
+                attackPlayer(difficultyMod);
 
             } else {
                 // or monster goes first
                 System.out.println(monster.getName() + "'s turn");
                 System.out.println("-------------------------------");
-                attackPlayer();
+                attackPlayer(difficultyMod);
                 System.out.println("-------------------------------");
 
                 // end cycle if player dies in middle of round
@@ -102,12 +104,6 @@ public class Combat {
         }
     }
 
-    private void takeMonsterTurn() {
-        //todo: implement check for condition status like restrained,paralyzed, etc
-        if (monster.isAlive()) {
-            attackPlayer();
-        }
-    }
 
     /**
      * On each turn, a player can choose an action
@@ -201,7 +197,7 @@ public class Combat {
         // roll a d20 and add attack bonus
         int attackRoll = Dice.rollAD20() + player.getAttack();
 
-        System.out.println("You attack with: " + player.getPlayerClass().getAttackText());
+        System.out.println("\nYou attack with: " + player.getPlayerClass().getAttackText());
 
         // Attack roll = d20 + attack bonus, damage roll = d10 + attack bonus
         if (attackRoll >= monster.getArmorClass()) {
@@ -243,7 +239,7 @@ public class Combat {
     /**
      * Attack logic for the monster.
      */
-    private void attackPlayer() {
+    private void attackPlayer(int difficultyMod) {
 
         int attackRoll = Dice.rollAD20() + monster.getAttackBonus();
 
@@ -251,7 +247,9 @@ public class Combat {
         if (attackRoll >= player.getAC()) {
 
             monster.attackText();
-            int calcDamage = Dice.rollAD10() + monster.getAttackBonus();
+            // difficulty scales the damage down (amount decreases as cycle count increases)
+            // makes sure result doesn't go below 1
+            int calcDamage = Math.max(1, (Dice.rollAD10() + monster.getAttackBonus()) - difficultyMod);
             player.takeDamage(calcDamage);
 
         } else {
