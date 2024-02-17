@@ -11,6 +11,8 @@ public class DungeonUtil {
     public static final int MED_XP = 200;
     public static final int BOSS_XP = 500;
 
+    public static final int TRAP_DAMAGE = 6;
+
     private static final Random d20 = new Random();
 
 
