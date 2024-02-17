@@ -62,7 +62,7 @@ public class PlayerInventory {
     private PlayerInventory() {
 
     }
-
+ //todo: add item bonuses to character
     private static void calculateItemBonuses() {
         itemAttackBonus = 0;
         itemArmorBonus = 0;

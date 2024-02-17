@@ -333,11 +333,12 @@ public class DungeonMaster {
 
 
     /**
-     * Handles random gold drops and adding to inventory at the end of a room.
+     * Handles random gold drops and adding to inventory at the end of a room. Adds luck score
+     * to amount of gold found.
      */
     private static void lootTheRoom() {
-        int goldFound = DungeonUtil.rollAD20();
-        PlayerInventory.pickUpGold(goldFound);
+        int goldFound = DungeonUtil.rollAD20() + player.getLuck();
+        PlayerInventory.pickUpGold(goldFound) ;
     }
 
 
