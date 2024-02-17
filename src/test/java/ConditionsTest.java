@@ -10,13 +10,13 @@ import utility.index.Condition;
 
 
 
-public class ConditionsTest {
+public class ConditionsTest extends AdventurerTests {
 
 
     @Test
     void testCharacterBeginsNeutral() {
 
-        Adventurer player = CharacterCreationTest.spawnCharacter();
+
 
         assertTrue(player.hasCondition(Condition.NEUTRAL));
 
@@ -25,7 +25,7 @@ public class ConditionsTest {
     @Test
     void testApplyingEffectToNeutralCharacter() {
 
-        Adventurer player = CharacterCreationTest.spawnCharacter();
+
 
         // Apply effect
         player.applyCondition(Condition.RESTRAINED);
@@ -42,7 +42,7 @@ public class ConditionsTest {
     @Test
     void testApplyingEffectToAffectedCharacter() {
 
-        Adventurer player = CharacterCreationTest.spawnCharacter();
+
 
         // Apply initial effect
         player.applyCondition(Condition.BLINDED);
@@ -65,7 +65,7 @@ public class ConditionsTest {
     @Test
     void testApplyingNeutralToCharacterWithOneAffliction() {
 
-        Adventurer player = CharacterCreationTest.spawnCharacter();
+
 
         // Afflict them with blindness
         player.applyCondition(Condition.BLINDED);
@@ -84,7 +84,6 @@ public class ConditionsTest {
     @Test
     void testApplyingNeutralToCharacterWithMultipleAfflictions() {
 
-        Adventurer player = CharacterCreationTest.spawnCharacter();
 
         // Inflict two conditions
         player.applyCondition(Condition.PARALYZED);
@@ -96,6 +95,20 @@ public class ConditionsTest {
         // Check that applying neutral still works properly
         assertTrue(player.hasCondition(Condition.NEUTRAL),
                 "List does not contain neutral");
+
+    }
+
+    @Test
+    void testDisplayConditions() {
+
+        // displays no conditions
+        player.displayConditions();
+
+        // add a condition
+        player.applyCondition(Condition.POISONED);
+
+        // should display poisoned
+        player.displayConditions();
 
     }
 

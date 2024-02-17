@@ -17,18 +17,7 @@ import utility.index.PlayerRace;
 
 public class CharacterCreationTest {
 
-    /**
-     * Helper method to spawn in a test Player named "Cloud".
-     * @return Adventurer named Cloud
-     */
-    public static Adventurer spawnCharacter() {
-        // Spawn character
-        Character testPlayer = new BasicCharacter("Cloud");
-        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
-        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
 
-        return CharacterBuilder.spawnCharacter(testPlayer);
-    }
 
     @Test
     void testMakeBasicCharacter() {

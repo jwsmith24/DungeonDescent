@@ -11,7 +11,7 @@ public class CharacterActiveEffects {
 
 
     public CharacterActiveEffects(ArrayList<Condition> activeEffects) {
-        this.activeEffects = activeEffects;
+        this.activeEffects = new ArrayList<>(activeEffects);
     }
 
     public static CharacterActiveEffects effectsBuilder(Character characterRef) {
@@ -27,7 +27,7 @@ public class CharacterActiveEffects {
      *
      * @param newCondition new condition to apply to character.
      */
-    public void applyCondition(Condition newCondition) {
+    protected void applyCondition(Condition newCondition) {
 
 
         // If applying the NEUTRAL condition, we need to clear the list of active effects
@@ -56,7 +56,7 @@ public class CharacterActiveEffects {
     /**
      * If player has a certain condition, method will return true.
      */
-    public boolean hasCondition(Condition type) {
+    protected boolean hasCondition(Condition type) {
 
         for (Condition condition : this.activeEffects) {
             if (condition.equals(type)) {
@@ -70,7 +70,7 @@ public class CharacterActiveEffects {
     /**
      * Displays all the active conditions to the player
      */
-    public void displayConditions() {
+    protected void displayConditions() {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
         System.out.println("Active Conditions:");
 

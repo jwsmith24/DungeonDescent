@@ -40,7 +40,7 @@ public class Adventurer {
 
         healPlayer(this.getMaxHP());
         this.regainUltimate();
-        applyCondition(Condition.NEUTRAL);
+        activeEffects.applyCondition(Condition.NEUTRAL);
 
         System.out.println("HP restored to full");
         System.out.println("Ultimate Charges Reset");
@@ -115,6 +115,37 @@ public class Adventurer {
         }
 
 
+    }
+
+    /**
+     * Allows other classes to check if a player has a condition.
+     *
+     * @return if player has condition
+     */
+    public boolean hasCondition(Condition condition) {
+        return activeEffects.hasCondition(condition);
+    }
+
+    /**
+     * Applies new condition to player unless the condition is already present.
+     * If it's already present, informs the player.
+     * @param condition new condition to be applied
+     */
+    public void applyCondition(Condition condition) {
+
+        if (!hasCondition(condition)) {
+            activeEffects.applyCondition(condition);
+
+        } else {
+            System.out.println(info.getName() + " is already affected by " + condition.getDescription());
+        }
+    }
+
+    /**
+     * Allows other entities to trigger displaying active conditions to the player.
+     */
+    public void displayConditions() {
+        activeEffects.displayConditions();
     }
 
 

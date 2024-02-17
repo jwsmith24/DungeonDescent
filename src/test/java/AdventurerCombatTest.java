@@ -10,15 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * This class contains tests for player actions in the dungeon (in and out of combat).
  */
-public class AdventurerCombatTest {
+public class AdventurerCombatTest extends AdventurerTests {
 
-    Adventurer player = getTestCharacter();
-
-
-
-    public Adventurer getTestCharacter() {
-        return CharacterCreationTest.spawnCharacter();
-    }
 
     @Test
     void testPowerBoost() {
