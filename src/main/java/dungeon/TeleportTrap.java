@@ -7,12 +7,12 @@ import utility.index.PlayerSkills;
 public class TeleportTrap extends Trap {
 
 
-    private TeleportTrap(Condition effectType, int damage, PlayerSkills skillCheckType,
+    private TeleportTrap(String name, Condition effectType, int damage, PlayerSkills skillCheckType,
                          String discoveryText, String successText, String failureText,
                          String surpriseText, int difficultyCheck) {
 
-        super(effectType, damage, skillCheckType, discoveryText, successText, failureText,
-                surpriseText, difficultyCheck);
+        super(name, effectType, damage, skillCheckType, discoveryText, successText,
+                failureText, surpriseText, difficultyCheck);
     }
 
     public static TeleportTrap teleportTrapBuilder() {
@@ -34,7 +34,7 @@ public class TeleportTrap extends Trap {
                 "circle";
 
 
-        return new TeleportTrap(Condition.POISONED, DungeonUtil.TRAP_DAMAGE, PlayerSkills.ARCANA, discoveryText,
+        return new TeleportTrap("Teleport Trap", Condition.POISONED, DungeonUtil.TRAP_DAMAGE, PlayerSkills.ARCANA, discoveryText,
                 successText, failureText, surpriseText, DungeonUtil.TRAP_DC
         );
     }

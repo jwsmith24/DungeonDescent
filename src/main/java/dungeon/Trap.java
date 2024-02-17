@@ -8,14 +8,17 @@ public abstract class Trap {
     private final Condition effectType;
     private final int damage;
     private final int difficultyCheck;
+    private final String name;
     private final PlayerSkills skillCheckType;
     private final String discoveryText;
     private final String successText;
     private final String failureText;
     private final String surpriseText;
 
-    public Trap(Condition effectType, int damage, PlayerSkills skillCheckType, String discoveryText,
+    public Trap(String name, Condition effectType, int damage, PlayerSkills skillCheckType, String discoveryText,
                 String successText, String failureText, String surpriseText, int difficultyCheck) {
+
+        this.name = name;
         this.effectType = effectType;
         this.damage = damage;
         this.skillCheckType = skillCheckType;

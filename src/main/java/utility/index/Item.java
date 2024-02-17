@@ -1,7 +1,5 @@
 package utility.index;
 
-import dungeon.Shop;
-
 /**
  * Contains all game items, their descriptions, values, and bonuses.
  */
@@ -40,7 +38,7 @@ public enum Item {
     STEEL_ARMOR("Steel Armor", "Steel armor", 50, EquipmentSlot.ARMOR, 2),
     DRAGONSCALE_ARMOR("Dragonscale Armor", "Formed from the scales of slain dragons within the dungeon", 100, EquipmentSlot.ARMOR, 3),
 
-
+    ROBE_OF_THE_RED_DRAGON("Robe of the Red Dragon", "Radiates with an unnatural warmth", 100, EquipmentSlot.ARMOR, 3),
     WOODEN_SHIELD("Wooden Shield", "Looks pretty sturdy", 15, EquipmentSlot.OFF_HAND, 1),
     DRAGONSCALE_SHIELD("Dragonscale Shield", "Strong against swords AND fire!", 100, EquipmentSlot.OFF_HAND, 3),
 

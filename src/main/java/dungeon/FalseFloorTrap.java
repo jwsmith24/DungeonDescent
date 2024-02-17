@@ -7,10 +7,10 @@ import utility.index.PlayerSkills;
 public class FalseFloorTrap extends Trap {
 
 
-    private FalseFloorTrap(Condition effectType, int damage, PlayerSkills skillCheckType, String discoveryText,
+    private FalseFloorTrap(String name, Condition effectType, int damage, PlayerSkills skillCheckType, String discoveryText,
                            String successText, String failureText, String surpriseText, int difficultyCheck) {
 
-        super(effectType, damage, skillCheckType, discoveryText, successText, failureText, surpriseText, difficultyCheck);
+        super(name, effectType, damage, skillCheckType, discoveryText, successText, failureText, surpriseText, difficultyCheck);
     }
 
     public static FalseFloorTrap falseFloorTrapBuilder() {
@@ -28,7 +28,7 @@ public class FalseFloorTrap extends Trap {
                 "falling into the abyss. After a few seconds, you crash into " +
                 "the ground a few yards ahead in the dungeon.";
 
-        return new FalseFloorTrap(Condition.STUNNED, DungeonUtil.TRAP_DAMAGE, PlayerSkills.DUNGEONEERING,
+        return new FalseFloorTrap("False Floor Trap", Condition.STUNNED, DungeonUtil.TRAP_DAMAGE, PlayerSkills.DUNGEONEERING,
                 discoveryText, successText, failureText, surpriseText, DungeonUtil.TRAP_DC
         );
     }

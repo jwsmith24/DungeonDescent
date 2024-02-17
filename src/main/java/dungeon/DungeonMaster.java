@@ -262,6 +262,9 @@ public class DungeonMaster {
      * <p>All other levels are small monster encounters.</p>
      */
     private static void runDungeonCycle() {
+        Trap teleportTrap = TeleportTrap.teleportTrapBuilder();
+
+        Trap falseFloorTrap = FalseFloorTrap.falseFloorTrapBuilder();
 
         int level = 1;
 
@@ -274,7 +277,7 @@ public class DungeonMaster {
 
             if (level == 3) {
 
-                runTeleportTrap();
+                runTrap(teleportTrap);
 
             } else if (level == 5) {
 
@@ -283,7 +286,7 @@ public class DungeonMaster {
                 // run boss floor at level 10
             } else if (level == 7) {
 
-                runFalseFloorTrap();
+                runTrap(falseFloorTrap);
 
                 // cycle boss
             } else if (level == 10) {
@@ -312,36 +315,31 @@ public class DungeonMaster {
 
     }
 
-    private static void runTeleportTrap() {
-        Trap teleportTrap = TeleportTrap.teleportTrapBuilder();
+    private static void runTrap(Trap trap) {
 
         DungeonUtil.printSpacer();
 
         // prompt player there is something interesting ahead
-        teleportTrap.displayDiscoveryText();
+        trap.displayDiscoveryText();
 
         // roll a skill check that corresponds to the trap's check
 
         // if player passes, they avoid the trap and get some xp
-        int skillCheck  = player.rollSkillCheck(teleportTrap.getSkillCheckType());
+        int skillCheck  = player.rollSkillCheck(trap.getSkillCheckType());
 
-        if (teleportTrap.doesPlayerBeatAC(skillCheck)) {
+        if (trap.doesPlayerBeatAC(skillCheck)) {
 
-            teleportTrap.displaySuccessText();
+            trap.displaySuccessText();
             player.gainMediumXP();
 
             // if player fails: display failure, deal damage, and apply condition
 
         } else {
-            teleportTrap.displayFailureText();
-            player.takeDamage(teleportTrap.getDamage());
-            player.applyCondition(teleportTrap.getEffectType());
+            trap.displayFailureText();
+            player.takeDamage(trap.getDamage());
+            player.applyCondition(trap.getEffectType());
         }
 
-
-    }
-
-    private static void runFalseFloorTrap() {
 
     }
 
