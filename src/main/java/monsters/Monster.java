@@ -28,9 +28,19 @@ public abstract class Monster {
         System.out.println("The monster attacks!");
     }
 
-    //todo: model after player take damage
+    /**
+     * Apply damage to monster. If the damage is fatal, display to player.
+     * @param value amount of damage taken
+     */
     public void takeDamage(int value) {
-        stats.setHp(stats.getHp() - value);
+
+        stats.takeDamage(value);
+
+        if (!isAlive()){
+            System.out.println("The damage is fatal!");
+        }
+
+
     }
 
 

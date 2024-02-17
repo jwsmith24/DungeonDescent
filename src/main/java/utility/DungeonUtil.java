@@ -29,6 +29,11 @@ public class DungeonUtil {
         System.out.println("*\n");
     }
 
+    public static void printSpecialAbilityWrapper() {
+
+        System.out.println("\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+    }
+
 
 
     private DungeonUtil() {

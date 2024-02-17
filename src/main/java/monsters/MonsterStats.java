@@ -43,8 +43,12 @@ public class MonsterStats {
 
     ;
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    /**
+     * Applies damage to monster.
+     */
+    public void takeDamage(int amount) {
+        this.hp -= amount;
+
     }
 
     public int getAttackBonus() {

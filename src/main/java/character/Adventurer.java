@@ -130,13 +130,15 @@ public class Adventurer {
 
 
     public void applyPower() {
-        System.out.println("----------------------------------------------------------------------------------");
+        DungeonUtil.printSpacer();
+        DungeonUtil.printSpecialAbilityWrapper();
+
         System.out.println("You feel a presence come from deep within the dungeon. An overwhelming feeling of "
                 + "joy washes over you, then.. power. It beckons you onward... \n");
-
-
         System.out.println("All stats increase by 1");
         System.out.println("HP increases by 10\n");
+        
+        DungeonUtil.printSpecialAbilityWrapper();
 
         stats.applyPowerStatBoost();
     }

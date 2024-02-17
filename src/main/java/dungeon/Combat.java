@@ -219,7 +219,10 @@ public class Combat {
 
         // character needs to have enough ultimate charges
         if (player.spendUltimateCharge()) {
+
+            DungeonUtil.printSpecialAbilityWrapper();
             System.out.println("You use: " + player.getPlayerClass().getSpecialAbilityText());
+            DungeonUtil.printSpecialAbilityWrapper();
 
             // special deals double damage and is guaranteed to hit
             int result = 2 * (DungeonUtil.rollAD10() + player.getAttack());

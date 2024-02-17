@@ -69,6 +69,7 @@ public class DungeonMaster {
 
 
     private static void runTutorial() {
+        DungeonUtil.printSpacer();
         // Porc the Orc Warrior uses sword strike to attack!
         System.out.println(player.getName() + " the " + player.getPlayerRace() + " " + player.getPlayerClass() + " uses " + player.getPlayerClass().getAttackText() + " to attack!");
 
@@ -115,7 +116,6 @@ public class DungeonMaster {
     }
 
     //todo:
-    // add kill text to monster take damage
     // implement looting/finding new items,
     // implement gold and xp drops
     // make UI prettier/add a clean up and loot phase between encounters
