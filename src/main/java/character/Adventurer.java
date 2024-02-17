@@ -1,6 +1,6 @@
 package character;
 
-import utility.Dice;
+import utility.DungeonUtil;
 import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
@@ -35,12 +35,10 @@ public class Adventurer {
      */
     public void takeLongRest() {
         System.out.println("You find a cozy spot to rest");
-        System.out.println("*\n");
-        System.out.println("*\n");
-        System.out.println("*\n");
+        DungeonUtil.printSpacer();
 
         healPlayer(this.getMaxHP());
-        info.setUltimateCharges(stats.getEnergy());
+        this.regainUltimate();
         applyCondition(Condition.NEUTRAL);
 
         System.out.println("HP restored to full");
@@ -50,57 +48,48 @@ public class Adventurer {
     }
 
     /**
+     * Allows other entities to trigger player regaining their ultimate charges.
+     * Ultimate charges are based on energy score.
+     */
+    private void regainUltimate() {
+        for(int i = 0; i < stats.getEnergy(); i++) {
+            info.gainUltimateCharge();
+        }
+    }
+
+    /**
      * Determines if player is still alive.
      */
     public boolean isAlive() {
-        return stats.getHitPoints() > 0;
+        return stats.getCurrentHP() > 0;
     }
 
-    /**
-     * Rather than a level system, skills will improve by the player spending the xp they earn from
-     * defeating monsters in the dungeon.
-     *
-     * @param amount amount to subtract from player's total
-     */
-    public void spendXP(int amount) {
 
-        // ensure XP spent is positive
-        if (amount < 0) {
-            System.out.println("XP spent cannot be negative");
-            return;
-        }
+    public void gainSmallXP() {
 
-        int xp = this.info.getExperience();
-        int newXp = xp - amount;
-
-        // Ensure player has enough experience to purchase a skill upgrade
-        if (newXp < 0) {
-            System.out.println("Insufficient XP. Current balance: " + xp);
-
-
-        } else {
-            this.info.setExperience(newXp);
-
-        }
-
+        this.info.gainExperience(100);
     }
 
-    /**
-     * Used by entities that cause the player to gain xp.
-     *
-     * @param amount xp gained
-     */
-    public void gainXP(int amount) {
-        // ensure XP gained is positive
-        if (amount < 0) {
-            System.out.println("XP gained cannot be negative");
-            return;
-        }
+    public void gainMediumXP() {
 
-        int currentXP = this.info.getExperience();
-
-        this.info.setExperience(currentXP + amount);
+        this.info.gainExperience(200);
     }
+
+    public void gainBossXP() {
+
+        this.info.gainExperience(500);
+    }
+
+
+
+
+    public int nextLevelXP() {
+
+        return 1000 * this.getLevel();
+    }
+
+
+
 
     /**
      * Used by entities that cause the player damage.
@@ -110,19 +99,19 @@ public class Adventurer {
     public void takeDamage(int amount) {
 
         // Update HP to amount after subtracting damage
-        int currentHP = this.stats.getHitPoints() - amount;
-        this.stats.setHitPoints(currentHP);
+        int currentHP = this.stats.getCurrentHP() - amount;
+        this.stats.setCurrentHP(currentHP);
 
         // Display how much damage was done by attack
         System.out.println("The attack hits you for " + amount + " damage!");
 
         // Display remaining hp to player
-        System.out.println("Remaining hit points: " + this.getHitPoints() + "/" + this.getMaxHP());
+        System.out.println("Remaining hit points: " + this.getCurrentHP() + "/" + this.getMaxHP());
 
         // check to see if damage kills player and set hp to 0
         if (currentHP <= 0) {
             System.out.println("The damage is fatal.");
-            this.stats.setHitPoints(0);
+            this.stats.setCurrentHP(0);
         }
     }
 
@@ -133,10 +122,10 @@ public class Adventurer {
      */
     public void healPlayer(int amount) {
 
-        int newHp = this.stats.getHitPoints() + amount;
+        int newHp = this.stats.getCurrentHP() + amount;
 
         // if healing would bring player over max hp, just set hp to max
-        this.stats.setHitPoints(Math.min(newHp, this.stats.getMaxHP()));
+        this.stats.setCurrentHP(Math.min(newHp, this.stats.getMaxHP()));
     }
 
 
@@ -204,14 +193,14 @@ public class Adventurer {
     public void drinkPotion() {
 
         if (PlayerInventory.consumePotion()) {
-            int hpGained = Dice.rollAD10();
+            int hpGained = DungeonUtil.rollAD10();
 
             System.out.println("You drink a potion of healing and restore "
                     + hpGained + " hit points!");
 
             healPlayer(hpGained);
 
-            System.out.println("Remaining hit points: " + getHitPoints() + "/" + getMaxHP());
+            System.out.println("Remaining hit points: " + getCurrentHP() + "/" + getMaxHP());
 
         } else {
 
@@ -223,8 +212,9 @@ public class Adventurer {
 
 
     // Spenders
-    public void spendUltimateCharges(int amount) {
-        info.setUltimateCharges(amount);
+    public boolean spendUltimateCharge() {
+
+        return info.spendUltimateCharge();
     }
 
     // Getters
@@ -254,7 +244,7 @@ public class Adventurer {
         return info.getName();
     }
 
-    public int getExperience() {
+    public int getCurrentXP() {
         return info.getExperience();
     }
 
@@ -288,8 +278,8 @@ public class Adventurer {
     }
 
 
-    public int getHitPoints() {
-        return stats.getHitPoints();
+    public int getCurrentHP() {
+        return stats.getCurrentHP();
     }
 
 

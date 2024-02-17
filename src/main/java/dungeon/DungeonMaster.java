@@ -5,12 +5,11 @@ import character.PlayerInventory;
 import monsters.Monster;
 import monsters.MonsterFactory;
 import utility.CharacterBuilder;
-import utility.Dice;
+import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -116,6 +115,7 @@ public class DungeonMaster {
     }
 
     //todo:
+    // add kill text to monster take damage
     // implement looting/finding new items,
     // implement gold and xp drops
     // make UI prettier/add a clean up and loot phase between encounters
@@ -131,7 +131,7 @@ public class DungeonMaster {
      */
     private static boolean runMediumMonsterFloor(Adventurer player, int cycleCount) {
         boolean playerIsAlive;
-        int lootChance = Dice.rollAD20();
+        int lootChance = DungeonUtil.rollAD20();
 
         // applies a stacking buff every 5 floors
         player.applyPower();
@@ -165,7 +165,7 @@ public class DungeonMaster {
     }
 
     /**
-     * Asks the user if they want to take a long rest.
+     * Asks the user if they want to take a long rest and execute if yes.
      */
     private static void promptLongRest() {
         System.out.println("Do you want to take a long rest?");
@@ -182,11 +182,11 @@ public class DungeonMaster {
     /**
      * Helper method to run the small monster encounter every minor level.
      *
-     * @return
+     * @return if player is still alive at the end of the encounter
      */
     private static boolean runSmallMonsterFloor(Adventurer player, int cycleCount) {
         boolean playerIsAlive;
-        int lootChance = Dice.rollAD20(); // roll a d20 each floor for chance at finding loot
+        int lootChance = DungeonUtil.rollAD20(); // roll a d20 each floor for chance at finding loot
 
         // set active monster to a random small monster
         Monster monster = MonsterFactory.randomSmallMonster();
@@ -207,10 +207,14 @@ public class DungeonMaster {
         return playerIsAlive;
     }
 
-
+    /**
+     * Runs the medium monster floor.
+     *
+     * @return if player is still alive at the end of the encounter
+     */
     private static boolean runBossMonsterFloor(Adventurer player, int cycleCount) {
         boolean playerIsAlive;
-        int lootChance = Dice.rollAD20();
+        int lootChance = DungeonUtil.rollAD20();
 
         // applies a stacking buff every 5 floors
         player.applyPower();
@@ -229,28 +233,43 @@ public class DungeonMaster {
         return playerIsAlive;
     }
 
+    /**
+     * Logic for running a dungeon cycle that consists of 10 levels.
+     */
     private static void runDungeonCycle() {
 
         int level = 1;
-        Combat dungeonCombat;
+
         boolean playerIsAlive = true;
 
         // extra shot of buffs to start off the cycle
         player.applyPower();
 
-        while (level < 10 && playerIsAlive) {
+        while (level <= 10 && playerIsAlive) {
 
             // At level 5, fight a medium monster
             if (level == 5) {
 
                 playerIsAlive = runMediumMonsterFloor(player, cycleCount);
 
+                // buffer for level clean up
+                // display current stats
+                // display total gold and xp
+                // display level
 
+
+                // run boss floor at level 10
+            } else if (level == 10) {
+                playerIsAlive = runBossMonsterFloor(player, cycleCount);
+
+                // other run normal floor with small monster
             } else {
-
                 playerIsAlive = runSmallMonsterFloor(player, cycleCount);
 
             }
+
+            // display recap to player at end of the level
+            levelRecap();
 
             level++;
             dungeonLevel++;
@@ -261,13 +280,41 @@ public class DungeonMaster {
 
         // after the 10th level, increase cycle count (which modifies monster difficulty)
         cycleCount++;
+        dungeonLevel++;
 
     }
 
+
+    /**
+     * Displays important info to player at the end of the level.
+     */
+    private static void levelRecap() {
+
+        DungeonUtil.printSpacer();
+
+        System.out.println("*******************************************************");
+        System.out.println("*                    Level Recap                      *");
+        System.out.printf("*   Dungeon Level: %d                                  *\n", dungeonLevel);
+        System.out.printf("*   Player Level: %d                                   *\n", player.getLevel());
+        System.out.printf("*   Player HP: %d/%d                                  *\n", player.getCurrentHP(), player.getMaxHP());
+        System.out.printf("*   Player XP: %d/%d                                    *\n", player.getCurrentXP(), player.nextLevelXP());
+        System.out.printf("*   Player Gold: %d                                    *\n", PlayerInventory.currentGoldBalance());
+        System.out.println("*******************************************************");
+
+        DungeonUtil.printSpacer();
+    }
+
+
+
+
+    /**
+     * Handles random gold drops and adding to inventory at the end of a room.
+     */
     private static void lootTheRoom() {
-        int goldFound = Dice.rollAD20();
+        int goldFound = DungeonUtil.rollAD20();
         PlayerInventory.pickUpGold(goldFound);
     }
+
 
 
 }

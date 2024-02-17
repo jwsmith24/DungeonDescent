@@ -5,7 +5,7 @@ import character.Adventurer;
 
 import monsters.Monster;
 
-import utility.Dice;
+import utility.DungeonUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
@@ -50,7 +50,7 @@ public class Combat {
             // determine initiative by rolling a d20 for each entity and adding speed score as a bonus
 
             if (playerFirst) {
-                System.out.println( player.getName() + "'s turn");
+                System.out.println(player.getName() + "'s turn");
                 System.out.println("-------------------------------");
 
                 // player goes first
@@ -63,11 +63,17 @@ public class Combat {
                 }
 
                 // then monster goes
-                System.out.println( monster.getName() + "'s turn");
+                System.out.println(monster.getName() + "'s turn");
                 System.out.println("-------------------------------");
                 attackPlayer(difficultyMod);
 
+                // end cycle if player dies
+                if (!player.isAlive()) {
+                    break;
+                }
+
             } else {
+
                 // or monster goes first
                 System.out.println(monster.getName() + "'s turn");
                 System.out.println("-------------------------------");
@@ -83,6 +89,11 @@ public class Combat {
                 System.out.println(player.getName() + "'s turn");
                 System.out.println("-------------------------------");
                 takePlayerTurn();
+
+                // end cycle if monster dies in middle of round
+                if (!monster.isAlive()) {
+                    break;
+                }
             }
 
         }
@@ -162,10 +173,6 @@ public class Combat {
     }
 
 
-
-
-
-
     /**
      * Displays the options for a player's action to include their ability text.
      */
@@ -186,14 +193,14 @@ public class Combat {
     private void basicAttack() {
 
         // roll a d20 and add attack bonus
-        int attackRoll = Dice.rollAD20() + player.getAttack();
+        int attackRoll = DungeonUtil.rollAD20() + player.getAttack();
 
         System.out.println("\nYou attack with: " + player.getPlayerClass().getAttackText());
 
         // Attack roll = d20 + attack bonus, damage roll = d10 + attack bonus
         if (attackRoll >= monster.getArmorClass()) {
 
-            int result = Dice.rollAD10() + player.getAttack();
+            int result = DungeonUtil.rollAD10() + player.getAttack();
 
             System.out.println("You hit the " + monster.getName() + " for " + result + " damage!");
 
@@ -210,17 +217,15 @@ public class Combat {
      */
     private void useSpecialAbility() {
 
-        int currentCharges = player.getUltimateCharges();
         // character needs to have enough ultimate charges
-        if (currentCharges > 0) {
+        if (player.spendUltimateCharge()) {
             System.out.println("You use: " + player.getPlayerClass().getSpecialAbilityText());
 
             // special deals double damage and is guaranteed to hit
-            int result = 2 * (Dice.rollAD10() + player.getAttack());
+            int result = 2 * (DungeonUtil.rollAD10() + player.getAttack());
             monster.takeDamage(result);
 
             System.out.println("You hit the " + monster.getName() + " for " + result + " damage!");
-            player.spendUltimateCharges(currentCharges - 1);
         }
 
 
@@ -232,7 +237,7 @@ public class Combat {
      */
     private void attackPlayer(int difficultyMod) {
 
-        int attackRoll = Dice.rollAD20() + monster.getAttackBonus();
+        int attackRoll = DungeonUtil.rollAD20() + monster.getAttackBonus();
 
         // if attack roll beats player ac, player takes damage
         if (attackRoll >= player.getAC()) {
@@ -240,7 +245,7 @@ public class Combat {
             monster.attackText();
             // difficulty scales the damage down (amount decreases as cycle count increases)
             // makes sure result doesn't go below 1
-            int calcDamage = Math.max(1, (Dice.rollAD10() + monster.getAttackBonus()) - difficultyMod);
+            int calcDamage = Math.max(1, (DungeonUtil.rollAD10() + monster.getAttackBonus()) - difficultyMod);
             player.takeDamage(calcDamage);
 
         } else {
@@ -257,8 +262,8 @@ public class Combat {
     private boolean playerGoesFirst() {
 
         boolean playerFirst;
-        int playerInit = Dice.rollAD20() + player.getSpeed();
-        int monsterInit = Dice.rollAD20() + monster.getSpeed();
+        int playerInit = DungeonUtil.rollAD20() + player.getSpeed();
+        int monsterInit = DungeonUtil.rollAD20() + monster.getSpeed();
 
         System.out.println("Initiative rolls!");
         System.out.println(player.getName() + ": " + playerInit);

@@ -8,7 +8,7 @@ public class CharacterStats {
     // Core Stats
     private int attack;
     private int ac;
-    private int hitPoints;
+    private int currentHP;
     private int energy;
     private int speed;
     private int luck;
@@ -16,14 +16,14 @@ public class CharacterStats {
     private int maxHP;
 
 
-    public CharacterStats(int attack, int ac, int hitPoints, int energy, int speed, int luck) {
+    public CharacterStats(int attack, int ac, int currentHP, int energy, int speed, int luck) {
         this.attack = attack;
         this.ac = ac;
-        this.hitPoints = hitPoints;
+        this.currentHP = currentHP;
         this.energy = energy;
         this.speed = speed;
         this.luck = luck;
-        this.maxHP = hitPoints; // max hp will be equal to starting hit points
+        this.maxHP = currentHP; // max hp will be equal to starting hit points
 
     }
 
@@ -52,7 +52,7 @@ public class CharacterStats {
         this.luck++;
 
         this.maxHP = maxHP + 10;
-        this.hitPoints = hitPoints + 10;
+        this.currentHP = currentHP + 10;
 
     }
 
@@ -76,12 +76,12 @@ public class CharacterStats {
     }
 
 
-    public int getHitPoints() {
-        return hitPoints;
+    public int getCurrentHP() {
+        return currentHP;
     }
 
-    public void setHitPoints(int hitPoints) {
-        this.hitPoints = hitPoints;
+    public void setCurrentHP(int hitPoints) {
+        this.currentHP = hitPoints;
     }
 
     public int getMaxHP() {

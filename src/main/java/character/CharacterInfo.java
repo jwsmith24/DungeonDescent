@@ -52,17 +52,10 @@ public class CharacterInfo {
     }
 
 
+
+
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public void setRace(PlayerRace race) {
-        this.race = race;
     }
 
 
@@ -70,8 +63,9 @@ public class CharacterInfo {
         return experience;
     }
 
-    public void setExperience(int experience) {
-        this.experience = experience;
+    public void gainExperience(int experience) {
+
+        this.experience += experience;
     }
 
 
@@ -79,8 +73,12 @@ public class CharacterInfo {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    /**
+     * Increment player level by 1
+     */
+    public void gainLevel() {
+
+        this.level += 1;
     }
 
 
@@ -95,24 +93,31 @@ public class CharacterInfo {
         return playerClass;
     }
 
-    public void setPlayerClass(PlayerClass playerClass) {
-        this.playerClass = playerClass;
-    }
 
 
     public String getCharacterSheet() {
         return characterSheet;
     }
 
-    public void setCharacterSheet(String characterSheet) {
-        this.characterSheet = characterSheet;
-    }
-
     public int getUltimateCharges() {
         return ultimateCharges;
     }
-    public void setUltimateCharges(int number) {
-        this.ultimateCharges = number;
+    public void gainUltimateCharge() {
+
+        this.ultimateCharges += 1;
+
+    }
+
+    public boolean spendUltimateCharge() {
+        if (ultimateCharges > 0) {
+            this.ultimateCharges -= 1;
+            return true;
+
+        } else {
+            System.out.println("You are out of ultimate charges");
+            return false;
+        }
+
     }
 
 

@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Utility class to handle all dice rolling in the game.
  */
-public class Dice {
+public class DungeonUtil {
 
     private static final Random d20 = new Random();
 
@@ -23,7 +23,15 @@ public class Dice {
     }
 
 
-    private Dice() {
+    public static void printSpacer() {
+        System.out.println("*\n");
+        System.out.println("*\n");
+        System.out.println("*\n");
+    }
+
+
+
+    private DungeonUtil() {
         // no objects here
     }
 

@@ -28,7 +28,7 @@ public class AdventurerCombatTest {
         assertEquals(13, player.getAC(),
                 "AC not increased");
 
-        assertEquals(20, player.getHitPoints(),
+        assertEquals(20, player.getCurrentHP(),
                 "Player hp not increased");
     }
 
@@ -41,7 +41,7 @@ public class AdventurerCombatTest {
         // test player starts with 10 hp
         player.takeDamage(2);
 
-        assertEquals(8, player.getHitPoints(),
+        assertEquals(8, player.getCurrentHP(),
                 "HP not reduced properly");
 
         assertEquals(10, player.getMaxHP(),
@@ -53,7 +53,7 @@ public class AdventurerCombatTest {
         player.takeDamage(100);
 
         // player HP should still only be at 0
-        assertEquals(0, player.getHitPoints());
+        assertEquals(0, player.getCurrentHP());
     }
 
     @Test
@@ -61,7 +61,7 @@ public class AdventurerCombatTest {
 
         player.drinkPotion();
 
-        assertEquals(10, player.getHitPoints(),
+        assertEquals(10, player.getCurrentHP(),
                 "HP changed even though potion slot was empty");
 
 
@@ -81,13 +81,13 @@ public class AdventurerCombatTest {
 
         player.drinkPotion();
 
-        assertTrue(player.getHitPoints() > 7,
+        assertTrue(player.getCurrentHP() > 7,
                 "No healing was applied");
 
         assertEquals(10, player.getMaxHP(),
                 "Max HP increased");
 
-        assertTrue(player.getHitPoints() <= player.getMaxHP(),
+        assertTrue(player.getCurrentHP() <= player.getMaxHP(),
                 "HP has exceeded max HP");
     }
 
@@ -102,7 +102,7 @@ public class AdventurerCombatTest {
         // take a long rest and everything should clear
         player.takeLongRest();
 
-        assertEquals(player.getMaxHP(), player.getHitPoints(),
+        assertEquals(player.getMaxHP(), player.getCurrentHP(),
                 "Player is not at max HP");
         assertFalse(player.hasCondition(Condition.POISONED),
                 "Player's condition was not removed");
@@ -128,11 +128,11 @@ public class AdventurerCombatTest {
     void testHealPlayer() {
         player.takeDamage(3);
         player.healPlayer(3);
-        assertEquals(10, player.getHitPoints());
+        assertEquals(10, player.getCurrentHP());
 
         // make sure can't over heal
         player.healPlayer(500);
-        assertEquals(10, player.getHitPoints());
+        assertEquals(10, player.getCurrentHP());
     }
 
 }
