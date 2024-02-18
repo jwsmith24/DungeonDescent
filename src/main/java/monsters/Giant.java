@@ -3,7 +3,7 @@ package monsters;
 public class Giant extends Monster {
 
     public Giant() {
-        super("Giant", 140, 11, 18, 1, 5000);
+        super("Giant", 100, 11, 18, 1, 5000);
     }
 
     /**
