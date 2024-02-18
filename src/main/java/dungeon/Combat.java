@@ -2,12 +2,15 @@ package dungeon;
 
 
 import character.Adventurer;
-
+import character.PlayerInventory;
 import monsters.Monster;
-
 import utility.DungeonUtil;
+import utility.index.EquipmentSlot;
+import utility.index.Item;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -34,7 +37,7 @@ public class Combat {
      *
      * @return if player is alive or dead after combat
      */
-    public boolean combat() {
+    public boolean combat(boolean dungeonIsScripted) {
 
         System.out.println("==================================");
         System.out.println("============= COMBAT! ============");
@@ -54,7 +57,7 @@ public class Combat {
                 System.out.println("-------------------------------");
 
                 // player goes first
-                takePlayerTurn();
+                takePlayerTurn(dungeonIsScripted);
                 System.out.println("-------------------------------");
 
                 // end cycle if monster dies in middle of round
@@ -88,7 +91,7 @@ public class Combat {
                 // then player goes
                 System.out.println(player.getName() + "'s turn");
                 System.out.println("-------------------------------");
-                takePlayerTurn();
+                takePlayerTurn(dungeonIsScripted);
 
                 // end cycle if monster dies in middle of round
                 if (!monster.isAlive()) {
@@ -105,13 +108,23 @@ public class Combat {
 
     }
 
-
-    private void takePlayerTurn() {
+    /**
+     * Runs the player turn in either scripted or normal mode.
+     */
+    private void takePlayerTurn(boolean scripted) {
         // check if they're alive
         //todo: implement check for condition status like restrained,paralyzed, etc
+
         if (player.isAlive()) {
-            takePlayerAction();
-            //takePlayerBonusAction();
+            // run player action based on game mode
+            if (scripted) {
+                takeScriptedPlayerAction();
+
+            } else {
+                takePlayerAction();
+            }
+
+
         }
     }
 
@@ -173,6 +186,31 @@ public class Combat {
 
             }
         }
+
+    }
+
+    /**
+     * For simplicity, scripted character will always try to use their special ability on bosses,
+     * use healing potion if less than half hp, and otherwise basic attack.
+     */
+    private void takeScriptedPlayerAction() {
+        List<String> bosses = Arrays.asList("Ogre", "Displacer Beast", "Giant Spider", "Young Red Dragon",
+                "Beholder", "Giant");
+
+        // use special if fighting boss
+        if (bosses.contains(monster.getName()) && player.getUltimateCharges() > 0) {
+            useSpecialAbility();
+
+            // use potion if hp is less than half if they have a potion to use
+        } else if ((player.getCurrentHP() < (player.getMaxHP() / 2))
+                && PlayerInventory.getEquippedItem(EquipmentSlot.POTION) != Item.NO_POTION) {
+
+            player.drinkPotion();
+            // otherwise attack
+        } else {
+            basicAttack();
+        }
+
 
     }
 

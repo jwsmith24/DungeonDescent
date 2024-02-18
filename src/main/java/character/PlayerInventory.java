@@ -170,7 +170,7 @@ public class PlayerInventory {
     /**
      * Drops a random item that fits the given equipment slot.
      */
-    public static void randomLootDrop(EquipmentSlot slot) {
+    public static void randomLootDrop(EquipmentSlot slot, boolean dungeonIsScripted) {
         ArrayList<Item> randomLootTable = new ArrayList<>();
 
         // pull all items of a given slot into an array list
@@ -189,7 +189,7 @@ public class PlayerInventory {
         Item randomDrop = randomLootTable.get(rollOnLootTable);
 
         // equip the item
-        equipItem(randomDrop.getItemType(), randomDrop, false);
+        equipItem(randomDrop.getItemType(), randomDrop, dungeonIsScripted);
 
     }
 

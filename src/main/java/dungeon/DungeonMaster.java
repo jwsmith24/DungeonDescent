@@ -63,6 +63,14 @@ public class DungeonMaster {
         // display basic character info and give starter weapon
         runTutorial();
 
+        // give cool items to scripted player
+        PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SUSSUR_SWORD, dungeonIsScripted);
+        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.DRAGONSCALE_ARMOR, dungeonIsScripted);
+        PlayerInventory.equipItem(EquipmentSlot.OFF_HAND, Item.DRAGONSCALE_SHIELD, dungeonIsScripted);
+
+        // start scripted player off with potion
+        PlayerInventory.findPotionOfHealing();
+
         // run dungeon cycles
         while (cycleCount <= 4 && player.isAlive()) {
 
@@ -164,40 +172,49 @@ public class DungeonMaster {
 
 
     /**
-     * Asks the user if they want to take a long rest and execute if yes.
+     * Asks the user if they want to take a long rest and execute if yes. Runs in either
+     * normal or scripted mode.
      */
-    private static void promptLongRest() {
+    private static void promptLongRest(boolean dungeonIsScripted) {
         System.out.println("Do you want to take a long rest?");
         System.out.println("1 - Yes | 2 - No");
 
-        boolean playerDeciding = true;
-        int result;
 
-        while (playerDeciding) {
 
-            try {
-                result = scanner.nextInt();
-                scanner.nextLine();
+        if(dungeonIsScripted) {
 
-                if (result == 1) {
-                    player.takeLongRest();
-                    playerDeciding = false;
+            System.out.println("You decide to take a long rest");
+            player.takeLongRest();
 
-                } else if (result ==2) {
-                    // skip long rest
-                    System.out.println("Long rest skipped");
-                    playerDeciding = false;
+        } else {
+
+            boolean playerDeciding = true;
+            int result;
+
+            while (playerDeciding) {
+
+                try {
+                    result = scanner.nextInt();
+                    scanner.nextLine();
+
+                    if (result == 1) {
+                        player.takeLongRest();
+                        playerDeciding = false;
+
+                    } else if (result ==2) {
+                        // skip long rest
+                        System.out.println("Long rest skipped");
+                        playerDeciding = false;
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Input invalid - Enter 1 or 2");
                 }
 
 
-
-
-            } catch (Exception e) {
-                System.out.println("Input invalid - Enter 1 or 2");
             }
-
-
         }
+
 
 
 
@@ -227,16 +244,16 @@ public class DungeonMaster {
         Combat dungeonCombat = new Combat(player, monster, cycleCount);
 
         // combat resolves into a boolean that's true if player is alive or false if they died.
-        playerIsAlive = dungeonCombat.combat();
+        playerIsAlive = dungeonCombat.combat(dungeonIsScripted);
 
         // Chance to find the shopkeeper or loot lying around
         if (playerIsAlive && (lootChance) > 15) {
 
-            Shop.shopKeeperEncounter(scanner);
+            Shop.shopKeeperEncounter(scanner, dungeonIsScripted);
 
         } else if (playerIsAlive && (lootChance > 10)) {
             System.out.println("The " + monster.getName() + " leaves behind some loot!");
-            PlayerInventory.randomLootDrop(EquipmentSlot.HELMET);
+            PlayerInventory.randomLootDrop(EquipmentSlot.HELMET, dungeonIsScripted);
         }
 
         // If player is alive at the end of encounter, apply XP and give option to long rest.
@@ -244,7 +261,7 @@ public class DungeonMaster {
             player.gainMediumXP();
             PlayerInventory.findPotionOfHealing();
             lootTheRoom();
-            promptLongRest();
+            promptLongRest(dungeonIsScripted);
         }
 
         return playerIsAlive;
@@ -271,7 +288,7 @@ public class DungeonMaster {
         Combat dungeonCombat = new Combat(player, monster, cycleCount);
 
         // combat resolves into a boolean that's true if player is alive or false if they died.
-        playerIsAlive = dungeonCombat.combat();
+        playerIsAlive = dungeonCombat.combat(dungeonIsScripted);
 
         // As long as the player is still alive, they get a chance to find loot.
         if (playerIsAlive && lootChance > 12) {
@@ -312,17 +329,17 @@ public class DungeonMaster {
         Combat dungeonCombat = new Combat(player, monster, cycleCount);
 
         // combat resolves into a boolean that's true if player is alive or false if they died.
-        playerIsAlive = dungeonCombat.combat();
+        playerIsAlive = dungeonCombat.combat(dungeonIsScripted);
 
         // If player is alive at the end of encounter; apply XP, random loot, option to shop
         // give option to long rest, find new potion if empty.
         if (playerIsAlive) {
             player.gainBossXP();
             PlayerInventory.findPotionOfHealing();
-            PlayerInventory.randomLootDrop(EquipmentSlot.ARMOR);
+            PlayerInventory.randomLootDrop(EquipmentSlot.ARMOR, dungeonIsScripted);
             lootTheRoom();
-            Shop.shopKeeperEncounter(scanner);
-            promptLongRest();
+            Shop.shopKeeperEncounter(scanner, dungeonIsScripted);
+            promptLongRest(dungeonIsScripted);
         }
 
         return playerIsAlive;
@@ -389,8 +406,12 @@ public class DungeonMaster {
 
         }
 
-        // after the 10th level, increase cycle count (which modifies monster difficulty)
-        cycleCount++;
+        // If player is still alive after the 10th level,
+        // increase cycle count (which modifies monster difficulty)
+        if (playerIsAlive) {
+            cycleCount++;
+        }
+
 
     }
 

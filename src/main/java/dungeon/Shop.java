@@ -13,9 +13,38 @@ public class Shop {
     private static final int SHOP_PRICE = 41;
 
     /**
-     * Contains the logic for a shopkeeper encounter.
+     * Contains the logic for a shopkeeper encounter. Runs either in normal
+     * or scripted mode.
      */
-    public static void shopKeeperEncounter(Scanner scanner) {
+    public static void shopKeeperEncounter(Scanner scanner, boolean dungeonIsScripted) {
+
+        if (dungeonIsScripted) {
+            runScriptedShopkeeperEncounter();
+
+        } else {
+            runNormalShopkeeperEncounter(scanner);
+        }
+
+    }
+
+    private static void runScriptedShopkeeperEncounter() {
+
+        System.out.println("The Shopkeeper appears!");
+        System.out.println("Do you want to approach?");
+
+        System.out.println("*You decide to approach the shopkeeper*");
+
+        System.out.println("The shopkeeper beckons you closer. 'Only one item', they say in a broken voice");
+
+        displayShopInventory();
+
+
+        System.out.println("You try to purchase the hat of style");
+        transaction(Item.HAT_OF_STYLE, true);
+
+    }
+
+    private static void runNormalShopkeeperEncounter(Scanner scanner) {
 
         int result;
         boolean playerDeciding = true;
@@ -50,15 +79,14 @@ public class Shop {
         }
     }
 
-    public static void goShopping(Scanner scanner) {
-
+    private static void displayShopInventory() {
         System.out.println("Current Gold: " + PlayerInventory.currentGoldBalance());
 
         System.out.println("==================================");
         System.out.println("========= SHOP INVENTORY =========");
         System.out.println("==================================");
 
-       int index = 1;
+        int index = 1;
         // Iterate through the list of items and display the shop inventory.
         for (Item item : Item.values()) {
 
@@ -73,6 +101,11 @@ public class Shop {
         System.out.println("*");
         System.out.println("*");
         System.out.println("*");
+    }
+
+    public static void goShopping(Scanner scanner) {
+
+        displayShopInventory();
 
         System.out.println("Enter the index of the item you wish to purchase || Enter 5 to leave.");
 
@@ -86,19 +119,19 @@ public class Shop {
                 scanner.nextLine();
 
                 if (result == 1) {
-                    transaction(Item.SWORD_OF_SLASHING);
+                    transaction(Item.SWORD_OF_SLASHING, false);
                     playerDeciding = false;
 
                 } else if (result == 2) {
-                    transaction(Item.HELMET_OF_PROTECTION);
+                    transaction(Item.HELMET_OF_PROTECTION, false);
                     playerDeciding = false;
 
                 } else if (result == 3) {
-                    transaction(Item.POTION_OF_HEALING);
+                    transaction(Item.POTION_OF_HEALING, false);
                     playerDeciding = false;
 
                 } else if (result == 4) {
-                    transaction(Item.HAT_OF_STYLE);
+                    transaction(Item.HAT_OF_STYLE, false);
                     playerDeciding = false;
 
                 }else if (result == 5) {
@@ -117,7 +150,7 @@ public class Shop {
     }
 
 
-    private static void transaction(Item item) {
+    private static void transaction(Item item, boolean dungeonIsScripted) {
 
         // Check that player has enough gold
         if (!PlayerInventory.haveEnoughGold(item.getItemValue())) {
@@ -134,7 +167,7 @@ public class Shop {
             PlayerInventory.spendGold(item.getItemValue());
 
             // equip new item
-            PlayerInventory.equipItem(item.getItemType(), item, false);
+            PlayerInventory.equipItem(item.getItemType(), item, dungeonIsScripted);
 
             System.out.println("You look up from inspecting your new item and the shopkeeper has vanished without a trace...");
 

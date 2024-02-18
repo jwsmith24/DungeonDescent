@@ -32,7 +32,7 @@ public enum Item {
 
     // ARMOR
 
-    IRON_HELMET("Iron Helmet", "Has cool horns", 15, EquipmentSlot.ARMOR, 2),
+    IRON_HELMET("Iron Helmet", "Has cool horns", 15, EquipmentSlot.HELMET, 2),
 
 
     STEEL_ARMOR("Steel Armor", "Steel armor", 50, EquipmentSlot.ARMOR, 2),
@@ -46,7 +46,8 @@ public enum Item {
     STEEL_SWORD("Steel Longsword", "Quality craftsmanship!", 30, EquipmentSlot.WEAPON, 3),
     MAPLE_WAND("Maple Wand", "Ornately crafted", 30, EquipmentSlot.WEAPON, 3),
     STEEL_MACE("Steel Mace", "Ready to pummel demons!", 30, EquipmentSlot.WEAPON, 3),
-    GLASS_DAGGER("Glass Dagger", "Lightweight, shiny, AND greeen", 50, EquipmentSlot.WEAPON, 3),
+    GLASS_DAGGER("Glass Dagger", "Lightweight, shiny, AND greeeeeeen", 50, EquipmentSlot.WEAPON, 3),
+    SUSSUR_SWORD("Sussur Sword", "Emits a faint blue aura", 60, EquipmentSlot.WEAPON, 4),
 
 
     // Shopkeeper items - filtered by unique price
