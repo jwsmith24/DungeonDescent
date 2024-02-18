@@ -72,11 +72,17 @@ public class Adventurer {
             // special deals double damage and is guaranteed to hit
             int result = 2 * (DungeonUtil.rollAD10() + stats.getAttack());
 
+            // display damage and remaining charges for special ability
             System.out.println("Your special attack hits for " + result + " damage!");
+
+            System.out.println("Ultimate Charges Remaining: " + getUltimateCharges());
 
             return result;
 
         } else {
+
+            System.out.println("Out of ultimate charges until next long rest");
+            System.out.println("Using basic attack instead");
 
             return 0;
         }
@@ -113,7 +119,6 @@ public class Adventurer {
      */
     public void takeLongRest() {
         System.out.println("You find a cozy spot to rest");
-        DungeonUtil.printSpacer();
 
         healPlayer(this.getMaxHP());
         this.regainUltimate();
@@ -282,7 +287,7 @@ public class Adventurer {
     }
 
 
-    public void drinkPotion() {
+    public boolean drinkPotion() {
 
         if (PlayerInventory.consumePotion()) {
             int hpGained = DungeonUtil.rollAD10() + getLuck();
@@ -294,11 +299,14 @@ public class Adventurer {
 
             System.out.println("Remaining hit points: " + getCurrentHP() + "/" + getMaxHP());
 
+            return true;
+
         } else {
 
             System.out.println("You rummage through your sack but find no potions");
+            System.out.println("Using basic attack instead");
+            return false;
         }
-
 
     }
 

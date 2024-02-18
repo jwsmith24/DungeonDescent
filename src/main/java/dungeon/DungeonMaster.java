@@ -32,9 +32,11 @@ public class DungeonMaster {
 
     /**
      * Uses the Character Builder class to allow the user to build their character.
+     * Once character is created, initialize inventory.
      */
     private static void spawnCharacter() {
         player = CharacterBuilder.createCharacter();
+        PlayerInventory.initializeInventory();
     }
 
 
@@ -121,12 +123,38 @@ public class DungeonMaster {
      */
     private static void promptLongRest() {
         System.out.println("Do you want to take a long rest?");
-        int result = scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("1 - Yes | 2 - No");
 
-        if (result == 1) {
-            player.takeLongRest();
+        boolean playerDeciding = true;
+        int result;
+
+        while (playerDeciding) {
+
+            try {
+                result = scanner.nextInt();
+                scanner.nextLine();
+
+                if (result == 1) {
+                    player.takeLongRest();
+                    playerDeciding = false;
+
+                } else if (result ==2) {
+                    // skip long rest
+                    System.out.println("Long rest skipped");
+                    playerDeciding = false;
+                }
+
+
+
+
+            } catch (Exception e) {
+                System.out.println("Input invalid - Enter 1 or 2");
+            }
+
+
         }
+
+
 
 
     }

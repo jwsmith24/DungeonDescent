@@ -65,7 +65,7 @@ public class PlayerInventory {
      */
     public static boolean consumePotion() {
         if (potionIsFilled()) {
-            inventory.remove(EquipmentSlot.POTION);
+            inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
             return true;
         }
         return false;

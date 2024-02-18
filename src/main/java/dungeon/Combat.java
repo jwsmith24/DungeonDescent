@@ -151,8 +151,12 @@ public class Combat {
 
 
                     } else if (playerChoice == 3) {
-                        // drink a potion
-                        player.drinkPotion();
+                        // try to drink a potion.
+                        // if it doesn't work, basic attack instead.
+
+                        if(!player.drinkPotion()) {
+                            basicAttack();
+                        }
 
                         playerDeciding = false;
 
@@ -204,11 +208,21 @@ public class Combat {
     }
 
     /**
-     * Logic for using special ability
+     * Logic for using special ability. If player is out of ultimate charges, it does
+     * a basic attack instead
      */
     private void useSpecialAbility() {
 
-        monster.takeDamage(player.useSpecialAttack());
+        int specialAtkDmg = player.useSpecialAttack();
+
+
+        if (specialAtkDmg > 0) {
+            monster.takeDamage(specialAtkDmg);
+
+        } else {
+            basicAttack();
+        }
+
     }
 
     /**
