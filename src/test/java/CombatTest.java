@@ -31,6 +31,8 @@ public class CombatTest extends AdventurerTests{
 
     @Test
     void testArmorBonusDamageReductionWithGear() {
+        // equip starting items
+        PlayerInventory.initializeInventory();
 
         // equip a rare item
         PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON, false);
@@ -49,8 +51,11 @@ public class CombatTest extends AdventurerTests{
 
     @Test
     void testArmorBonusDamageReductionWithMultiplePiecesOfGear() {
-        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON,true);
-        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET, true);
+
+        PlayerInventory.initializeInventory();
+
+        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON,false);
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET, false);
 
         int totalBonus = PlayerInventory.getEquippedItem(EquipmentSlot.ARMOR).getBonus() +
                 PlayerInventory.getEquippedItem(EquipmentSlot.HELMET).getBonus();

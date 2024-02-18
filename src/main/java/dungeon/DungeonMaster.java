@@ -115,10 +115,6 @@ public class DungeonMaster {
         return startingWeapon; // so we can display what it is
     }
 
-    //todo:
-    // implement looting/finding new items,
-    //
-
 
     /**
      * Asks the user if they want to take a long rest and execute if yes.
@@ -136,7 +132,7 @@ public class DungeonMaster {
     }
 
     /**
-     * Helper method to run the medium monster encounter every major level.
+     * Runs the minor boss level. If player succeeds, awards bonus xp and a random helmet drop.
      *
      * @return boolean isPlayerAlive
      */
@@ -167,12 +163,13 @@ public class DungeonMaster {
 
         } else if (playerIsAlive && (lootChance > 10)) {
             System.out.println("The " + monster.getName() + " leaves behind some loot!");
-            lootTheRoom();
+            PlayerInventory.randomLootDrop(EquipmentSlot.HELMET);
         }
 
         // If player is alive at the end of encounter, apply XP and give option to long rest.
         if (playerIsAlive) {
             player.gainMediumXP();
+            lootTheRoom();
             promptLongRest();
         }
 
@@ -240,10 +237,11 @@ public class DungeonMaster {
         // combat resolves into a boolean that's true if player is alive or false if they died.
         playerIsAlive = dungeonCombat.combat();
 
-        // If player is alive at the end of encounter, apply XP, option to shop
+        // If player is alive at the end of encounter; apply XP, random loot, option to shop
         // and give option to long rest.
         if (playerIsAlive) {
             player.gainBossXP();
+            PlayerInventory.randomLootDrop(EquipmentSlot.ARMOR);
             Shop.shopKeeperEncounter(scanner);
             promptLongRest();
         }
@@ -280,15 +278,16 @@ public class DungeonMaster {
                 runTrap(teleportTrap);
 
             } else if (level == 5) {
-
+                // run minor boss encounter
                 playerIsAlive = runMediumMonsterFloor(player, cycleCount);
 
-                // run boss floor at level 10
+
+
             } else if (level == 7) {
 
                 runTrap(falseFloorTrap);
 
-                // cycle boss
+                // run major boss encounter
             } else if (level == 10) {
                 playerIsAlive = runBossMonsterFloor(player, cycleCount);
 

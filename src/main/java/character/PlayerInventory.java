@@ -4,9 +4,7 @@ import utility.index.EquipmentSlot;
 import utility.index.Item;
 
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Functionality for player inventory management.
@@ -137,6 +135,27 @@ public class PlayerInventory {
     }
 
     /**
+     * Drops a random item that fits the given equipment slot.
+     */
+    public static void randomLootDrop(EquipmentSlot slot) {
+        ArrayList<Item> randomLootTable = new ArrayList<>();
+
+        // pull all items of a given slot into an array list
+        for (Item item : Item.values()) {
+            // avoid the "NO_X" starting "items"
+            if (item.getItemType() == slot && item.getItemValue() != 0) {
+                randomLootTable.add(item);
+            }
+        }
+
+        Random random = new Random();
+        Item randomDrop = randomLootTable.get(random.nextInt(randomLootTable.size()));
+
+        equipItem(randomDrop.getItemType(), randomDrop, false);
+
+    }
+
+    /**
      * Sets inventory to starting inventory.
      */
     public static void initializeInventory() {
@@ -214,11 +233,14 @@ public class PlayerInventory {
     }
 
     /**
-     * Determine if slot is already equipped or open. // todo: rework this to make sense
+     * Determine if slot is already equipped or open.
      */
     public static boolean isSlotEmpty(EquipmentSlot slot) {
 
-        return !inventory.containsKey(slot);
+        // "No armor equipped" items have value of zero
+        return (inventory.get(slot).getItemValue() == 0);
+
+
     }
 
     /**
