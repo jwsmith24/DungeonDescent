@@ -21,6 +21,8 @@ public class DungeonMaster {
     // The dungeon master knows about the player and the monsters.
     private static Adventurer player;
 
+    private static Monster monster;
+
     // DungeonMaster also knows about the player inventory and the dungeon itself which are
     // both static
 
@@ -170,7 +172,7 @@ public class DungeonMaster {
         player.applyPower();
 
         // Set active monster to a random medium monster
-        Monster monster = MonsterFactory.randomMediumMonster();
+        monster = MonsterFactory.randomMediumMonster();
 
         DungeonUtil.printSpecialWrapper();
         System.out.println("A " + monster.getName() + " appears!\n");
@@ -214,7 +216,7 @@ public class DungeonMaster {
         int lootChance = DungeonUtil.rollAD20(); // roll a d20 each floor for chance at finding loot
 
         // set active monster to a random small monster
-        Monster monster = MonsterFactory.randomSmallMonster();
+        monster = MonsterFactory.randomSmallMonster();
 
         DungeonUtil.printSpecialWrapper();
         System.out.println("A " + monster.getName() + " appears!");
@@ -255,7 +257,7 @@ public class DungeonMaster {
         player.applyPower();
 
         // Set active monster to a random medium monster
-        Monster monster = MonsterFactory.randomLargeMonster();
+        monster = MonsterFactory.randomLargeMonster();
 
         DungeonUtil.printSpecialWrapper();
         System.out.println("A " + monster.getName() + " appears!\n");
@@ -395,8 +397,9 @@ public class DungeonMaster {
         System.out.println("**********************************************************");
         System.out.println("*                    Dungeon Recap                        *");
         System.out.printf("*   Dungeon Progress: Level %d                             *%n", dungeonLevel);
-        System.out.printf("*   Player Level: %d                                       *%n", player.getLevel());
-        System.out.printf("*   Player Gold: %d                                        *%n", PlayerInventory.currentGoldBalance());
+        System.out.printf("*   Player Level:           %d                             *%n", player.getLevel());
+        System.out.printf("*   Player Gold:            %d                             *%n", PlayerInventory.currentGoldBalance());
+        System.out.printf("*   Killed By:              %s                             *%n", monster.getName());
         System.out.println("**********************************************************");
 
     }
