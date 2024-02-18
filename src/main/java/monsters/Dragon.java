@@ -6,7 +6,7 @@ public class Dragon extends Monster {
      * Builds a monster with dragon stats.
      */
     public Dragon() {
-        super("Young Red Dragon", 100, 10, 18, 5, 5900);
+        super("Young Red Dragon", 180, 10, 18, 5, 5900);
     }
 
     /**

@@ -242,8 +242,8 @@ public class Adventurer {
      */
     public void takeDamage(int amount) {
 
-        // subtract armor bonus from damage taken without allow damage to be negative
-        int reducedDmg = Math.max(0, amount - itemArmorBonus);
+        // subtract armor bonus from damage taken with minimum damage of 1
+        int reducedDmg = Math.max(1, amount - itemArmorBonus);
 
         //apply damage to character
         stats.takeDamage(reducedDmg);

@@ -57,6 +57,14 @@ public class DungeonMaster {
         System.out.println("You'll be watching a pre-generated character as they" +
                 " navigate the dungeon.");
 
+        System.out.println("The character is programmed to "
+                + "\n- Use their special ability if they have charges available on a boss fight"
+                + "\n- Use their healing potion if below half hp"
+                + "\n- Use their basic attack.");
+
+        System.out.println("The character also starts out with powerful gear to "
+                + "ensure they can consistently make it to the end.");
+
         // set active player to the generated character
         player = CharacterBuilder.createScriptedCharacter();
 
@@ -78,8 +86,14 @@ public class DungeonMaster {
         }
 
 
-        // after player dies, display a recap
-        dungeonRecap();
+        // if player finishes the dungeon alive, display complete message!
+        if (player.isAlive()) {
+            dungeonComplete();
+            // otherwise display the recap
+        } else {
+            dungeonRecap();
+        }
+
 
     }
 
@@ -471,6 +485,14 @@ public class DungeonMaster {
         System.out.printf("*   Killed By:              %s                             *%n", monster.getName());
         System.out.println("**********************************************************");
 
+    }
+
+    private static void dungeonComplete() {
+
+        System.out.println("*********************************");
+        System.out.println("           D U N G E O N         ");
+        System.out.println("          C O M P L E T E        ");
+        System.out.println("*********************************");
     }
 
 
