@@ -1,11 +1,9 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import character.PlayerInventory;
-
 import org.junit.jupiter.api.Test;
-
 import utility.index.EquipmentSlot;
 import utility.index.Item;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class InventoryManagementTest {
@@ -36,7 +34,7 @@ public class InventoryManagementTest {
 
         PlayerInventory.initializeInventory();
 
-        PlayerInventory.removeItem(EquipmentSlot.WEAPON);
+        PlayerInventory.removeItem(EquipmentSlot.WEAPON, true);
 
         // Verifying that the right output was displayed to console
 
@@ -75,7 +73,7 @@ public class InventoryManagementTest {
     void testRemoveItemFromEmptySlot() {
         PlayerInventory.initializeInventory();
         // Try to remove the helmet
-        PlayerInventory.removeItem(EquipmentSlot.HELMET);
+        PlayerInventory.removeItem(EquipmentSlot.HELMET, true);
 
 
     }

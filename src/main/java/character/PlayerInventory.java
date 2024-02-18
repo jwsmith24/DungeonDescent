@@ -129,7 +129,7 @@ public class PlayerInventory {
 
             } else {
                 // Prompts user to replace item if applicable
-                removeItem(slot);
+                removeItem(slot, false);
 
                 // If the slot is open now, we equip the new item, otherwise we do nothing.
                 if (isSlotEmpty(slot)) {
@@ -169,16 +169,7 @@ public class PlayerInventory {
 
     }
 
-    /**
-     * Sets inventory to starting inventory.
-     */
-    public static void initializeInventory() {
-        inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
-        inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
-        inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
-        inventory.put(EquipmentSlot.OFF_HAND, Item.NO_OFF_HAND);
-        inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
-    }
+
 
     public static void displayInventory() {
 
@@ -198,14 +189,14 @@ public class PlayerInventory {
     /**
      * Removes an item from an inventory slot.
      */
-    public static void removeItem(EquipmentSlot slot) {
+    public static void removeItem(EquipmentSlot slot, boolean ignoreAlreadyEquipped) {
 
         // instead of simply removing the item from the list,
         // we want to replace it with the associated empty item constant
         Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
         Item equippedItem = getEquippedItem(slot);
 
-        if (inventory != null) {
+        if (inventory != null && !ignoreAlreadyEquipped) {
 
             // Only starting equipment has a value of 0
             if (equippedItem.getItemValue() == 0) {
@@ -230,8 +221,10 @@ public class PlayerInventory {
                         scanner.nextLine();
 
                         if (result == 1) {
-                            inventory.remove(slot);
+
+                            removeSlot(slot);
                             break;
+
                         } else if (result == 2) {
                             break;
                         }
@@ -245,8 +238,39 @@ public class PlayerInventory {
                 }
             }
 
+        } else {
+           // if we want to bypass user input for testing
+            removeSlot(slot);
         }
 
+    }
+
+
+    private static void removeSlot(EquipmentSlot slot) {
+
+        switch (slot) {
+
+            case ARMOR: inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
+            case HELMET: inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
+            case WEAPON: inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
+            case OFF_HAND: inventory.put(EquipmentSlot.OFF_HAND, Item.NO_OFF_HAND);
+            case POTION: inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
+
+            default: System.out.println("Not a valid slot");
+
+
+        }
+    }
+
+    /**
+     * Sets inventory to starting inventory.
+     */
+    public static void initializeInventory() {
+        inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
+        inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
+        inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
+        inventory.put(EquipmentSlot.OFF_HAND, Item.NO_OFF_HAND);
+        inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
     }
 
     /**

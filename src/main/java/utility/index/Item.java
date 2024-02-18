@@ -51,7 +51,7 @@ public enum Item {
 
     // Shopkeeper items - filtered by unique price
 
-    SWORD_OF_SLASHING("Sword of Slashing", "Slashes really good. +1 to ATK!", 41, EquipmentSlot.WEAPON, 5),
+    SWORD_OF_SLASHING("Sword of Slashing", "Slashes really good. +5 to ATK!", 41, EquipmentSlot.WEAPON, 5),
     HELMET_OF_PROTECTION("Helmet of Protection", "Wear for protection!", 41, EquipmentSlot.HELMET, 5),
     POTION_OF_HEALING("Potion of Healing", "Drink to restore hit points!", 41, EquipmentSlot.POTION, 5),
     HAT_OF_STYLE("Hat of Style", "You'll look super cool.", 41, EquipmentSlot.HELMET, 10);

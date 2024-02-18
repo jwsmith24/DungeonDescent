@@ -53,8 +53,12 @@ public class DungeonMaster {
         // run tutorial and give starting weapon based on class
         runTutorial();
 
-        // start the dungeon
-        runDungeonCycle();
+        // run dungeon cycles
+        while (cycleCount <= 4 && player.isAlive()) {
+
+            runDungeonCycle();
+        }
+
 
         // after player dies, display a recap
         dungeonRecap();
@@ -79,6 +83,7 @@ public class DungeonMaster {
         Item startingWeapon = giveStartingWeapon();
 
         System.out.println("Upon entering the dungeon, you find a chest containing a " + startingWeapon.getItemName());
+        System.out.println(startingWeapon.getItemDescription());
 
         // equip starting weapon
         PlayerInventory.equipItem(EquipmentSlot.WEAPON, startingWeapon, true);
@@ -275,6 +280,7 @@ public class DungeonMaster {
             player.gainBossXP();
             PlayerInventory.findPotionOfHealing();
             PlayerInventory.randomLootDrop(EquipmentSlot.ARMOR);
+            lootTheRoom();
             Shop.shopKeeperEncounter(scanner);
             promptLongRest();
         }
@@ -382,14 +388,15 @@ public class DungeonMaster {
      */
     private static void levelRecap() {
 
-        System.out.println("**********************************************************");
-        System.out.println("*                    Level Recap                         *");
-        System.out.printf("*   Dungeon Level: %d                                     *%n", dungeonLevel);
-        System.out.printf("*   Player Level: %d                                      *%n", player.getLevel());
-        System.out.printf("*   Player HP: %d/%d                                      *%n", player.getCurrentHP(), player.getMaxHP());
-        System.out.printf("*   Player XP: %d/%d                                      *%n", player.getCurrentXP(), player.nextLevelXP());
-        System.out.printf("*   Player Gold: %d                                       *%n", PlayerInventory.currentGoldBalance());
-        System.out.println("**********************************************************");
+        System.out.println("***********************************************************");
+        System.out.println("*                    Level Recap                          *");
+        System.out.printf("*   Dungeon Level: %d                                      *%n", dungeonLevel);
+        System.out.printf("*   Dungeon Cycle: %d                                      *%n", cycleCount);
+        System.out.printf("*   Player Level:  %d                                      *%n", player.getLevel());
+        System.out.printf("*   Player HP:     %d/%d                                   *%n", player.getCurrentHP(), player.getMaxHP());
+        System.out.printf("*   Player XP:     %d/%d                                   *%n", player.getCurrentXP(), player.nextLevelXP());
+        System.out.printf("*   Player Gold:   %d                                      *%n", PlayerInventory.currentGoldBalance());
+        System.out.println("***********************************************************");
         
     }
 
@@ -397,6 +404,7 @@ public class DungeonMaster {
         System.out.println("**********************************************************");
         System.out.println("*                    Dungeon Recap                        *");
         System.out.printf("*   Dungeon Progress: Level %d                             *%n", dungeonLevel);
+        System.out.printf("*   Dungeon Cycle:          %d                             *%n", cycleCount);
         System.out.printf("*   Player Level:           %d                             *%n", player.getLevel());
         System.out.printf("*   Player Gold:            %d                             *%n", PlayerInventory.currentGoldBalance());
         System.out.printf("*   Killed By:              %s                             *%n", monster.getName());
