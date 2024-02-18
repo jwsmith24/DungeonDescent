@@ -235,7 +235,14 @@ public class Combat {
     private void basicAttack() {
 
         // if attack roll beats monster ac, apply damage
-        if (player.basicAttackRoll() >= monster.getArmorClass()) {
+        int attackRoll = player.basicAttackRoll();
+
+        if (attackRoll >= 20) {
+            System.out.println("Critical strike!");
+
+            monster.takeDamage(player.basicAttackCriticalStrike());
+
+        } else if (player.basicAttackRoll() >= monster.getArmorClass()) {
 
             monster.takeDamage(player.basicAttackDamage());
 

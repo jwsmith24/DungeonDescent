@@ -49,8 +49,22 @@ public class Adventurer {
         return attackRoll;
     }
 
+    /**
+     * Calculates damage of a normal attack roll.
+     */
     public int basicAttackDamage() {
         int result = DungeonUtil.rollAD10() + stats.getAttack() + info.getLevel();
+
+        System.out.println("Your attack hits for " + result + " damage!");
+
+        return result;
+    }
+
+    /**
+     * calculates damage on a critical hit.
+     */
+    public int basicAttackCriticalStrike() {
+        int result = (DungeonUtil.rollAD20() + stats.getAttack() + info.getLevel()) * 2;
 
         System.out.println("Your attack hits for " + result + " damage!");
 
@@ -135,7 +149,9 @@ public class Adventurer {
      * Ultimate charges are based on energy score.
      */
     public void regainUltimate() {
-        for(int i = 0; i < stats.getEnergy(); i++) {
+
+        while (info.getUltimateCharges() < stats.getEnergy()) {
+
             info.gainUltimateCharge();
         }
     }

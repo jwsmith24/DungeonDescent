@@ -50,8 +50,12 @@ public class DungeonMaster {
 
     /**
      * Runs the dungeon with scripted inputs for grading/demonstration.
+     *
+     * <p>If the player dies, they restart at the beginning of the dungeon. They lose their gold but maintain their
+     * level and equipment.</p>
      */
     private static void runScriptedDungeon() {
+
         System.out.println("Welcome to the scripted version of Dungeon Descent!");
 
         System.out.println("You'll be watching a pre-generated character as they" +
@@ -62,8 +66,19 @@ public class DungeonMaster {
                 + "\n- Use their healing potion if below half hp"
                 + "\n- Use their basic attack.");
 
-        System.out.println("The character also starts out with powerful gear to "
+        System.out.println("If the player dies, they'll respawn at the beginning of the dungeon. They'll lose" +
+                "their gold but will maintain their level and equipment allowing them to get stronger.");
+
+        /*System.out.println("The character also starts out with powerful gear to "
                 + "ensure they can consistently make it to the end.");
+*/
+        try {
+            Thread.sleep(2000);
+
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
 
         // set active player to the generated character
         player = CharacterBuilder.createScriptedCharacter();
@@ -72,29 +87,85 @@ public class DungeonMaster {
         runTutorial();
 
         // give cool items to scripted player
-        PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SUSSUR_SWORD, dungeonIsScripted);
+        /*PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SUSSUR_SWORD, dungeonIsScripted);
         PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.DRAGONSCALE_ARMOR, dungeonIsScripted);
-        PlayerInventory.equipItem(EquipmentSlot.OFF_HAND, Item.DRAGONSCALE_SHIELD, dungeonIsScripted);
+        PlayerInventory.equipItem(EquipmentSlot.OFF_HAND, Item.DRAGONSCALE_SHIELD, dungeonIsScripted);*/
 
         // start scripted player off with potion
         PlayerInventory.findPotionOfHealing();
 
-        // run dungeon cycles
-        while (cycleCount <= 4 && player.isAlive()) {
+        boolean play = true;
 
-            runDungeonCycle();
+        while (play) {
+
+            // run dungeon cycles
+            while (cycleCount <= 4 && player.isAlive()) {
+                
+                runDungeonCycle();
+            }
+            // if player finishes the dungeon alive, display complete message!
+            if (player.isAlive()) {
+                dungeonComplete();
+                play = false;
+                // otherwise display the recap
+            } else {
+                dungeonRecap();
+
+                // prompt player to reset or quit
+                if (promptReset()) {
+
+                    // if player chooses to reset, reset dungeon level and cycle count
+                    // apply long rest, reset inventory, start with potion and nice weapon
+                    cycleCount = 0;
+                    dungeonLevel = 0;
+                    player.takeLongRest();
+                    PlayerInventory.initializeInventory();
+                    PlayerInventory.findPotionOfHealing();
+                    PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SUSSUR_SWORD, true);
+                }
+            }
         }
 
+    }
 
-        // if player finishes the dungeon alive, display complete message!
-        if (player.isAlive()) {
-            dungeonComplete();
-            // otherwise display the recap
-        } else {
-            dungeonRecap();
+    /**
+     * Give player option to reset game and try again or quit.
+     */
+    private static boolean promptReset() {
+        System.out.println("You died, but this is not the end!");
+        System.out.println("Lose your gold and gear, but keep your power and start again.");
+        System.out.println("You'll definitely get it this time.");
+
+        System.out.println("Press 1 to Reset | 2 to Quit");
+
+        boolean continuePlaying = true;
+        boolean playerDeciding = true;
+
+        while (playerDeciding) {
+
+
+            try {
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+
+                if (choice == 1) {
+                    playerDeciding = false;
+
+                } else if (choice == 2) {
+                    playerDeciding = false;
+
+                    continuePlaying = false;
+
+                } else {
+                    System.out.println("Enter 1 or 2");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Invalid entry, enter a 1 or 2");
+            }
         }
 
-
+        return continuePlaying;
     }
 
     /**
