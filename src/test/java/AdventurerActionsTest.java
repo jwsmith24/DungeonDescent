@@ -107,6 +107,8 @@ public class AdventurerActionsTest extends AdventurerTests {
     @Test
     void testDrinkPotionWithoutOneEquipped() {
 
+        PlayerInventory.initializeInventory();
+
         player.drinkPotion();
 
         assertEquals(10, player.getCurrentHP(),

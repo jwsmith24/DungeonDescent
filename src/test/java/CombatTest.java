@@ -72,6 +72,18 @@ public class CombatTest extends AdventurerTests{
                 "Bonus not properly applied");
     }
 
+    @Test
+    void testDrinkAPotionWithPotion() {
+        PlayerInventory.initializeInventory();
+        PlayerInventory.findPotionOfHealing();
+
+        player.takeDamage(1);
+        player.drinkPotion();
+
+        assertEquals(player.getMaxHP(), player.getCurrentHP(),
+                "Error drinking potion");
+    }
+
 
 
 }

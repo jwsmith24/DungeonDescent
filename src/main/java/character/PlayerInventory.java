@@ -40,10 +40,24 @@ public class PlayerInventory {
         gold = (gold - value);
     }
 
+
+    /**
+     * Used to determine if player's potion slot is filled.
+     */
     private static boolean potionIsFilled() {
         // if player has a potion, return true
-        return getEquippedItem(EquipmentSlot.POTION) != null;
+        return getEquippedItem(EquipmentSlot.POTION).getItemValue() != 0;
 
+    }
+
+    /**
+     * Used at certain levels to refill player's potion if empty.
+     */
+    public static void findPotionOfHealing() {
+        if (!potionIsFilled()) {
+            System.out.println("You find a potion of healing!");
+            equipItem(EquipmentSlot.POTION, Item.POTION_OF_HEALING, false);
+        }
     }
 
     /**
@@ -200,6 +214,9 @@ public class PlayerInventory {
                 System.out.println(equippedItem.getItemName());
 
             } else {
+
+                // Prompt player to choose if they want to remove item to equip new item
+
                 System.out.println("You already have " + getEquippedItem(slot).getItemName()
                         + " equipped in the " + slot + " slot.");
 

@@ -285,7 +285,7 @@ public class Adventurer {
     public void drinkPotion() {
 
         if (PlayerInventory.consumePotion()) {
-            int hpGained = DungeonUtil.rollAD10();
+            int hpGained = DungeonUtil.rollAD10() + getLuck();
 
             System.out.println("You drink a potion of healing and restore "
                     + hpGained + " hit points!");

@@ -169,6 +169,7 @@ public class DungeonMaster {
         // If player is alive at the end of encounter, apply XP and give option to long rest.
         if (playerIsAlive) {
             player.gainMediumXP();
+            PlayerInventory.findPotionOfHealing();
             lootTheRoom();
             promptLongRest();
         }
@@ -203,6 +204,9 @@ public class DungeonMaster {
         if (playerIsAlive && lootChance > 12) {
             System.out.println("The " + monster.getName() + " leaves behind some loot!");
             lootTheRoom();
+        } else if (lootChance > 10) {
+
+            PlayerInventory.findPotionOfHealing();
         }
 
         // If player is alive at the end of encounter, apply XP.
@@ -238,9 +242,10 @@ public class DungeonMaster {
         playerIsAlive = dungeonCombat.combat();
 
         // If player is alive at the end of encounter; apply XP, random loot, option to shop
-        // and give option to long rest.
+        // give option to long rest, find new potion if empty.
         if (playerIsAlive) {
             player.gainBossXP();
+            PlayerInventory.findPotionOfHealing();
             PlayerInventory.randomLootDrop(EquipmentSlot.ARMOR);
             Shop.shopKeeperEncounter(scanner);
             promptLongRest();
