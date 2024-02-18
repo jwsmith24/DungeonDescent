@@ -1,5 +1,6 @@
 package character;
 
+import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 
@@ -22,6 +23,11 @@ public class PlayerInventory {
 
     static int itemAttackBonus = 0;
     static int itemArmorBonus = 0;
+
+    // always start with the inventory initialized
+    static {
+        initializeInventory();
+    }
 
     public static boolean haveEnoughGold(int value) {
         return (gold >= value);
@@ -118,10 +124,23 @@ public class PlayerInventory {
     public static void equipItem(EquipmentSlot slot, Item item, boolean ignoreAlreadyEquipped) {
 
         if (ignoreAlreadyEquipped) {
+
             // override the normal game logic for the script
-            inventory.put(slot, item);
+            Item alreadyEquipped = getEquippedItem(slot);
+
+            if (alreadyEquipped.getItemValue() != 0) {
+                System.out.println("You have unequipped " + alreadyEquipped.getItemName()
+                        + " from the " + slot + " slot.");
+            }
+
+
+            inventory.put(slot, item); // overwrite existing item
+            System.out.println("You have equipped " + getEquippedItem(slot).getItemName()
+                    + " in the " + slot + " slot.");
+
         } else {
             // If slot is open, equip new item
+
             if (isSlotEmpty(slot)) {
                 inventory.put(slot, item);
                 System.out.println("You have equipped " + getEquippedItem(slot).getItemName()
@@ -156,15 +175,20 @@ public class PlayerInventory {
 
         // pull all items of a given slot into an array list
         for (Item item : Item.values()) {
+
             // avoid the "NO_X" starting "items"
             if (item.getItemType() == slot && item.getItemValue() != 0) {
                 randomLootTable.add(item);
             }
         }
 
-        Random random = new Random();
-        Item randomDrop = randomLootTable.get(random.nextInt(randomLootTable.size()));
+        // roll on the loot table based on size
+        int rollOnLootTable = DungeonUtil.rollRandomItem(randomLootTable.size());
 
+        // get the item at that random index
+        Item randomDrop = randomLootTable.get(rollOnLootTable);
+
+        // equip the item
         equipItem(randomDrop.getItemType(), randomDrop, false);
 
     }
@@ -223,6 +247,8 @@ public class PlayerInventory {
                         if (result == 1) {
 
                             removeSlot(slot);
+                            System.out.println("You have unequipped " + equippedItem.getItemName()
+                                    + " from the " + slot + " slot.");
                             break;
 
                         } else if (result == 2) {
@@ -241,6 +267,7 @@ public class PlayerInventory {
         } else {
            // if we want to bypass user input for testing
             removeSlot(slot);
+
         }
 
     }

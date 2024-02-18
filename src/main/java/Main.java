@@ -1,12 +1,7 @@
-import character.*;
-
 import character.Character;
-import dungeon.Dungeon;
+import character.*;
 import dungeon.DungeonMaster;
-import dungeon.Shop;
 import utility.CharacterBuilder;
-import utility.index.EquipmentSlot;
-import utility.index.Item;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
@@ -23,27 +18,74 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        // Utilizing the decorator pattern here for race and class with
-        // corresponding enums to keep things generalized and neat.
+        welcomeScreen();
 
-        // For building the character sheet, I made a builder class that hides all the print
-        // formatting work behind nice static methods which the character decorator classes use.
-        // It uses the decorator classes to act implicitly as the director to determine how a character sheet is built.
+    }
 
+    /**
+     * Displays welcome screen and then updates DungeonMaster to be
+     * in scripted or unscripted mode.
+     */
+    private static void welcomeScreen() {
 
-        runDungeon();
+        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
+        displayWelcomeText();
+
+        System.out.println("\nEnter 1 for the Scripted Version " +
+                "| Enter 2 for the Normal Version");
+
+        // Have player choose scripted or unscripted mode
+        boolean playerDeciding = true;
+
+        int result;
+
+        while (playerDeciding) {
+
+            try {
+                result = scanner.nextInt();
+                scanner.nextLine();
+
+                if (result == 1) {
+                    playerDeciding = false;
+                    DungeonMaster.setIsScripted(true);
+                    runDungeon();
+
+                } else if (result == 2) {
+                    playerDeciding = false;
+                    DungeonMaster.setIsScripted(false);
+                    runDungeon();
+                }
+
+            } catch (Exception e) {
+                System.out.println("Enter 1 or 2");
+
+            }
+        }
+    }
+
+    private static void displayWelcomeText() {
+        System.out.println("*******************************************************");
+        System.out.println("*                                                     *");
+        System.out.println("*            Welcome to Dungeon Descent!              *");
+        System.out.println("*                                                     *");
+        System.out.println("*******************************************************");
 
     }
 
 
-
-
+    /**
+     * Demo for how the user could make a character.
+     */
     private static void userCharacterCreationDemo() {
         Adventurer player = CharacterBuilder.createCharacter();
         System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
 
     }
+
+    /**
+     * Demonstrates decorator pattern used for character design.
+     */
     private static void decoratorDemo() {
         // Let's build a character - Craig and see their character sheet as its built!
 
@@ -77,12 +119,13 @@ public class Main {
         // You can see the human racial ability (+2 to attack) was applied as well
     }
 
-    private static void buildInventory() {
-        PlayerInventory.initializeInventory();
 
-    }
-
+    /**
+     * Runs the game.
+     */
     private static void runDungeon() {
         DungeonMaster.runDungeon();
     }
+
+
 }

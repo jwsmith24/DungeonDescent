@@ -33,7 +33,10 @@ public class Shop {
                     goShopping(scanner);
                     playerDeciding = false;
 
-                    //todo implement what happens if player says no
+
+                } else if (result == 2) {
+                    System.out.println("The shopkeeper stares at your with cold eyes.");
+                    System.out.println("Fine then.");
 
                 } else {
                     System.out.println("Enter a valid response");
@@ -48,6 +51,8 @@ public class Shop {
     }
 
     public static void goShopping(Scanner scanner) {
+
+        System.out.println("Current Gold: " + PlayerInventory.currentGoldBalance());
 
         System.out.println("==================================");
         System.out.println("========= SHOP INVENTORY =========");

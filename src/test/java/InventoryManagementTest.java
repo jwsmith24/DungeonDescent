@@ -80,7 +80,16 @@ public class InventoryManagementTest {
 
     @Test
     void testRemoveItemFromEquippedSlot() {
-        // Testing removing from equipped slot manually since it relies on user input
+
+        PlayerInventory.initializeInventory();
+
+        // equip helmet of protection
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HELMET_OF_PROTECTION, true);
+
+        // find hat of style and try to equip
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HAT_OF_STYLE, true);
+
+        PlayerInventory.displayInventory();
 
 
     }

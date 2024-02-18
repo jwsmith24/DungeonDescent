@@ -134,7 +134,7 @@ public class Adventurer {
      * Allows other entities to trigger player regaining their ultimate charges.
      * Ultimate charges are based on energy score.
      */
-    private void regainUltimate() {
+    public void regainUltimate() {
         for(int i = 0; i < stats.getEnergy(); i++) {
             info.gainUltimateCharge();
         }
@@ -187,6 +187,7 @@ public class Adventurer {
         // if current xp > amount needed to level up, apply level up
 
         if (getCurrentXP() >= nextLevelXP()) {
+
             info.gainLevel();
 
             DungeonUtil.printSpecialWrapper();

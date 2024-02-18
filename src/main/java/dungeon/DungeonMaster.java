@@ -22,6 +22,7 @@ public class DungeonMaster {
     private static Adventurer player;
 
     private static Monster monster;
+    private static boolean dungeonIsScripted;
 
     // DungeonMaster also knows about the player inventory and the dungeon itself which are
     // both static
@@ -32,20 +33,65 @@ public class DungeonMaster {
     private static final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
 
+    public static void setIsScripted(boolean dungeonIsScripted) {
+
+        DungeonMaster.dungeonIsScripted = dungeonIsScripted;
+    }
+
+
     /**
      * Uses the Character Builder class to allow the user to build their character.
      * Once character is created, initialize inventory.
      */
     private static void spawnCharacter() {
         player = CharacterBuilder.createCharacter();
-        PlayerInventory.initializeInventory();
+        player.regainUltimate();
+    }
+
+    /**
+     * Runs the dungeon with scripted inputs for grading/demonstration.
+     */
+    private static void runScriptedDungeon() {
+        System.out.println("Welcome to the scripted version of Dungeon Descent!");
+
+        System.out.println("You'll be watching a pre-generated character as they" +
+                " navigate the dungeon.");
+
+        // set active player to the generated character
+        player = CharacterBuilder.createScriptedCharacter();
+
+        // display basic character info and give starter weapon
+        runTutorial();
+
+        // run dungeon cycles
+        while (cycleCount <= 4 && player.isAlive()) {
+
+            runDungeonCycle();
+        }
+
+
+        // after player dies, display a recap
+        dungeonRecap();
+
+    }
+
+    /**
+     * Runs either the scripted or non-scripted version based on user input in main.
+     */
+    public static void runDungeon() {
+
+        if (dungeonIsScripted) {
+            runScriptedDungeon();
+
+        } else {
+            runNormalDungeon();
+        }
     }
 
 
+
     // Each floor has one fight and a chance to find some loot or a shop
-    public static void runDungeon() {
-        // welcome text
-        displayWelcomeText();
+    private static void runNormalDungeon() {
 
         // Create character
         spawnCharacter();
@@ -65,13 +111,7 @@ public class DungeonMaster {
 
     }
 
-    private static void displayWelcomeText() {
-        System.out.println("*******************************************************");
-        System.out.println("*                                                     *");
-        System.out.println("*            Welcome to Dungeon Descent!              *");
-        System.out.println("*                                                     *");
-        System.out.println("*******************************************************");
-    }
+
 
 
     private static void runTutorial() {

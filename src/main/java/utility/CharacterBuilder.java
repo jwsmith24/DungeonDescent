@@ -1,7 +1,7 @@
 package utility;
 
-import character.*;
 import character.Character;
+import character.*;
 import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
@@ -14,6 +14,42 @@ import java.util.Scanner;
  * Contains methods for character creation and displaying options to the user.
  */
 public class CharacterBuilder {
+
+
+    /**
+     * Creates a pre-built character: Cloud, the Elf Warrior.
+     */
+    public static Adventurer createScriptedCharacter() {
+
+        return new Adventurer(setScriptedInfo(), setScriptedStats(),
+                setScriptedSkills(), setScriptedActiveEffects());
+    }
+
+    private static CharacterSkills setScriptedSkills() {
+        // apply class bonus
+        return new CharacterSkills(1,1,3,1,1);
+    }
+
+    private static CharacterStats setScriptedStats() {
+        // apply racial bonus
+        return new CharacterStats(1,1,10,3,1,1);
+    }
+    private static CharacterInfo setScriptedInfo() {
+
+        String characterSheet = "test character sheet";
+
+        return new CharacterInfo(0, 1, "Cloud", PlayerRace.ELF,
+                PlayerClass.WARRIOR, characterSheet);
+    }
+
+    private static CharacterActiveEffects setScriptedActiveEffects() {
+        ArrayList<Condition> activeEffects = new ArrayList<>();
+        activeEffects.add(Condition.NEUTRAL);
+
+        return new CharacterActiveEffects(activeEffects);
+
+    }
+
 
 
     /**

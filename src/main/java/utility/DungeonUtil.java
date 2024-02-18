@@ -15,7 +15,7 @@ public class DungeonUtil {
 
     public static final int TRAP_DC = 12;
 
-    private static final Random d20 = new Random();
+    private static final Random RANDOM = new Random();
 
 
     /**
@@ -23,13 +23,24 @@ public class DungeonUtil {
      * @return result of roll
      */
     public static int rollAD20() {
-        return d20.nextInt(20) + 1;
+        return RANDOM.nextInt(20) + 1;
     }
 
+    /**
+     * Simulates rolling a 10-sided die
+     * @return result of roll
+     */
     public static int rollAD10() {
-        return d20.nextInt(10) + 1;
+        return RANDOM.nextInt(10) + 1;
     }
 
+    /**
+     * Handles rolling a random number on a loot table of a given size.
+     * @return random number to select loot
+     */
+    public static int rollRandomItem(int arraySize) {
+        return RANDOM.nextInt(arraySize);
+    }
 
     public static void printSpacer() {
         System.out.println("*\n");
