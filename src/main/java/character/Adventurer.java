@@ -16,6 +16,8 @@ public class Adventurer {
     private final CharacterStats stats;
     private final CharacterSkills skills;
     private final CharacterActiveEffects activeEffects;
+    private int itemAttackBonus;
+    private int itemArmorBonus;
 
 
     /**
@@ -30,9 +32,16 @@ public class Adventurer {
 
     }
 
+    public void updateItemBonuses(){
+
+        itemAttackBonus = PlayerInventory.getItemAttackBonus();
+        itemArmorBonus = PlayerInventory.getItemArmorBonus();
+    }
+
     public int basicAttackRoll() {
         // roll a d20 and add player attack bonus + level
-        int attackRoll = DungeonUtil.rollAD20() + stats.getAttack() + info.getLevel();
+        int attackRoll = DungeonUtil.rollAD20()
+                + stats.getAttack() + info.getLevel() + itemAttackBonus;
 
         System.out.println("\nYou attack with: " + info.getPlayerClass().getAttackText());
         System.out.println("You rolled a " + attackRoll + " to hit!");
@@ -220,17 +229,21 @@ public class Adventurer {
 
 
     /**
-     * Used by entities that cause the player damage.
+     * Used by entities that cause the player damage. Subtracts armor bonus from
+     * incoming damage.
      *
      * @param amount damage taken
      */
     public void takeDamage(int amount) {
 
-        // apply damage to character
-        stats.takeDamage(amount);
+        // subtract armor bonus from damage taken
+        int reducedDmg = amount - itemArmorBonus;
+
+        //apply damage to character
+        stats.takeDamage(reducedDmg);
 
         // Display how much damage was done by attack
-        System.out.println("The attack hits you for " + amount + " damage!");
+        System.out.println("The attack hits you for " + reducedDmg + " damage!");
 
         // Display remaining hp to player
         System.out.println("Remaining hit points: " + this.getCurrentHP() + "/" + this.getMaxHP());

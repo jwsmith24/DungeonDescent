@@ -117,7 +117,6 @@ public class DungeonMaster {
 
     //todo:
     // implement looting/finding new items,
-    // implement traps that apply conditions
     //
 
 
@@ -262,8 +261,9 @@ public class DungeonMaster {
      * <p>All other levels are small monster encounters.</p>
      */
     private static void runDungeonCycle() {
-        Trap teleportTrap = TeleportTrap.teleportTrapBuilder();
 
+        // traps to use for the cycle
+        Trap teleportTrap = TeleportTrap.teleportTrapBuilder();
         Trap falseFloorTrap = FalseFloorTrap.falseFloorTrapBuilder();
 
         int level = 1;
@@ -298,11 +298,12 @@ public class DungeonMaster {
 
             }
 
-            // if player is still alive after combat cycle, clean up level and move on
+            // if player is still alive after combat cycle, update stats and move on!
             if (playerIsAlive) {
-                // check for level up and display recap to player at end of the level
-                player.checkLevelUp();
-                levelRecap();
+
+                player.updateItemBonuses(); // update item bonuses
+                player.checkLevelUp(); // check for level up
+                levelRecap(); // display updates to player
 
                 level++;
                 dungeonLevel++;

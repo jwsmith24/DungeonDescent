@@ -1,12 +1,12 @@
 package character;
 
+import utility.index.EquipmentSlot;
+import utility.index.Item;
+
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import utility.index.EquipmentSlot;
-import utility.index.Item;
 
 /**
  * Functionality for player inventory management.
@@ -62,7 +62,10 @@ public class PlayerInventory {
     private PlayerInventory() {
 
     }
- //todo: add item bonuses to character
+
+    /**
+     * Calculates total attack and armor bonuses based on currently equipped items.
+     */
     private static void calculateItemBonuses() {
         itemAttackBonus = 0;
         itemArmorBonus = 0;
@@ -72,7 +75,7 @@ public class PlayerInventory {
             for (Map.Entry<EquipmentSlot, Item> entry : inventory.entrySet()) {
 
                 // if item in inventory is a weapon, increase attack bonus
-                // otherwise, increase def bonus
+                // otherwise, increase armor bonus
 
                 if (entry.getKey().equals(EquipmentSlot.WEAPON)) {
                     itemAttackBonus = itemAttackBonus + entry.getValue().getBonus();
@@ -85,6 +88,16 @@ public class PlayerInventory {
                 }
             }
         }
+    }
+
+    public static int getItemAttackBonus() {
+        calculateItemBonuses();
+        return itemAttackBonus;
+    }
+
+    public static int getItemArmorBonus() {
+        calculateItemBonuses();
+        return itemArmorBonus;
     }
 
     /**
@@ -118,7 +131,6 @@ public class PlayerInventory {
 
             }
         }
-
 
         // recalculate item bonuses after change
         calculateItemBonuses();
