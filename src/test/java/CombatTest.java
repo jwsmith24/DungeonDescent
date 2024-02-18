@@ -45,9 +45,11 @@ public class CombatTest extends AdventurerTests{
                 "Wrong armor bonus applied");
 
         player.takeDamage(3);
-        assertEquals(player.getMaxHP(), player.getCurrentHP(),
-                "Damage was not reduced by the proper amount");
+        assertEquals(player.getMaxHP()-1, player.getCurrentHP(),
+                "Damage was not reduced by the proper amount. Minimum damage is always 1.");
     }
+
+
 
     @Test
     void testArmorBonusDamageReductionWithMultiplePiecesOfGear() {
@@ -68,8 +70,8 @@ public class CombatTest extends AdventurerTests{
 
         player.updateItemBonuses();
         player.takeDamage(totalBonus);
-        assertEquals(player.getMaxHP(), player.getCurrentHP(),
-                "Bonus not properly applied");
+        assertEquals(player.getMaxHP() - 1, player.getCurrentHP(),
+                "Bonus not properly applied. Minimum damage is always at least 1.");
     }
 
     @Test

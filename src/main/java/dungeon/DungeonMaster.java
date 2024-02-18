@@ -40,8 +40,8 @@ public class DungeonMaster {
 
 
     /**
-     * Uses the Character Builder class to allow the user to build their character.
-     * Once character is created, initialize inventory.
+     * Uses the Character Builder class to allow the user to build their character. Once character
+     * is created, initialize inventory.
      */
     private static void spawnCharacter() {
         player = CharacterBuilder.createCharacter();
@@ -51,7 +51,8 @@ public class DungeonMaster {
     /**
      * Runs the dungeon with scripted inputs for grading/demonstration.
      *
-     * <p>If the player dies, they restart at the beginning of the dungeon. They lose their gold but maintain their
+     * <p>If the player dies, they restart at the beginning of the dungeon. They lose their gold but
+     * maintain their
      * level and equipment.</p>
      */
     private static void runScriptedDungeon() {
@@ -86,10 +87,6 @@ public class DungeonMaster {
         // display basic character info and give starter weapon
         runTutorial();
 
-        // give cool items to scripted player
-        /*PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SUSSUR_SWORD, dungeonIsScripted);
-        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.DRAGONSCALE_ARMOR, dungeonIsScripted);
-        PlayerInventory.equipItem(EquipmentSlot.OFF_HAND, Item.DRAGONSCALE_SHIELD, dungeonIsScripted);*/
 
         // start scripted player off with potion
         PlayerInventory.findPotionOfHealing();
@@ -100,7 +97,7 @@ public class DungeonMaster {
 
             // run dungeon cycles
             while (cycleCount <= 4 && player.isAlive()) {
-                
+
                 runDungeonCycle();
             }
             // if player finishes the dungeon alive, display complete message!
@@ -182,7 +179,6 @@ public class DungeonMaster {
     }
 
 
-
     // Each floor has one fight and a chance to find some loot or a shop
     private static void runNormalDungeon() {
 
@@ -203,8 +199,6 @@ public class DungeonMaster {
         dungeonRecap();
 
     }
-
-
 
 
     private static void runTutorial() {
@@ -257,16 +251,15 @@ public class DungeonMaster {
 
 
     /**
-     * Asks the user if they want to take a long rest and execute if yes. Runs in either
-     * normal or scripted mode.
+     * Asks the user if they want to take a long rest and execute if yes. Runs in either normal or
+     * scripted mode.
      */
     private static void promptLongRest(boolean dungeonIsScripted) {
         System.out.println("Do you want to take a long rest?");
         System.out.println("1 - Yes | 2 - No");
 
 
-
-        if(dungeonIsScripted) {
+        if (dungeonIsScripted) {
 
             System.out.println("You decide to take a long rest");
             player.takeLongRest();
@@ -286,7 +279,7 @@ public class DungeonMaster {
                         player.takeLongRest();
                         playerDeciding = false;
 
-                    } else if (result ==2) {
+                    } else if (result == 2) {
                         // skip long rest
                         System.out.println("Long rest skipped");
                         playerDeciding = false;
@@ -299,9 +292,6 @@ public class DungeonMaster {
 
             }
         }
-
-
-
 
 
     }
@@ -463,7 +453,6 @@ public class DungeonMaster {
                 playerIsAlive = runMediumMonsterFloor(player, cycleCount);
 
 
-
             } else if (level == 7) {
 
                 runTrap(falseFloorTrap);
@@ -510,7 +499,7 @@ public class DungeonMaster {
         // roll a skill check that corresponds to the trap's check
 
         // if player passes, they avoid the trap and get some xp
-        int skillCheck  = player.rollSkillCheck(trap.getSkillCheckType());
+        int skillCheck = player.rollSkillCheck(trap.getSkillCheckType());
 
         if (trap.doesPlayerBeatAC(skillCheck)) {
 
@@ -543,7 +532,7 @@ public class DungeonMaster {
         System.out.printf("*   Player XP:     %d/%d                                   *%n", player.getCurrentXP(), player.nextLevelXP());
         System.out.printf("*   Player Gold:   %d                                      *%n", PlayerInventory.currentGoldBalance());
         System.out.println("***********************************************************");
-        
+
     }
 
     private static void dungeonRecap() {
