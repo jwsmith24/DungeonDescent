@@ -39,7 +39,7 @@ public class DungeonUtil {
 
     public static void printSpecialWrapper() {
 
-        System.out.println("\n* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+        System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
     }
 
 

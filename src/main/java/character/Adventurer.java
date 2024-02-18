@@ -273,11 +273,13 @@ public class Adventurer {
 
 
     public void applyPower() {
-        DungeonUtil.printSpacer();
+
         DungeonUtil.printSpecialWrapper();
 
-        System.out.println("You feel a presence come from deep within the dungeon. An overwhelming feeling of "
-                + "joy washes over you, then.. power. It beckons you onward... \n");
+        System.out.println("You feel a presence come from deep within the dungeon. " +
+                "\nAn overwhelming feeling of joy washes over you, then.. power. " +
+                "\nIt beckons you onward... ");
+
         System.out.println("All stats increase by 1");
         System.out.println("HP increases by 10\n");
 

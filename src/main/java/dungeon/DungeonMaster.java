@@ -54,10 +54,8 @@ public class DungeonMaster {
         // start the dungeon
         runDungeonCycle();
 
-
-        // run cycle 2 (BOSS) - BEHOLDER
-        // run cycle 3
-        // run cycle 4 (FINAL BOSS) - DRAGON
+        // after player dies, display a recap
+        dungeonRecap();
 
     }
 
@@ -382,18 +380,25 @@ public class DungeonMaster {
      */
     private static void levelRecap() {
 
-        DungeonUtil.printSpacer();
+        System.out.println("**********************************************************");
+        System.out.println("*                    Level Recap                         *");
+        System.out.printf("*   Dungeon Level: %d                                     *%n", dungeonLevel);
+        System.out.printf("*   Player Level: %d                                      *%n", player.getLevel());
+        System.out.printf("*   Player HP: %d/%d                                      *%n", player.getCurrentHP(), player.getMaxHP());
+        System.out.printf("*   Player XP: %d/%d                                      *%n", player.getCurrentXP(), player.nextLevelXP());
+        System.out.printf("*   Player Gold: %d                                       *%n", PlayerInventory.currentGoldBalance());
+        System.out.println("**********************************************************");
+        
+    }
 
-        System.out.println("*******************************************************");
-        System.out.println("*                    Level Recap                      *");
-        System.out.printf("*   Dungeon Level: %d                                  *%n", dungeonLevel);
-        System.out.printf("*   Player Level: %d                                   *%n", player.getLevel());
-        System.out.printf("*   Player HP: %d/%d                                  *%n", player.getCurrentHP(), player.getMaxHP());
-        System.out.printf("*   Player XP: %d/%d                                    *%n", player.getCurrentXP(), player.nextLevelXP());
-        System.out.printf("*   Player Gold: %d                                    *%n", PlayerInventory.currentGoldBalance());
-        System.out.println("*******************************************************");
+    private static void dungeonRecap() {
+        System.out.println("**********************************************************");
+        System.out.println("*                    Dungeon Recap                        *");
+        System.out.printf("*   Dungeon Progress: Level %d                             *%n", dungeonLevel);
+        System.out.printf("*   Player Level: %d                                       *%n", player.getLevel());
+        System.out.printf("*   Player Gold: %d                                        *%n", PlayerInventory.currentGoldBalance());
+        System.out.println("**********************************************************");
 
-        DungeonUtil.printSpacer();
     }
 
 
