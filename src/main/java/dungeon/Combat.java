@@ -2,19 +2,12 @@ package dungeon;
 
 import character.Adventurer;
 import character.PlayerInventory;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
 import monsters.Monster;
-
 import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
-
-
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -24,14 +17,10 @@ public class Combat {
 
     private final Adventurer player;
     private final Monster monster;
-    /**
-     * Use a single scanner for all the combat methods.
-     */
-    private final Scanner playerInput = new Scanner(System.in, StandardCharsets.UTF_8);
     private final int difficultyMod;
 
     /**
-     * Combat constructor for encounters.
+     * Combat constructor for encounters. Sets if encounters are ran simulated or with user input.
      */
     public Combat(Adventurer player, Monster monster, int cycleCount) {
         this.player = player;
@@ -121,103 +110,79 @@ public class Combat {
     /**
      * Runs the player turn in either scripted or normal mode.
      */
-    private void takePlayerTurn(boolean scripted) {
+    private void takePlayerTurn(boolean dungeonIsScripted) {
         // check if they're alive
         //todo: implement check for condition status like restrained,paralyzed, etc
 
         if (player.isAlive()) {
             // run player action based on game mode
-            if (scripted) {
-                takeScriptedPlayerAction();
-
-            } else {
-                takePlayerAction();
-            }
-
-
+            takePlayerAction(dungeonIsScripted);
         }
+
     }
+
 
     /**
      * On each turn, a player can choose an action.
      */
-    private void takePlayerAction() {
+    private void takePlayerAction(boolean dungeonIsScripted) {
 
         // display options to the player for their action
         displayActionOptions();
 
+        int playerChoice;
+        // if in scripted mode, use programmed logic to decide player choice
+        if (dungeonIsScripted) {
+            playerChoice = decideScriptedPlayerAction();
+            // otherwise get selection from the user
+        } else {
+            playerChoice = DungeonUtil.getUserInput(3);
 
-        boolean playerDeciding = true;
+        }
 
-        while (playerDeciding) {
-
-            System.out.println("Enter the number corresponding to your choice:");
-
-
-            try {
-
-                if (playerInput.hasNextLine()) {
-                    int playerChoice = playerInput.nextInt();
-                    playerInput.nextLine();
-
-                    if (playerChoice == 1) {
-                        // basic attack
-                        basicAttack();
-                        playerDeciding = false;
+        if (playerChoice == 1) {
+            // basic attack
+            basicAttack();
 
 
-                    } else if (playerChoice == 2) {
-                        // special ability
-                        useSpecialAbility();
-                        playerDeciding = false;
+        } else if (playerChoice == 2) {
+            // special ability
+            useSpecialAbility();
 
 
-                    } else if (playerChoice == 3) {
-                        // try to drink a potion.
-                        // if it doesn't work, basic attack instead.
+        } else if (playerChoice == 3) {
+            // try to drink a potion.
+            // if it doesn't work, basic attack instead.
 
-                        if (!player.drinkPotion()) {
-                            basicAttack();
-                        }
-
-                        playerDeciding = false;
-
-                    } else {
-                        System.out.println("Enter a valid selection.");
-
-                    }
-
-                }
-
-            } catch (Exception e) {
-                System.out.println("Enter a valid selection");
-                playerInput.nextLine();
-
+            if (!player.drinkPotion()) {
+                basicAttack();
             }
+
         }
 
     }
 
     /**
-     * For simplicity, scripted character will always try to use their special ability on bosses,
-     * use healing potion if less than half hp, and otherwise basic attack.
+     * Scripted character will try to use their special ability on bosses, use healing potion if
+     * less than half hp, and otherwise basic attack.
      */
-    private void takeScriptedPlayerAction() {
+    private int decideScriptedPlayerAction() {
         List<String> bosses = Arrays.asList("Ogre", "Displacer Beast", "Giant Spider",
                 "Young Red Dragon", "Beholder", "Giant");
 
         // use special if fighting boss
         if (bosses.contains(monster.getName()) && player.getUltimateCharges() > 0) {
-            useSpecialAbility();
+            return 2;
 
             // use potion if hp is less than half if they have a potion to use
         } else if ((player.getCurrentHp() < (player.getMaxHp() / 2))
                 && PlayerInventory.getEquippedItem(EquipmentSlot.POTION) != Item.NO_POTION) {
 
-            player.drinkPotion();
-            // otherwise attack
+            return 3;
+
         } else {
-            basicAttack();
+
+            return 1;
         }
 
 
@@ -264,8 +229,8 @@ public class Combat {
     }
 
     /**
-     * Logic for using special ability. If player is out of ultimate charges, it does
-     * a basic attack instead
+     * Logic for using special ability. If player is out of ultimate charges, it does a basic attack
+     * instead
      */
     private void useSpecialAbility() {
 

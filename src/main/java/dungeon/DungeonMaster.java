@@ -8,10 +8,6 @@ import utility.CharacterBuilder;
 import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
-
 
 
 /**
@@ -26,13 +22,10 @@ public class DungeonMaster {
     private static Monster monster;
     private static boolean dungeonIsScripted;
 
-    // DungeonMaster also knows about the player inventory and the dungeon itself which are
-    // both static
+    // DungeonMaster also knows about the player inventory
 
     private static int dungeonLevel = 1;
     private static int cycleCount = 1;
-
-    private static final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
 
     public static void setIsScripted(boolean dungeonIsScripted) {
@@ -46,8 +39,17 @@ public class DungeonMaster {
      * is created, initialize inventory.
      */
     private static void spawnCharacter() {
-        player = CharacterBuilder.createCharacter();
-        player.regainUltimate();
+
+        if (dungeonIsScripted) {
+            // set active player to the generated character
+            player = CharacterBuilder.createScriptedCharacter();
+
+        } else {
+            // let player build their character
+            player = CharacterBuilder.createCharacter();
+            player.regainUltimate();
+        }
+
     }
 
     /**
@@ -57,6 +59,28 @@ public class DungeonMaster {
      * but maintain their level and equipment.</p>
      */
     private static void runScriptedDungeon() {
+
+        if (dungeonIsScripted) {
+            displayScriptedWelcomeText();
+        }
+
+        // either generate a character or player builds their own
+        spawnCharacter();
+
+        // display basic character info and give starter weapon
+        runTutorial();
+
+        // start scripted player off with potion
+        PlayerInventory.findPotionOfHealing();
+
+        gameLoop();
+
+    }
+
+    /**
+     * Displays welcome text for the scripted mode of the game.
+     */
+    private static void displayScriptedWelcomeText() {
 
         System.out.println("Welcome to the scripted version of Dungeon Descent!");
 
@@ -77,17 +101,26 @@ public class DungeonMaster {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
 
+    // Each floor has one fight and a chance to find some loot or a shop
+    private static void runNormalDungeon() {
 
-        // set active player to the generated character
-        player = CharacterBuilder.createScriptedCharacter();
+        // Create character
+        spawnCharacter();
 
-        // display basic character info and give starter weapon
+        // run tutorial and give starting weapon based on class
         runTutorial();
 
+        // run the dungeon loop
+        gameLoop();
 
-        // start scripted player off with potion
-        PlayerInventory.findPotionOfHealing();
+    }
+
+    /**
+     * Logic for running the dungeon loop
+     */
+    private static void gameLoop() {
 
         boolean play = true;
 
@@ -121,7 +154,6 @@ public class DungeonMaster {
                 }
             }
         }
-
     }
 
     /**
@@ -134,34 +166,17 @@ public class DungeonMaster {
 
         System.out.println("Press 1 to Reset | 2 to Quit");
 
-        boolean continuePlaying = true;
-        boolean playerDeciding = true;
+        int choice;
+        // scripted game will automatically continue until the dungeon is complete
+        if (dungeonIsScripted) {
+            choice = 1;
 
-        while (playerDeciding) {
-
-
-            try {
-                int choice = scanner.nextInt();
-                scanner.nextLine();
-
-                if (choice == 1) {
-                    playerDeciding = false;
-
-                } else if (choice == 2) {
-                    playerDeciding = false;
-
-                    continuePlaying = false;
-
-                } else {
-                    System.out.println("Enter 1 or 2");
-                }
-
-            } catch (Exception e) {
-                System.out.println("Invalid entry, enter a 1 or 2");
-            }
+        } else {
+            choice = DungeonUtil.getUserInput(2);
         }
 
-        return continuePlaying;
+
+        return choice == 1;
     }
 
     /**
@@ -175,28 +190,6 @@ public class DungeonMaster {
         } else {
             runNormalDungeon();
         }
-    }
-
-
-    // Each floor has one fight and a chance to find some loot or a shop
-    private static void runNormalDungeon() {
-
-        // Create character
-        spawnCharacter();
-
-        // run tutorial and give starting weapon based on class
-        runTutorial();
-
-        // run dungeon cycles
-        while (cycleCount <= 4 && player.isAlive()) {
-
-            runDungeonCycle();
-        }
-
-
-        // after player dies, display a recap
-        dungeonRecap();
-
     }
 
 
@@ -216,7 +209,6 @@ public class DungeonMaster {
 
         // equip starting weapon
         PlayerInventory.equipItem(EquipmentSlot.WEAPON, startingWeapon, true);
-        //PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SWORD_OF_SLASHING);
 
 
     }
@@ -260,43 +252,28 @@ public class DungeonMaster {
         System.out.println("Do you want to take a long rest?");
         System.out.println("1 - Yes | 2 - No");
 
+        int result;
 
         if (dungeonIsScripted) {
 
-            System.out.println("You decide to take a long rest");
-            player.takeLongRest();
+            result = 1;
 
         } else {
 
-            boolean playerDeciding = true;
-            int result;
-
-            while (playerDeciding) {
-
-                try {
-                    result = scanner.nextInt();
-                    scanner.nextLine();
-
-                    if (result == 1) {
-                        player.takeLongRest();
-                        playerDeciding = false;
-
-                    } else if (result == 2) {
-                        // skip long rest
-                        System.out.println("Long rest skipped");
-                        playerDeciding = false;
-                    }
-
-                } catch (Exception e) {
-                    System.out.println("Input invalid - Enter 1 or 2");
-                }
-
-
-            }
+            result = DungeonUtil.getUserInput(2);
         }
 
+        if (result == 1) {
+            player.takeLongRest();
 
+
+        } else if (result == 2) {
+            // skip long rest
+            System.out.println("Long rest skipped");
+
+        }
     }
+
 
     /**
      * Runs the minor boss level. If player succeeds, awards bonus xp and a random helmet drop.
@@ -352,8 +329,6 @@ public class DungeonMaster {
      */
     private static boolean runSmallMonsterFloor(Adventurer player, int cycleCount) {
 
-
-
         // set active monster to a random small monster
         monster = MonsterFactory.randomSmallMonster();
 
@@ -392,7 +367,6 @@ public class DungeonMaster {
      * @return if player is still alive at the end of the encounter
      */
     private static boolean runBossMonsterFloor(Adventurer player, int cycleCount) {
-
 
         // applies a stacking buff every 5 floors
         player.applyPower();
@@ -554,6 +528,9 @@ public class DungeonMaster {
 
     }
 
+    /**
+     * Displays dungeon recap to player.
+     */
     private static void dungeonRecap() {
         System.out.println("**********************************************************");
 
@@ -577,6 +554,7 @@ public class DungeonMaster {
         System.out.println("**********************************************************");
 
     }
+
 
     private static void dungeonComplete() {
 
