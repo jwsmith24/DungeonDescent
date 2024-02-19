@@ -4,10 +4,10 @@ public class MonsterStats {
 
 
     private int hp;
-    private final int attackBonus;
+    private int attackBonus;
     private final int armorClass;
-    private final int speed;
-    private final int experience;
+    private int speed;
+    private int experience;
 
 
 
@@ -19,6 +19,20 @@ public class MonsterStats {
         this.experience = experience;
     }
 
+    /**
+     * Scales monster stats as cycle count increases.
+     */
+    protected void applyMonsterBuff(int cycleCount) {
+
+        for (int i = 0; i < cycleCount; i++) {
+            this.hp++;
+            this.attackBonus++;
+            this.speed++;
+            this.experience = experience + 100;
+
+
+        }
+    }
 
     /**
      * Builder for monster stats.

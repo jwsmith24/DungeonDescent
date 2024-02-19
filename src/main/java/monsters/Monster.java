@@ -44,6 +44,13 @@ public abstract class Monster {
 
     }
 
+    /**
+     * Applies cycle buff to monster.
+     */
+    public void applyMonsterBuff(int cycleCount) {
+        stats.applyMonsterBuff(cycleCount);
+    }
+
 
     /**
      * Determines if monster is still alive.

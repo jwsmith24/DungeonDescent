@@ -59,6 +59,23 @@ public class InventoryManagementTest {
         PlayerInventory.displayInventory();
     }
 
+    @Test
+    void testDisplayInventoryWithFullInventory() {
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HELMET_OF_PROTECTION,
+                true);
+        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON,
+                true);
+        PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SWORD_OF_SLASHING,
+                true);
+        PlayerInventory.equipItem(EquipmentSlot.POTION, Item.POTION_OF_HEALING,
+                true);
+        PlayerInventory.equipItem(EquipmentSlot.OFF_HAND, Item.DRAGONSCALE_SHIELD,
+                true);
+
+        PlayerInventory.displayInventory();
+
+    }
+
 
     @Test
     void testEquipItemToEmptySlot() {
@@ -71,6 +88,12 @@ public class InventoryManagementTest {
         // Make sure it's equipped.
         assertEquals(Item.IRON_HELMET, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET));
 
+    }
+
+    @Test
+    void testEquipItemToEquippedSlot() {
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET, true);
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HAT_OF_STYLE, true);
     }
 
     @Test
@@ -92,6 +115,8 @@ public class InventoryManagementTest {
 
         // find hat of style and try to equip
         PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HAT_OF_STYLE, true);
+
+        assertEquals(Item.HAT_OF_STYLE, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET));
 
         PlayerInventory.displayInventory();
 

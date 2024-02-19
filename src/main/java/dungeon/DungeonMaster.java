@@ -40,15 +40,10 @@ public class DungeonMaster {
      */
     private static void spawnCharacter() {
 
-        if (dungeonIsScripted) {
-            // set active player to the generated character
-            player = CharacterBuilder.createScriptedCharacter();
+        // triggers character creation
+        player = CharacterBuilder.createCharacter(dungeonIsScripted);
+        player.regainUltimate();
 
-        } else {
-            // let player build their character
-            player = CharacterBuilder.createCharacter();
-            player.regainUltimate();
-        }
 
     }
 
@@ -172,7 +167,7 @@ public class DungeonMaster {
             choice = 1;
 
         } else {
-            choice = DungeonUtil.getUserInput(2);
+            choice = DungeonUtil.getUserSelection(2);
         }
 
 
@@ -260,7 +255,7 @@ public class DungeonMaster {
 
         } else {
 
-            result = DungeonUtil.getUserInput(2);
+            result = DungeonUtil.getUserSelection(2);
         }
 
         if (result == 1) {

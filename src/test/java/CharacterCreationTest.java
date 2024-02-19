@@ -193,8 +193,8 @@ public class CharacterCreationTest {
     }
 
     @Test
-    void testCharacterBuilder() {
-        Adventurer player = CharacterBuilder.createScriptedCharacter();
+    void testCharacterBuilderScripted() {
+        Adventurer player = CharacterBuilder.createCharacter(true);
         assertEquals(PlayerClass.WARRIOR, player.getPlayerClass(), "Wrong class.");
     }
 
