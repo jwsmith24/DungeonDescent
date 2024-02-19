@@ -1,7 +1,9 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import character.PlayerInventory;
 import org.junit.jupiter.api.Test;
+import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 
@@ -93,6 +95,14 @@ public class InventoryManagementTest {
 
         PlayerInventory.displayInventory();
 
+
+    }
+
+    @Test
+    void testRollForRandomItem() {
+        int size = 3;
+
+        assertTrue(DungeonUtil.rollRandomItem(size) <= 3);
 
     }
 }

@@ -2,17 +2,14 @@ package dungeon;
 
 import character.Adventurer;
 import character.PlayerInventory;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
 import monsters.Monster;
 import monsters.MonsterFactory;
-
 import utility.CharacterBuilder;
 import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 
 
@@ -74,9 +71,6 @@ public class DungeonMaster {
                 + "They'll lose" + "their gold but will maintain their level and equipment "
                 + "allowing them to get stronger.");
 
-        /*System.out.println("The character also starts out with powerful gear to "
-                + "ensure they can consistently make it to the end.");
-*/
         try {
             Thread.sleep(2000);
 

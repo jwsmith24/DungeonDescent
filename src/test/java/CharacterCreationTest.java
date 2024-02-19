@@ -18,6 +18,10 @@ public class CharacterCreationTest {
 
 
     @Test
+    void testPrintCustomizationOptions() {
+        CharacterBuilder.printCustomizationOptions();
+    }
+    @Test
     void testMakeBasicCharacter() {
 
         Character jeff = new BasicCharacter("Jeff");
@@ -192,6 +196,18 @@ public class CharacterCreationTest {
         assertEquals(PlayerClass.WARRIOR, player.getPlayerClass(), "Wrong class.");
     }
 
+    @Test
+    void testSpawnCharacter() {
+        Character cloud = new BasicCharacter("Cloud");
+        cloud = new ClassDecorator(cloud, PlayerClass.WARRIOR);
+        cloud = new RaceDecorator(cloud, PlayerRace.ELF);
+
+        Adventurer finalCloud = CharacterBuilder.spawnCharacter(cloud);
+
+        assertEquals(PlayerClass.WARRIOR, finalCloud.getPlayerClass(), "wrong class");
+        assertEquals(PlayerRace.ELF, finalCloud.getPlayerRace(), "wrong race");
+
+    }
 
 
 

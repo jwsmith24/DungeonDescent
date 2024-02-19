@@ -247,4 +247,10 @@ public class AdventurerActionsTest extends AdventurerTests {
                 "player's ult charges are not being spent");
     }
 
+    @Test
+    void testUIFormatting() {
+        DungeonUtil.printSpacer();
+        DungeonUtil.printSpecialWrapper();
+    }
+
 }
