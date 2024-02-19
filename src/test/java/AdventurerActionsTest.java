@@ -253,4 +253,10 @@ public class AdventurerActionsTest extends AdventurerTests {
         DungeonUtil.printSpecialWrapper();
     }
 
+
+    @Test
+    void testGoShopping() {
+
+    }
+
 }

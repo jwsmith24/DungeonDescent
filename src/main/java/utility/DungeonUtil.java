@@ -1,6 +1,8 @@
 package utility;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Utility class to handle all dice rolling in the game.
@@ -17,6 +19,32 @@ public class DungeonUtil {
 
     private static final Random RANDOM = new Random();
 
+    private static final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+
+    /**
+     * Collect user input for a selection between 1 and the number of choices provided.
+     */
+    public static int getUserInput(int numberOfChoices) {
+        int selection = 0;
+        boolean playerDeciding = true;
+
+        while (playerDeciding) {
+
+            try {
+                selection = scanner.nextInt();
+                scanner.nextLine();
+
+                if (selection > 0 && selection < numberOfChoices) {
+                    playerDeciding = false;
+                }
+
+            } catch (Exception e) {
+                System.out.println("Enter a valid number between 1 and " + numberOfChoices);
+            }
+        }
+
+        return selection;
+    }
 
     /**
      * Simulates rolling a 20-sided die.

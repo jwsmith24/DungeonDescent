@@ -1,17 +1,6 @@
-import character.Adventurer;
-import character.BasicCharacter;
-import character.Character;
-import character.ClassDecorator;
-import character.RaceDecorator;
-
 import dungeon.DungeonMaster;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-
-import utility.CharacterBuilder;
-import utility.index.PlayerClass;
-import utility.index.PlayerRace;
 
 
 
@@ -80,52 +69,6 @@ public class Main {
 
     }
 
-
-    /**
-     * Demo for how the user could make a character.
-     */
-    private static void userCharacterCreationDemo() {
-        Adventurer player = CharacterBuilder.createCharacter();
-        System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
-
-    }
-
-    /**
-     * Demonstrates decorator pattern used for character design.
-     */
-    private static void decoratorDemo() {
-        // Let's build a character - Craig and see their character sheet as its built!
-
-        Character craig = new BasicCharacter("Craig");
-
-        System.out.println("Hi, I'm " + craig.getName() + ".\n");
-
-        System.out.println(craig.getCharacterSheet());
-
-        // Craig wants to be a Human Mage
-
-        // First, we make Craig a Human
-        craig = new RaceDecorator(craig, PlayerRace.HUMAN);
-
-        System.out.println("Hi, I'm still " + craig.getName() + " and I'm a "
-                + craig.getPlayerRace() + "!"
-                + "\nIf we were to fight right now, I would use a: "
-                + craig.getPlayerClass().getAttackText());
-
-        System.out.println(craig.getCharacterSheet());
-
-        // Then, Craig decides to be a Mage:
-        craig = new ClassDecorator(craig, PlayerClass.MAGE);
-
-        System.out.println("\nI'm seriously still " + craig.getName()
-                + " the " + craig.getPlayerRace()
-                + ", but now I'm also a " + craig.getPlayerClass() + "!"
-                + " If we were to fight, I would use a: " + craig.getPlayerClass().getAttackText());
-
-        System.out.println(craig.getCharacterSheet());
-
-        // You can see the human racial ability (+2 to attack) was applied as well
-    }
 
 
     /**

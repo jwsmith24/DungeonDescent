@@ -1,15 +1,13 @@
 package character;
 
+import utility.DungeonUtil;
+import utility.index.EquipmentSlot;
+import utility.index.Item;
 import java.nio.charset.StandardCharsets;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import utility.DungeonUtil;
-import utility.index.EquipmentSlot;
-import utility.index.Item;
 
 
 
@@ -319,7 +317,7 @@ public class PlayerInventory {
     }
 
     /**
-     * Sets inventory to starting inventory.
+     * Sets inventory to starting inventory and resets gold balance to 0.
      */
     public static void initializeInventory() {
         inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
@@ -327,6 +325,9 @@ public class PlayerInventory {
         inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
         inventory.put(EquipmentSlot.OFF_HAND, Item.NO_OFF_HAND);
         inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
+
+        // resets gold balance
+        spendGold(currentGoldBalance());
     }
 
     /**

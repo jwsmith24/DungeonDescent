@@ -326,7 +326,7 @@ public class DungeonMaster {
         int lootChance = DungeonUtil.rollAD20();
         if (playerIsAlive && (lootChance) > 15) {
 
-            Shop.shopKeeperEncounter(scanner, dungeonIsScripted);
+            Shop.shopKeeperEncounter(dungeonIsScripted);
 
         } else if (playerIsAlive && (lootChance > 10)) {
             System.out.println("The " + monster.getName() + " leaves behind some loot!");
@@ -418,7 +418,7 @@ public class DungeonMaster {
             PlayerInventory.findPotionOfHealing();
             PlayerInventory.randomLootDrop(EquipmentSlot.ARMOR, dungeonIsScripted);
             lootTheRoom();
-            Shop.shopKeeperEncounter(scanner, dungeonIsScripted);
+            Shop.shopKeeperEncounter(dungeonIsScripted);
             promptLongRest(dungeonIsScripted);
         }
 
