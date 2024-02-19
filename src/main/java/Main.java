@@ -1,7 +1,5 @@
 import dungeon.DungeonMaster;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
-
+import utility.DungeonUtil;
 
 
 /**
@@ -24,7 +22,6 @@ public class Main {
      */
     private static void welcomeScreen() {
 
-        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
 
         displayWelcomeText();
 
@@ -32,33 +29,24 @@ public class Main {
                 + "| Enter 2 for the Normal Version");
 
         // Have player choose scripted or unscripted mode
-        boolean playerDeciding = true;
+        int selection = DungeonUtil.getUserSelection(2);
 
-        int result;
+        // update Dungeon Master to chosen mode
+        if (selection == 1) {
 
-        while (playerDeciding) {
+            DungeonMaster.setIsScripted(true);
+            runDungeon();
 
-            try {
-                result = scanner.nextInt();
-                scanner.nextLine();
+        } else if (selection == 2) {
 
-                if (result == 1) {
-                    playerDeciding = false;
-                    DungeonMaster.setIsScripted(true);
-                    runDungeon();
-
-                } else if (result == 2) {
-                    playerDeciding = false;
-                    DungeonMaster.setIsScripted(false);
-                    runDungeon();
-                }
-
-            } catch (Exception e) {
-                System.out.println("Enter 1 or 2");
-
-            }
+            DungeonMaster.setIsScripted(false);
+            runDungeon();
         }
     }
+
+
+
+
 
     private static void displayWelcomeText() {
         System.out.println("*******************************************************");

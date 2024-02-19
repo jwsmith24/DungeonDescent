@@ -24,7 +24,7 @@ public class DungeonUtil {
     /**
      * Collect user input for a selection between 1 and the number of choices provided.
      */
-    public static int getUserInput(int numberOfChoices) {
+    public static int getUserSelection(int numberOfChoices) {
         int selection = 0;
         boolean playerDeciding = true;
 
@@ -44,6 +44,28 @@ public class DungeonUtil {
         }
 
         return selection;
+    }
+
+    /**
+     * Collect user string input.
+     */
+    public static String getUserString() {
+        String response = "Mysterious Character";
+
+        boolean playerDeciding = true;
+
+        while(playerDeciding) {
+            try {
+                response = scanner.nextLine();
+                scanner.nextLine();
+                playerDeciding = false;
+
+            } catch (Exception e) {
+                System.out.println("Enter valid characters");
+            }
+        }
+
+        return response;
     }
 
     /**

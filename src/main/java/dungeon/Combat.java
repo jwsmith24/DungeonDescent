@@ -21,6 +21,7 @@ public class Combat {
     private final Adventurer player;
     private final Monster monster;
     private final int difficultyMod;
+    private final int cycleCount;
 
     /**
      * Combat constructor for encounters. Sets if encounters are ran simulated or with user input.
@@ -28,8 +29,10 @@ public class Combat {
     public Combat(Adventurer player, Monster monster, int cycleCount) {
         this.player = player;
         this.monster = monster;
+
         // as cycle count increases, monster damage reduction decreases
         this.difficultyMod = 5 - cycleCount;
+        this.cycleCount = cycleCount;
     }
 
 
@@ -46,6 +49,8 @@ public class Combat {
 
         boolean playerFirst = playerGoesFirst(); // keep out of loop to avoid regenerating init
         // scores
+
+        monster.applyMonsterBuff(cycleCount);
 
         // while both the player AND the monster are alive, continue combat.
         while (player.isAlive() && monster.isAlive()) {
@@ -139,7 +144,7 @@ public class Combat {
             playerChoice = decideScriptedPlayerAction();
             // otherwise get selection from the user
         } else {
-            playerChoice = DungeonUtil.getUserInput(3);
+            playerChoice = DungeonUtil.getUserSelection(3);
 
         }
 

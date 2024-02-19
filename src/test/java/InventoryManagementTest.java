@@ -74,6 +74,12 @@ public class InventoryManagementTest {
     }
 
     @Test
+    void testEquipItemToEquippedSlot() {
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET, true);
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HAT_OF_STYLE, true);
+    }
+
+    @Test
     void testRemoveItemFromEmptySlot() {
         PlayerInventory.initializeInventory();
         // Try to remove the helmet
@@ -92,6 +98,8 @@ public class InventoryManagementTest {
 
         // find hat of style and try to equip
         PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HAT_OF_STYLE, true);
+
+        assertEquals(Item.HAT_OF_STYLE, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET));
 
         PlayerInventory.displayInventory();
 

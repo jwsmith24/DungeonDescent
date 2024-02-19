@@ -9,15 +9,8 @@ import character.CharacterSkills;
 import character.CharacterStats;
 import character.ClassDecorator;
 import character.RaceDecorator;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
-
 
 
 /**
@@ -26,50 +19,13 @@ import utility.index.PlayerRace;
 public class CharacterBuilder {
 
 
-    /**
-     * Creates a pre-built character: Cloud, the Elf Warrior.
-     */
-    public static Adventurer createScriptedCharacter() {
-
-        return new Adventurer(setScriptedInfo(), setScriptedStats(),
-                setScriptedSkills(), setScriptedActiveEffects());
-    }
-
-    private static CharacterSkills setScriptedSkills() {
-        // apply class bonus
-        return new CharacterSkills(1,1,3,1,1);
-    }
-
-
-    private static CharacterStats setScriptedStats() {
-        // apply racial bonus
-        return new CharacterStats(1,1,10,3,1,1);
-    }
-
-    private static CharacterInfo setScriptedInfo() {
-
-        String characterSheet = "test character sheet";
-
-        return new CharacterInfo(0, 1, "Cloud", PlayerRace.ELF,
-                PlayerClass.WARRIOR, characterSheet);
-    }
-
-    private static CharacterActiveEffects setScriptedActiveEffects() {
-        ArrayList<Condition> activeEffects = new ArrayList<>();
-        activeEffects.add(Condition.NEUTRAL);
-
-        return new CharacterActiveEffects(activeEffects);
-
-    }
-
-
 
     /**
      * Directs building a character to be used in the game.
      */
-    public static Adventurer createCharacter() {
+    public static Adventurer createCharacter(boolean dungeonIsScripted) {
 
-        Character generatedPlayer = manualCharacterCreation();
+        Character generatedPlayer = characterCreation(dungeonIsScripted);
 
         // After character is built from user input, we capture the state in an Adventurer object.
 
@@ -82,8 +38,8 @@ public class CharacterBuilder {
      *
      * @return finished character
      */
-    private static Character manualCharacterCreation() {
-        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+    private static Character characterCreation(boolean dungeonIsScripted) {
+
         PlayerRace raceSelection;
         PlayerClass classSelection;
         Character player;
@@ -91,14 +47,14 @@ public class CharacterBuilder {
         while (true) {
 
             // Build basic character with user-provided name
-            player = new BasicCharacter(selectCharacterName(scanner));
+            player = new BasicCharacter(selectCharacterName(dungeonIsScripted));
 
             // Add race decorator based on user's class choice
-            raceSelection = selectRace(scanner);
+            raceSelection = selectRace(dungeonIsScripted);
             player = new RaceDecorator(player, raceSelection);
 
             // Add a class decorator based on user's class choice
-            classSelection = selectClass(scanner);
+            classSelection = selectClass(dungeonIsScripted);
             player = new ClassDecorator(player, classSelection);
 
             // Display character sheet and confirmation
@@ -110,13 +66,21 @@ public class CharacterBuilder {
             System.out.println("Enter 1 for yes or 2 for no.");
             System.out.println("===============================");
 
-
-            if (Integer.parseInt(scanner.nextLine()) == 1) {
-                break;
+            // get user input to confirm character creation
+            int selection;
+            if (dungeonIsScripted) {
+                selection = 1;
+            } else {
+                selection = DungeonUtil.getUserSelection(2);
             }
-            System.out.println("Restarting character creation!");
-        }
 
+            if (selection == 1) {
+                break;
+
+            } else {
+                System.out.println("Restarting character creation!");
+            }
+        }
 
         return player;
     }
@@ -124,52 +88,37 @@ public class CharacterBuilder {
     /**
      * Helper method to select class from player selection.
      */
-    private static PlayerClass selectClass(Scanner scanner) {
+    private static PlayerClass selectClass(boolean isDungeonScripted) {
 
-        PlayerClass classSelection;
+
 
         System.out.println("Select your class!");
         printClassOptions();
 
-        while (true) {
+        int choice;
 
-            if (scanner.hasNextLine()) {
+        // sets scripted class to warrior for scripted or prompt player to choose
+        if (isDungeonScripted) {
+            choice = 1;
 
-                int choice;
-
-                try {
-                    choice = Integer.parseInt(scanner.nextLine());
-
-                    if (choice <= 5 && choice > 0) {
-
-                        if (choice == 1) {
-                            classSelection = PlayerClass.WARRIOR;
-                        } else if (choice == 2) {
-                            classSelection = PlayerClass.MAGE;
-                        } else if (choice == 3) {
-                            classSelection = PlayerClass.THIEF;
-                        } else {
-                            classSelection = PlayerClass.PRIEST;
-                        }
-
-                        return classSelection;
-
-                    } else {
-                        System.out.println("Enter a valid choice");
-                        printRaceOptions();
-                    }
-                } catch (Exception e) {
-                    System.out.println("Enter a valid number");
-                    printRaceOptions();
-                }
-            } else {
-                System.out.println("No input found");
-                break;
-            }
+        } else {
+            choice = DungeonUtil.getUserSelection(4);
         }
 
+        if (choice == 1) {
+            return PlayerClass.WARRIOR;
 
-        return null;
+        } else if (choice == 2) {
+            return PlayerClass.MAGE;
+
+        } else if (choice == 3) {
+            return PlayerClass.THIEF;
+
+        } else {
+            return PlayerClass.PRIEST;
+
+        }
+
     }
 
     private static void printClassOptions() {
@@ -196,23 +145,22 @@ public class CharacterBuilder {
     }
 
     /**
-     * Helper method to retrieve character name.
+     * Gets character name from player or enters default name in scripted mode.
      */
-    private static String selectCharacterName(Scanner scanner) {
+    private static String selectCharacterName(boolean isDungeonScripted) {
 
         System.out.println("Enter your character name: ");
 
-        try {
-            if (scanner.hasNextLine()) {
-                return scanner.nextLine();
-            }
+        String characterName;
 
-        } catch (Exception e) {
-            System.out.println("Invalid Entry");
-            scanner.nextLine();
+        if (isDungeonScripted) {
+            characterName = "Cloud";
+        } else {
+            characterName = DungeonUtil.getUserString();
         }
 
-        return null;
+        return characterName;
+
     }
 
     /**
@@ -243,54 +191,39 @@ public class CharacterBuilder {
     /**
      * Helper method to handle getting race selection from user.
      */
-    private static PlayerRace selectRace(Scanner scanner) {
+    private static PlayerRace selectRace(boolean isDungeonScripted) {
 
         System.out.println("Select your race!");
 
-        PlayerRace raceSelection;
+        printRaceOptions();
 
+        int selection;
+        if (isDungeonScripted) {
+            selection = 4;
 
-        while (true) {
-
-            printRaceOptions();
-
-
-            if (scanner.hasNextLine()) {
-                int choice;
-
-                try {
-                    choice = scanner.nextInt();
-                    scanner.nextLine();
-
-                    if (choice <= 5 && choice > 0) {
-
-                        if (choice == 1) {
-                            raceSelection = PlayerRace.ORC;
-                        } else if (choice == 2) {
-                            raceSelection = PlayerRace.HUMAN;
-                        } else if (choice == 3) {
-                            raceSelection = PlayerRace.DEMON;
-                        } else if (choice == 4) {
-                            raceSelection = PlayerRace.ELF;
-                        } else {
-                            raceSelection = PlayerRace.GNOME;
-                        }
-                        return raceSelection;
-
-                    } else {
-                        System.out.println("Enter a valid choice");
-
-                    }
-                } catch (Exception e) {
-                    System.out.println("Enter a valid number");
-
-                }
-            } else {
-                System.out.println("No input found");
-            }
+        } else {
+            selection = DungeonUtil.getUserSelection(4);
         }
 
-    }
+        if (selection == 1) {
+            return PlayerRace.ORC;
+
+        } else if (selection == 2) {
+            return PlayerRace.HUMAN;
+
+        } else if (selection == 3) {
+            return PlayerRace.DEMON;
+
+        } else if (selection == 4) {
+            return PlayerRace.ELF;
+
+        } else {
+            return PlayerRace.GNOME;
+        }
+
+        }
+
+
 
     /**
      * Once character creation is done, we want to capture the state of the object so that updating

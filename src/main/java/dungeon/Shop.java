@@ -1,6 +1,6 @@
 package dungeon;
 
-import static utility.DungeonUtil.getUserInput;
+import static utility.DungeonUtil.getUserSelection;
 
 import character.PlayerInventory;
 import utility.index.Item;
@@ -27,7 +27,7 @@ public class Shop {
             runNormalShopkeeperEncounter(1, true);
 
         } else {
-            selection = getUserInput(2);
+            selection = getUserSelection(2);
 
             runNormalShopkeeperEncounter(selection, false);
         }
@@ -54,7 +54,7 @@ public class Shop {
 
             } else {
                 // get selection from user
-                shopChoice = getUserInput(5);
+                shopChoice = getUserSelection(5);
             }
 
             // process the transaction

@@ -101,8 +101,15 @@ public class CombatTest extends AdventurerTests {
 
     @Test
     void testBotDrinkPotionAboveHalfHitPoints() {
+
         // give player a potion, but they shouldn't use it above half hp
         PlayerInventory.findPotionOfHealing();
+        // buff up player to ensure they stay above half hp
+        player.applyPower();
+        player.applyPower();
+        player.applyPower();
+        player.applyPower();
+        player.applyPower();
 
         dungeonCombat = new Combat(player, goblin, 1);
         dungeonCombat.combat(true);
