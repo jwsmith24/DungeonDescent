@@ -26,7 +26,7 @@ public class MonsterStats {
 
         for (int i = 0; i < cycleCount; i++) {
             this.hp++;
-            this.attackBonus ++;
+            this.attackBonus++;
             this.speed++;
             this.experience = experience + 100;
 

@@ -59,6 +59,23 @@ public class InventoryManagementTest {
         PlayerInventory.displayInventory();
     }
 
+    @Test
+    void testDisplayInventoryWithFullInventory() {
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HELMET_OF_PROTECTION,
+                true);
+        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON,
+                true);
+        PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SWORD_OF_SLASHING,
+                true);
+        PlayerInventory.equipItem(EquipmentSlot.POTION, Item.POTION_OF_HEALING,
+                true);
+        PlayerInventory.equipItem(EquipmentSlot.OFF_HAND, Item.DRAGONSCALE_SHIELD,
+                true);
+
+        PlayerInventory.displayInventory();
+
+    }
+
 
     @Test
     void testEquipItemToEmptySlot() {

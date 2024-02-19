@@ -19,7 +19,6 @@ import utility.index.PlayerRace;
 public class CharacterBuilder {
 
 
-
     /**
      * Directs building a character to be used in the game.
      */
@@ -89,7 +88,6 @@ public class CharacterBuilder {
      * Helper method to select class from player selection.
      */
     private static PlayerClass selectClass(boolean isDungeonScripted) {
-
 
 
         System.out.println("Select your class!");
@@ -221,8 +219,7 @@ public class CharacterBuilder {
             return PlayerRace.GNOME;
         }
 
-        }
-
+    }
 
 
     /**

@@ -54,7 +54,7 @@ public class DungeonUtil {
 
         boolean playerDeciding = true;
 
-        while(playerDeciding) {
+        while (playerDeciding) {
             try {
                 response = scanner.nextLine();
                 scanner.nextLine();
@@ -70,6 +70,7 @@ public class DungeonUtil {
 
     /**
      * Simulates rolling a 20-sided die.
+     *
      * @return result of roll
      */
     public static int rollAD20() {
@@ -78,6 +79,7 @@ public class DungeonUtil {
 
     /**
      * Simulates rolling a 10-sided die.
+     *
      * @return result of roll
      */
     public static int rollAD10() {
@@ -86,6 +88,7 @@ public class DungeonUtil {
 
     /**
      * Handles rolling a random number on a loot table of a given size.
+     *
      * @return random number to select loot
      */
     public static int rollRandomItem(int arraySize) {
@@ -108,7 +111,6 @@ public class DungeonUtil {
 
         System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
     }
-
 
 
     private DungeonUtil() {
