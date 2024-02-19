@@ -1,12 +1,19 @@
+import character.Adventurer;
+import character.BasicCharacter;
 import character.Character;
-import character.*;
+import character.ClassDecorator;
+import character.RaceDecorator;
+
 import dungeon.DungeonMaster;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
 import utility.CharacterBuilder;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
+
 
 /**
  * Basic main class to ensure everything is set up properly.
@@ -32,8 +39,8 @@ public class Main {
 
         displayWelcomeText();
 
-        System.out.println("\nEnter 1 for the Scripted Version " +
-                "| Enter 2 for the Normal Version");
+        System.out.println("\nEnter 1 for the Scripted Version "
+                + "| Enter 2 for the Normal Version");
 
         // Have player choose scripted or unscripted mode
         boolean playerDeciding = true;
@@ -102,7 +109,8 @@ public class Main {
 
         System.out.println("Hi, I'm still " + craig.getName() + " and I'm a "
                 + craig.getPlayerRace() + "!"
-                + "\nIf we were to fight right now, I would use a: " + craig.getPlayerClass().getAttackText());
+                + "\nIf we were to fight right now, I would use a: "
+                + craig.getPlayerClass().getAttackText());
 
         System.out.println(craig.getCharacterSheet());
 

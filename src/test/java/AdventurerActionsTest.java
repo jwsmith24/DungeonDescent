@@ -1,3 +1,7 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import character.PlayerInventory;
 import org.junit.jupiter.api.Test;
 import utility.DungeonUtil;
@@ -6,7 +10,8 @@ import utility.index.EquipmentSlot;
 import utility.index.Item;
 import utility.index.PlayerSkills;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+
 
 /**
  * This class contains tests for player actions in the dungeon (in and out of combat).
@@ -15,15 +20,15 @@ public class AdventurerActionsTest extends AdventurerTests {
 
 
     @Test
-    void testCheckLevelUpWithNotEnoughXP() {
+    void testCheckLevelUpWithNotEnoughExperience() {
         player.checkLevelUp();
 
         assertEquals(1, player.getLevel());
     }
 
     @Test
-    void testCheckLevelUpWithEnoughXP() {
-        player.gainBossXP();
+    void testCheckLevelUpWithEnoughExperience() {
+        player.gainBossExperience();
 
         player.checkLevelUp();
 
@@ -43,27 +48,28 @@ public class AdventurerActionsTest extends AdventurerTests {
 
         assertTrue(result > player.getAttack() + player.getLevel());
     }
-    @Test
-    void testGainSmallXP() {
-        player.gainSmallXP();
 
-        assertEquals(DungeonUtil.SMALL_XP, player.getCurrentXP(),
+    @Test
+    void testGainSmallXp() {
+        player.gainSmallXp();
+
+        assertEquals(DungeonUtil.SMALL_XP, player.getCurrentXp(),
                 "Wrong amount of xp applied");
     }
 
     @Test
-    void testGainMediumXP() {
-        player.gainMediumXP();
+    void testGainMediumXp() {
+        player.gainMediumXp();
 
-        assertEquals(DungeonUtil.MED_XP, player.getCurrentXP(),
+        assertEquals(DungeonUtil.MED_XP, player.getCurrentXp(),
                 "Wrong amount of xp applied");
     }
 
     @Test
-    void testGainBossXP() {
-        player.gainBossXP();
+    void testGainBossXp() {
+        player.gainBossExperience();
 
-        assertEquals(DungeonUtil.BOSS_XP, player.getCurrentXP(),
+        assertEquals(DungeonUtil.BOSS_XP, player.getCurrentXp(),
                 "Wrong amount of xp applied");
     }
 
@@ -73,10 +79,10 @@ public class AdventurerActionsTest extends AdventurerTests {
 
         player.applyPower();
 
-        assertEquals(13, player.getAC(),
+        assertEquals(13, player.getArmorClass(),
                 "AC not increased");
 
-        assertEquals(20, player.getCurrentHP(),
+        assertEquals(20, player.getCurrentHp(),
                 "Player hp not increased");
     }
 
@@ -89,10 +95,10 @@ public class AdventurerActionsTest extends AdventurerTests {
         // test player starts with 10 hp
         player.takeDamage(2);
 
-        assertEquals(8, player.getCurrentHP(),
+        assertEquals(8, player.getCurrentHp(),
                 "HP not reduced properly");
 
-        assertEquals(10, player.getMaxHP(),
+        assertEquals(10, player.getMaxHp(),
                 "Max HP changed");
     }
 
@@ -101,7 +107,7 @@ public class AdventurerActionsTest extends AdventurerTests {
         player.takeDamage(100);
 
         // player HP should still only be at 0
-        assertEquals(0, player.getCurrentHP());
+        assertEquals(0, player.getCurrentHp());
     }
 
     @Test
@@ -111,7 +117,7 @@ public class AdventurerActionsTest extends AdventurerTests {
 
         player.drinkPotion();
 
-        assertEquals(10, player.getCurrentHP(),
+        assertEquals(10, player.getCurrentHp(),
                 "HP changed even though potion slot was empty");
 
 
@@ -119,26 +125,26 @@ public class AdventurerActionsTest extends AdventurerTests {
 
 
     /**
-     * Checks that healing potion applies health, doesn't raise the max hp, and doesn't go over max
-     * hp
+     * Checks that healing potion applies health, doesn't raise the max hp, and doesn't go over max.
      */
     @Test
     void testDrinkPotionWithOneEquipped() {
 
-        PlayerInventory.equipItem(EquipmentSlot.POTION, Item.POTION_OF_HEALING, true);
+        PlayerInventory.equipItem(EquipmentSlot.POTION, Item.POTION_OF_HEALING,
+                true);
 
         // deal 3 damage
         player.takeDamage(3);
 
         player.drinkPotion();
 
-        assertTrue(player.getCurrentHP() > 7,
+        assertTrue(player.getCurrentHp() > 7,
                 "No healing was applied");
 
-        assertEquals(10, player.getMaxHP(),
+        assertEquals(10, player.getMaxHp(),
                 "Max HP increased");
 
-        assertTrue(player.getCurrentHP() <= player.getMaxHP(),
+        assertTrue(player.getCurrentHp() <= player.getMaxHp(),
                 "HP has exceeded max HP");
     }
 
@@ -153,7 +159,7 @@ public class AdventurerActionsTest extends AdventurerTests {
         // take a long rest and everything should clear
         player.takeLongRest();
 
-        assertEquals(player.getMaxHP(), player.getCurrentHP(),
+        assertEquals(player.getMaxHp(), player.getCurrentHp(),
                 "Player is not at max HP");
         assertFalse(player.hasCondition(Condition.POISONED),
                 "Player's condition was not removed");
@@ -179,21 +185,31 @@ public class AdventurerActionsTest extends AdventurerTests {
     void testHealPlayer() {
         player.takeDamage(3);
         player.healPlayer(3);
-        assertEquals(10, player.getCurrentHP());
+        assertEquals(10, player.getCurrentHp());
 
         // make sure can't over heal
         player.healPlayer(500);
-        assertEquals(10, player.getCurrentHP());
+        assertEquals(10, player.getCurrentHp());
     }
 
     @Test
     void rollASkillCheck() {
 
-        assertTrue(player.rollSkillCheck(PlayerSkills.ARCANA) > player.getArcana());
-        assertTrue(player.rollSkillCheck(PlayerSkills.ATHLETICS) > player.getAthletics());
-        assertTrue(player.rollSkillCheck(PlayerSkills.HISTORY) > player.getHistory());
-        assertTrue(player.rollSkillCheck(PlayerSkills.DUNGEONEERING) > player.getDungeoneering());
-        assertTrue(player.rollSkillCheck(PlayerSkills.LOCK_PICKING) > player.getLockPicking());
+        assertTrue(player.rollSkillCheck(PlayerSkills.ARCANA)
+                >
+                player.getArcana());
+        assertTrue(player.rollSkillCheck(PlayerSkills.ATHLETICS)
+                >
+                player.getAthletics());
+        assertTrue(player.rollSkillCheck(PlayerSkills.HISTORY)
+                >
+                player.getHistory());
+        assertTrue(player.rollSkillCheck(PlayerSkills.DUNGEONEERING)
+                >
+                player.getDungeoneering());
+        assertTrue(player.rollSkillCheck(PlayerSkills.LOCK_PICKING)
+                >
+                player.getLockPicking());
     }
 
     @Test
@@ -214,19 +230,21 @@ public class AdventurerActionsTest extends AdventurerTests {
 
 
 
+
     @Test
     void testSpendingUltimateChargesWithCharges() {
         assertTrue(player.spendUltimateCharge(),
                 "Player not starting with at least one ult charge");
     }
+
     @Test
     void testSpendingUltimateChargeWithNoCharges() {
-        player.spendUltimateCharge();
-        player.spendUltimateCharge();
 
+        player.spendUltimateCharge();
+        player.spendUltimateCharge();
 
         assertFalse(player.spendUltimateCharge(),
-        "player's ult charges are not being spent");
+                "player's ult charges are not being spent");
     }
 
 }

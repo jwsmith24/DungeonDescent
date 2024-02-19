@@ -32,12 +32,19 @@ public class Adventurer {
 
     }
 
-    public void updateItemBonuses(){
+    /**
+     * Calculates attack and armor bonus from current equipment.
+     */
+    public void updateItemBonuses() {
 
         itemAttackBonus = PlayerInventory.getItemAttackBonus();
         itemArmorBonus = PlayerInventory.getItemArmorBonus();
     }
 
+    /**
+     * Calculates damage of basic attack roll and displays result.
+     * @return damage roll
+     */
     public int basicAttackRoll() {
         // roll a d20 and add player attack bonus + level
         int attackRoll = DungeonUtil.rollAD20()
@@ -112,12 +119,23 @@ public class Adventurer {
         int roll = DungeonUtil.rollAD20();
 
         switch (skill) {
-            case ARCANA: roll += skills.getArcana();
-            case ATHLETICS: roll += skills.getAthletics();
-            case HISTORY: roll += skills.getHistory();
-            case DUNGEONEERING: roll += skills.getDungeoneering();
-            case LOCK_PICKING: roll += skills.getLockPicking();
-            default: roll += 1;
+            case ARCANA:
+                roll += skills.getArcana();
+                break;
+            case ATHLETICS:
+                roll += skills.getAthletics();
+                break;
+            case HISTORY:
+                roll += skills.getHistory();
+                break;
+            case DUNGEONEERING:
+                roll += skills.getDungeoneering();
+                break;
+            case LOCK_PICKING:
+                roll += skills.getLockPicking();
+                break;
+            default:
+                roll += 1;
         }
 
         System.out.println("Roll for " + skill.name() + "!");
@@ -128,13 +146,14 @@ public class Adventurer {
 
     }
 
-                              /**
-     * Resets hp to max hp, resets ultimate charges, and clears conditions
+
+    /**
+     * Resets hp to max hp, resets ultimate charges, and clears conditions.
      */
     public void takeLongRest() {
         System.out.println("You find a cozy spot to rest");
 
-        healPlayer(this.getMaxHP());
+        healPlayer(this.getMaxHp());
         this.regainUltimate();
         activeEffects.applyCondition(Condition.NEUTRAL);
 
@@ -160,10 +179,13 @@ public class Adventurer {
      * Determines if player is still alive.
      */
     public boolean isAlive() {
-        return stats.getCurrentHP() > 0;
+        return stats.getCurrentHitPoints() > 0;
     }
 
-    public void gainSmallXP() {
+    /**
+     * Apply xp = current rate of small monster.
+     */
+    public void gainSmallXp() {
         int xp = DungeonUtil.SMALL_XP;
 
 
@@ -171,14 +193,20 @@ public class Adventurer {
         this.info.gainExperience(DungeonUtil.SMALL_XP);
     }
 
-    public void gainMediumXP() {
+    /**
+     * Apply xp = current rate of medium monster.
+     */
+    public void gainMediumXp() {
         int xp = DungeonUtil.MED_XP;
 
         System.out.println("You gained " + xp + " XP!");
         this.info.gainExperience(DungeonUtil.MED_XP);
     }
 
-    public void gainBossXP() {
+    /**
+     * Apply boss xp to player.
+     */
+    public void gainBossExperience() {
         int xp = DungeonUtil.BOSS_XP;
 
         System.out.println("You gained " + xp + " XP!");
@@ -191,7 +219,7 @@ public class Adventurer {
      * Ex: Level 2 player needs to acquire 300 xp to level up.
      * @return total xp required for next level
      */
-    public int nextLevelXP() {
+    public int nextLevelXp() {
 
         return 100 * (this.getLevel() + 1);
     }
@@ -202,7 +230,7 @@ public class Adventurer {
     public void checkLevelUp() {
         // if current xp > amount needed to level up, apply level up
 
-        if (getCurrentXP() >= nextLevelXP()) {
+        if (getCurrentXp() >= nextLevelXp()) {
 
             info.gainLevel();
 
@@ -210,7 +238,7 @@ public class Adventurer {
             System.out.println("Ding! Level " + getLevel() + " acquired!");
             DungeonUtil.printSpecialWrapper();
 
-            info.resetXP();
+            info.resetExperience();
         }
 
 
@@ -236,7 +264,8 @@ public class Adventurer {
             activeEffects.applyCondition(condition);
 
         } else {
-            System.out.println(info.getName() + " is already affected by " + condition.getDescription());
+            System.out.println(info.getName() + " is already affected by "
+                    + condition.getDescription());
         }
     }
 
@@ -268,12 +297,12 @@ public class Adventurer {
         System.out.println("The attack hits you for " + reducedDmg + " damage!");
 
         // Display remaining hp to player
-        System.out.println("Remaining hit points: " + this.getCurrentHP() + "/" + this.getMaxHP());
+        System.out.println("Remaining hit points: " + this.getCurrentHp() + "/" + this.getMaxHp());
 
         // check to see if damage kills player and set hp to 0
-        if (getCurrentHP() <= 0) {
+        if (getCurrentHp() <= 0) {
             System.out.println("The damage is fatal.");
-            this.stats.zeroizeHP();
+            this.stats.zeroizeHitPoints();
         }
     }
 
@@ -285,17 +314,20 @@ public class Adventurer {
     public void healPlayer(int amount) {
 
         // if healing would bring player over max hp, just set hp to max
-        this.stats.restoreHP(amount);
+        this.stats.restoreHitPoints(amount);
     }
 
 
+    /**
+     * Applies the stat boost to the player.
+     */
     public void applyPower() {
 
         DungeonUtil.printSpecialWrapper();
 
-        System.out.println("You feel a presence come from deep within the dungeon. " +
-                "\nAn overwhelming feeling of joy washes over you, then.. power. " +
-                "\nIt beckons you onward... ");
+        System.out.println("You feel a presence come from deep within the dungeon. "
+                + "\nAn overwhelming feeling of joy washes over you, then.. power. "
+                + "\nIt beckons you onward... ");
 
         System.out.println("All stats increase by 1");
         System.out.println("HP increases by 10\n");
@@ -306,6 +338,9 @@ public class Adventurer {
     }
 
 
+    /**
+     * Use potion if player has one in inventory, otherwise default to basic attack.
+     */
     public boolean drinkPotion() {
 
         if (PlayerInventory.consumePotion()) {
@@ -316,7 +351,7 @@ public class Adventurer {
 
             healPlayer(hpGained);
 
-            System.out.println("Remaining hit points: " + getCurrentHP() + "/" + getMaxHP());
+            System.out.println("Remaining hit points: " + getCurrentHp() + "/" + getMaxHp());
 
             return true;
 
@@ -363,7 +398,7 @@ public class Adventurer {
         return info.getName();
     }
 
-    public int getCurrentXP() {
+    public int getCurrentXp() {
         return info.getExperience();
     }
 
@@ -392,18 +427,18 @@ public class Adventurer {
     }
 
 
-    public int getAC() {
-        return stats.getAC();
+    public int getArmorClass() {
+        return stats.getArmorClass();
     }
 
 
-    public int getCurrentHP() {
-        return stats.getCurrentHP();
+    public int getCurrentHp() {
+        return stats.getCurrentHitPoints();
     }
 
 
-    public int getMaxHP() {
-        return stats.getMaxHP();
+    public int getMaxHp() {
+        return stats.getMaxHitPoints();
     }
 
 

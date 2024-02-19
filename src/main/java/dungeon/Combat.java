@@ -1,17 +1,20 @@
 package dungeon;
 
-
 import character.Adventurer;
 import character.PlayerInventory;
-import monsters.Monster;
-import utility.DungeonUtil;
-import utility.index.EquipmentSlot;
-import utility.index.Item;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+
+import monsters.Monster;
+
+import utility.DungeonUtil;
+import utility.index.EquipmentSlot;
+import utility.index.Item;
+
+
 
 
 /**
@@ -21,9 +24,15 @@ public class Combat {
 
     private final Adventurer player;
     private final Monster monster;
+    /**
+     * Use a single scanner for all the combat methods.
+     */
     private final Scanner playerInput = new Scanner(System.in, StandardCharsets.UTF_8);
     private final int difficultyMod;
 
+    /**
+     * Combat constructor for encounters.
+     */
     public Combat(Adventurer player, Monster monster, int cycleCount) {
         this.player = player;
         this.monster = monster;
@@ -49,8 +58,8 @@ public class Combat {
         // while both the player AND the monster are alive, continue combat.
         while (player.isAlive() && monster.isAlive()) {
 
-
-            // determine initiative by rolling a d20 for each entity and adding speed score as a bonus
+            // determine initiative by rolling a d20 for each entity and
+            // adding speed score as a bonus
 
             if (playerFirst) {
                 System.out.println(player.getName() + "'s turn");
@@ -101,7 +110,8 @@ public class Combat {
 
         }
 
-        // Combat ends when either the player or monster is no longer alive. Return true if player is alive,
+        // Combat ends when either the player or monster is no longer alive.
+        // Return true if player is alive,
         // otherwise return false so that the main loop can end.
 
         return player.isAlive();
@@ -128,9 +138,8 @@ public class Combat {
         }
     }
 
-
     /**
-     * On each turn, a player can choose an action
+     * On each turn, a player can choose an action.
      */
     private void takePlayerAction() {
 
@@ -167,7 +176,7 @@ public class Combat {
                         // try to drink a potion.
                         // if it doesn't work, basic attack instead.
 
-                        if(!player.drinkPotion()) {
+                        if (!player.drinkPotion()) {
                             basicAttack();
                         }
 
@@ -194,15 +203,15 @@ public class Combat {
      * use healing potion if less than half hp, and otherwise basic attack.
      */
     private void takeScriptedPlayerAction() {
-        List<String> bosses = Arrays.asList("Ogre", "Displacer Beast", "Giant Spider", "Young Red Dragon",
-                "Beholder", "Giant");
+        List<String> bosses = Arrays.asList("Ogre", "Displacer Beast", "Giant Spider",
+                "Young Red Dragon", "Beholder", "Giant");
 
         // use special if fighting boss
         if (bosses.contains(monster.getName()) && player.getUltimateCharges() > 0) {
             useSpecialAbility();
 
             // use potion if hp is less than half if they have a potion to use
-        } else if ((player.getCurrentHP() < (player.getMaxHP() / 2))
+        } else if ((player.getCurrentHp() < (player.getMaxHp() / 2))
                 && PlayerInventory.getEquippedItem(EquipmentSlot.POTION) != Item.NO_POTION) {
 
             player.drinkPotion();
@@ -222,8 +231,10 @@ public class Combat {
 
         System.out.println("What would you like to do?");
         System.out.println("Action Options:");
-        System.out.println("1. Basic Attack: " + player.getPlayerClass().getAttackText());
-        System.out.println("2. Special Ability: " + player.getPlayerClass().getSpecialAbilityText());
+        System.out.println("1. Basic Attack: "
+                + player.getPlayerClass().getAttackText());
+        System.out.println("2. Special Ability: "
+                + player.getPlayerClass().getSpecialAbilityText());
         System.out.println("3. Drink a Potion");
 
 
@@ -278,12 +289,14 @@ public class Combat {
         int attackRoll = DungeonUtil.rollAD20() + monster.getAttackBonus();
 
         // if attack roll beats player ac, player takes damage
-        if (attackRoll >= player.getAC()) {
+        if (attackRoll >= player.getArmorClass()) {
 
             monster.attackText();
             // difficulty scales the damage down (amount decreases as cycle count increases)
             // makes sure result doesn't go below 1
-            int calcDamage = Math.max(1, (DungeonUtil.rollAD10() + monster.getAttackBonus()) - difficultyMod);
+            int calcDamage = Math.max(1, (DungeonUtil.rollAD10()
+                    + monster.getAttackBonus()) - difficultyMod);
+
             player.takeDamage(calcDamage);
 
         } else {

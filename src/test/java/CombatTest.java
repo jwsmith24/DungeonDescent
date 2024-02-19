@@ -1,11 +1,12 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import character.PlayerInventory;
 import org.junit.jupiter.api.Test;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CombatTest extends AdventurerTests{
+public class CombatTest extends AdventurerTests {
 
 
 
@@ -35,8 +36,10 @@ public class CombatTest extends AdventurerTests{
         PlayerInventory.initializeInventory();
 
         // equip a rare item
-        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON, false);
-       // update player scores
+        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON,
+                false);
+
+        // update player scores
         player.updateItemBonuses();
 
 
@@ -44,8 +47,9 @@ public class CombatTest extends AdventurerTests{
         assertEquals(Item.ROBE_OF_THE_RED_DRAGON.getBonus(), PlayerInventory.getItemArmorBonus(),
                 "Wrong armor bonus applied");
 
+
         player.takeDamage(3);
-        assertEquals(player.getMaxHP()-1, player.getCurrentHP(),
+        assertEquals(player.getMaxHp() - 1, player.getCurrentHp(),
                 "Damage was not reduced by the proper amount. Minimum damage is always 1.");
     }
 
@@ -56,10 +60,13 @@ public class CombatTest extends AdventurerTests{
 
         PlayerInventory.initializeInventory();
 
-        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON,false);
-        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET, false);
+        PlayerInventory.equipItem(EquipmentSlot.ARMOR, Item.ROBE_OF_THE_RED_DRAGON,
+                false);
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET,
+                false);
 
-        int totalBonus = PlayerInventory.getEquippedItem(EquipmentSlot.ARMOR).getBonus() +
+        int totalBonus = PlayerInventory.getEquippedItem(EquipmentSlot.ARMOR).getBonus()
+                +
                 PlayerInventory.getEquippedItem(EquipmentSlot.HELMET).getBonus();
 
         System.out.println(totalBonus);
@@ -70,7 +77,7 @@ public class CombatTest extends AdventurerTests{
 
         player.updateItemBonuses();
         player.takeDamage(totalBonus);
-        assertEquals(player.getMaxHP() - 1, player.getCurrentHP(),
+        assertEquals(player.getMaxHp() - 1, player.getCurrentHp(),
                 "Bonus not properly applied. Minimum damage is always at least 1.");
     }
 
@@ -82,7 +89,7 @@ public class CombatTest extends AdventurerTests{
         player.takeDamage(1);
         player.drinkPotion();
 
-        assertEquals(player.getMaxHP(), player.getCurrentHP(),
+        assertEquals(player.getMaxHp(), player.getCurrentHp(),
                 "Error drinking potion");
     }
 

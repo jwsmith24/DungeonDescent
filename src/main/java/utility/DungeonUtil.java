@@ -19,7 +19,7 @@ public class DungeonUtil {
 
 
     /**
-     * Simulates rolling a 20-sided die
+     * Simulates rolling a 20-sided die.
      * @return result of roll
      */
     public static int rollAD20() {
@@ -27,7 +27,7 @@ public class DungeonUtil {
     }
 
     /**
-     * Simulates rolling a 10-sided die
+     * Simulates rolling a 10-sided die.
      * @return result of roll
      */
     public static int rollAD10() {
@@ -42,12 +42,18 @@ public class DungeonUtil {
         return RANDOM.nextInt(arraySize);
     }
 
+    /**
+     * Prints out 3 * on new lines.
+     */
     public static void printSpacer() {
         System.out.println("*\n");
         System.out.println("*\n");
         System.out.println("*\n");
     }
 
+    /**
+     * Used to consistently wrap important text.
+     */
     public static void printSpecialWrapper() {
 
         System.out.println("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");

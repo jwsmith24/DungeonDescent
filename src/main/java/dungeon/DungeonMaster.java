@@ -2,15 +2,20 @@ package dungeon;
 
 import character.Adventurer;
 import character.PlayerInventory;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+
 import monsters.Monster;
 import monsters.MonsterFactory;
+
 import utility.CharacterBuilder;
 import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
+
+
 
 /**
  * Director for all actions in the dungeon. Acts as the mediator to avoid tight coupling of classes.
@@ -51,24 +56,23 @@ public class DungeonMaster {
     /**
      * Runs the dungeon with scripted inputs for grading/demonstration.
      *
-     * <p>If the player dies, they restart at the beginning of the dungeon. They lose their gold but
-     * maintain their
-     * level and equipment.</p>
+     * <p>If the player dies, they restart at the beginning of the dungeon. They lose their gold
+     * but maintain their level and equipment.</p>
      */
     private static void runScriptedDungeon() {
 
         System.out.println("Welcome to the scripted version of Dungeon Descent!");
 
-        System.out.println("You'll be watching a pre-generated character as they" +
-                " navigate the dungeon.");
+        System.out.println("You'll be watching a pre-generated character as they"
+                + " navigate the dungeon.");
 
         System.out.println("The character is programmed to "
                 + "\n- Use their special ability if they have charges available on a boss fight"
-                + "\n- Use their healing potion if below half hp"
-                + "\n- Use their basic attack.");
+                + "\n- Use their healing potion if below half hp" + "\n- Use their basic attack.");
 
-        System.out.println("If the player dies, they'll respawn at the beginning of the dungeon. They'll lose" +
-                "their gold but will maintain their level and equipment allowing them to get stronger.");
+        System.out.println("If the player dies, they'll respawn at the beginning of the dungeon. "
+                + "They'll lose" + "their gold but will maintain their level and equipment "
+                + "allowing them to get stronger.");
 
         /*System.out.println("The character also starts out with powerful gear to "
                 + "ensure they can consistently make it to the end.");
@@ -118,7 +122,8 @@ public class DungeonMaster {
                     player.takeLongRest();
                     PlayerInventory.initializeInventory();
                     PlayerInventory.findPotionOfHealing();
-                    PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SUSSUR_SWORD, true);
+                    PlayerInventory.equipItem(EquipmentSlot.WEAPON, Item.SUSSUR_SWORD,
+                            true);
                 }
             }
         }
@@ -204,12 +209,15 @@ public class DungeonMaster {
     private static void runTutorial() {
         DungeonUtil.printSpacer();
         // Porc the Orc Warrior uses sword strike to attack!
-        System.out.println(player.getName() + " the " + player.getPlayerRace() + " " + player.getPlayerClass() + " uses " + player.getPlayerClass().getAttackText() + " to attack!");
+        System.out.println(player.getName() + " the " + player.getPlayerRace() + " "
+                + player.getPlayerClass() + " uses " + player.getPlayerClass().getAttackText()
+                + " to attack!");
 
         // determine starting weapon based on class
         Item startingWeapon = giveStartingWeapon();
 
-        System.out.println("Upon entering the dungeon, you find a chest containing a " + startingWeapon.getItemName());
+        System.out.println("Upon entering the dungeon, you find a chest containing a "
+                + startingWeapon.getItemName());
         System.out.println(startingWeapon.getItemDescription());
 
         // equip starting weapon
@@ -302,8 +310,6 @@ public class DungeonMaster {
      * @return boolean isPlayerAlive
      */
     private static boolean runMediumMonsterFloor(Adventurer player, int cycleCount) {
-        boolean playerIsAlive;
-        int lootChance = DungeonUtil.rollAD20();
 
         // applies a stacking buff every 5 floors
         player.applyPower();
@@ -319,9 +325,11 @@ public class DungeonMaster {
         Combat dungeonCombat = new Combat(player, monster, cycleCount);
 
         // combat resolves into a boolean that's true if player is alive or false if they died.
+        boolean playerIsAlive;
         playerIsAlive = dungeonCombat.combat(dungeonIsScripted);
 
         // Chance to find the shopkeeper or loot lying around
+        int lootChance = DungeonUtil.rollAD20();
         if (playerIsAlive && (lootChance) > 15) {
 
             Shop.shopKeeperEncounter(scanner, dungeonIsScripted);
@@ -333,7 +341,7 @@ public class DungeonMaster {
 
         // If player is alive at the end of encounter, apply XP and give option to long rest.
         if (playerIsAlive) {
-            player.gainMediumXP();
+            player.gainMediumXp();
             PlayerInventory.findPotionOfHealing();
             lootTheRoom();
             promptLongRest(dungeonIsScripted);
@@ -349,8 +357,8 @@ public class DungeonMaster {
      * @return if player is still alive at the end of the encounter
      */
     private static boolean runSmallMonsterFloor(Adventurer player, int cycleCount) {
-        boolean playerIsAlive;
-        int lootChance = DungeonUtil.rollAD20(); // roll a d20 each floor for chance at finding loot
+
+
 
         // set active monster to a random small monster
         monster = MonsterFactory.randomSmallMonster();
@@ -363,9 +371,11 @@ public class DungeonMaster {
         Combat dungeonCombat = new Combat(player, monster, cycleCount);
 
         // combat resolves into a boolean that's true if player is alive or false if they died.
+        boolean playerIsAlive;
         playerIsAlive = dungeonCombat.combat(dungeonIsScripted);
 
         // As long as the player is still alive, they get a chance to find loot.
+        int lootChance = DungeonUtil.rollAD20(); // roll a d20 for chance at finding loot
         if (playerIsAlive && lootChance > 12) {
             System.out.println("The " + monster.getName() + " leaves behind some loot!");
             lootTheRoom();
@@ -376,7 +386,7 @@ public class DungeonMaster {
 
         // If player is alive at the end of encounter, apply XP.
         if (playerIsAlive) {
-            player.gainSmallXP();
+            player.gainSmallXp();
         }
 
         return playerIsAlive;
@@ -388,7 +398,7 @@ public class DungeonMaster {
      * @return if player is still alive at the end of the encounter
      */
     private static boolean runBossMonsterFloor(Adventurer player, int cycleCount) {
-        boolean playerIsAlive;
+
 
         // applies a stacking buff every 5 floors
         player.applyPower();
@@ -404,12 +414,13 @@ public class DungeonMaster {
         Combat dungeonCombat = new Combat(player, monster, cycleCount);
 
         // combat resolves into a boolean that's true if player is alive or false if they died.
+        boolean playerIsAlive;
         playerIsAlive = dungeonCombat.combat(dungeonIsScripted);
 
         // If player is alive at the end of encounter; apply XP, random loot, option to shop
         // give option to long rest, find new potion if empty.
         if (playerIsAlive) {
-            player.gainBossXP();
+            player.gainBossExperience();
             PlayerInventory.findPotionOfHealing();
             PlayerInventory.randomLootDrop(EquipmentSlot.ARMOR, dungeonIsScripted);
             lootTheRoom();
@@ -501,10 +512,10 @@ public class DungeonMaster {
         // if player passes, they avoid the trap and get some xp
         int skillCheck = player.rollSkillCheck(trap.getSkillCheckType());
 
-        if (trap.doesPlayerBeatAC(skillCheck)) {
+        if (trap.doesPlayerBeatArmorClass(skillCheck)) {
 
             trap.displaySuccessText();
-            player.gainMediumXP();
+            player.gainMediumXp();
 
             // if player fails: display failure, deal damage, and apply condition
 
@@ -524,25 +535,51 @@ public class DungeonMaster {
     private static void levelRecap() {
 
         System.out.println("***********************************************************");
+
         System.out.println("*                    Level Recap                          *");
-        System.out.printf("*   Dungeon Level: %d                                      *%n", dungeonLevel);
-        System.out.printf("*   Dungeon Cycle: %d                                      *%n", cycleCount);
-        System.out.printf("*   Player Level:  %d                                      *%n", player.getLevel());
-        System.out.printf("*   Player HP:     %d/%d                                   *%n", player.getCurrentHP(), player.getMaxHP());
-        System.out.printf("*   Player XP:     %d/%d                                   *%n", player.getCurrentXP(), player.nextLevelXP());
-        System.out.printf("*   Player Gold:   %d                                      *%n", PlayerInventory.currentGoldBalance());
+
+        System.out.printf("*   Dungeon Level: %d                                      *%n",
+                dungeonLevel);
+
+        System.out.printf("*   Dungeon Cycle: %d                                      *%n",
+                cycleCount);
+
+        System.out.printf("*   Player Level:  %d                                      *%n",
+                player.getLevel());
+
+        System.out.printf("*   Player HP:     %d/%d                                   *%n",
+                player.getCurrentHp(), player.getMaxHp());
+
+        System.out.printf("*   Player XP:     %d/%d                                   *%n",
+                player.getCurrentXp(), player.nextLevelXp());
+
+        System.out.printf("*   Player Gold:   %d                                      *%n",
+                PlayerInventory.currentGoldBalance());
+
         System.out.println("***********************************************************");
 
     }
 
     private static void dungeonRecap() {
         System.out.println("**********************************************************");
+
         System.out.println("*                    Dungeon Recap                        *");
-        System.out.printf("*   Dungeon Progress: Level %d                             *%n", dungeonLevel);
-        System.out.printf("*   Dungeon Cycle:          %d                             *%n", cycleCount);
-        System.out.printf("*   Player Level:           %d                             *%n", player.getLevel());
-        System.out.printf("*   Player Gold:            %d                             *%n", PlayerInventory.currentGoldBalance());
-        System.out.printf("*   Killed By:              %s                             *%n", monster.getName());
+
+        System.out.printf("*   Dungeon Progress: Level %d                             *%n",
+                dungeonLevel);
+
+        System.out.printf("*   Dungeon Cycle:          %d                             *%n",
+                cycleCount);
+
+        System.out.printf("*   Player Level:           %d                             *%n",
+                player.getLevel());
+
+        System.out.printf("*   Player Gold:            %d                             *%n",
+                PlayerInventory.currentGoldBalance());
+
+        System.out.printf("*   Killed By:              %s                             *%n",
+                monster.getName());
+
         System.out.println("**********************************************************");
 
     }

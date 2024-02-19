@@ -11,9 +11,10 @@ public abstract class Monster {
 
 
     /**
-     * Base constructor for all monsters
+     * Base constructor for all monsters.
      */
-    public Monster(String name, int hp, int attackBonus, int armorClass, int speed, int experience) {
+    public Monster(String name, int hp, int attackBonus, int armorClass,
+                   int speed, int experience) {
         this.name = name;
         this.stats = MonsterStats.monsterStatBuilder(hp, attackBonus, armorClass,
                 speed, experience);
@@ -36,7 +37,7 @@ public abstract class Monster {
 
         stats.takeDamage(value);
 
-        if (!isAlive()){
+        if (!isAlive()) {
             System.out.println("The damage is fatal!");
         }
 
@@ -48,7 +49,7 @@ public abstract class Monster {
      * Determines if monster is still alive.
      */
     public boolean isAlive() {
-        return stats.getHp() > 0;
+        return stats.getHitPoints() > 0;
     }
 
     public String getName() {
@@ -64,16 +65,16 @@ public abstract class Monster {
         return stats.getAttackBonus();
     }
 
-    public int getHP() {
-        return stats.getHp();
+    public int getHitPoints() {
+        return stats.getHitPoints();
     }
 
     public int getSpeed() {
         return stats.getSpeed();
     }
 
-    public int getXP() {
-        return stats.getXP();
+    public int getExperience() {
+        return stats.getExperience();
     }
 
 

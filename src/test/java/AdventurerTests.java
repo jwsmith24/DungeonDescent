@@ -1,5 +1,9 @@
-import character.*;
+
+import character.Adventurer;
+import character.BasicCharacter;
 import character.Character;
+import character.ClassDecorator;
+import character.RaceDecorator;
 import monsters.Monster;
 import monsters.MonsterFactory;
 import utility.CharacterBuilder;

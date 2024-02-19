@@ -1,14 +1,24 @@
 package utility;
 
+import character.Adventurer;
+import character.BasicCharacter;
 import character.Character;
-import character.*;
-import utility.index.Condition;
-import utility.index.PlayerClass;
-import utility.index.PlayerRace;
+import character.CharacterActiveEffects;
+import character.CharacterInfo;
+import character.CharacterSkills;
+import character.CharacterStats;
+import character.ClassDecorator;
+import character.RaceDecorator;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import utility.index.Condition;
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
+
+
 
 /**
  * Contains methods for character creation and displaying options to the user.
@@ -30,10 +40,12 @@ public class CharacterBuilder {
         return new CharacterSkills(1,1,3,1,1);
     }
 
+
     private static CharacterStats setScriptedStats() {
         // apply racial bonus
         return new CharacterStats(1,1,10,3,1,1);
     }
+
     private static CharacterInfo setScriptedInfo() {
 
         String characterSheet = "test character sheet";
@@ -170,10 +182,14 @@ public class CharacterBuilder {
 
         // Print class options
         String classOptions =
-                "Class Options:\n" +
-                        "1. Warrior\n" +
-                        "2. Mage\n" +
-                        "3. Thief\n" +
+                "Class Options:\n"
+                        +
+                        "1. Warrior\n"
+                        +
+                        "2. Mage\n"
+                        +
+                        "3. Thief\n"
+                        +
                         "4. Priest\n";
 
         System.out.println(classOptions);
@@ -209,11 +225,16 @@ public class CharacterBuilder {
         System.out.println("  / \\");
 
         String raceOptions =
-                "Race Options:\n" +
-                        "1. Orc\n" +
-                        "2. Human\n" +
-                        "3. Demon\n" +
-                        "4. Elf\n" +
+                "Race Options:\n"
+                        +
+                        "1. Orc\n"
+                        +
+                        "2. Human\n"
+                        +
+                        "3. Demon\n"
+                        +
+                        "4. Elf\n"
+                        +
                         "5. Gnome";
 
         System.out.println(raceOptions);

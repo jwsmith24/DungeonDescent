@@ -10,7 +10,8 @@ public class MonsterStats {
     private final int experience;
 
 
-    public MonsterStats(int hp, int attackBonus, int armorClass, int speed, int experience) {
+
+    private MonsterStats(int hp, int attackBonus, int armorClass, int speed, int experience) {
         this.hp = hp;
         this.attackBonus = attackBonus;
         this.armorClass = armorClass;
@@ -19,6 +20,9 @@ public class MonsterStats {
     }
 
 
+    /**
+     * Builder for monster stats.
+     */
     public static MonsterStats monsterStatBuilder(int hp, int attackBonus,
                                                   int armorClass, int speed, int experience) {
 
@@ -32,12 +36,12 @@ public class MonsterStats {
 
     }
 
-    public int getXP() {
+    public int getExperience() {
         return experience;
     }
 
 
-    public int getHp() {
+    public int getHitPoints() {
         return hp;
     }
 

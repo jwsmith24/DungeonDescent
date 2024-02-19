@@ -1,19 +1,22 @@
 package character;
 
+import java.util.ArrayList;
+
 import utility.index.Condition;
 
-import java.util.ArrayList;
 
 public class CharacterActiveEffects {
 
     private final ArrayList<Condition> activeEffects;
 
 
-
     public CharacterActiveEffects(ArrayList<Condition> activeEffects) {
         this.activeEffects = new ArrayList<>(activeEffects);
     }
 
+    /**
+     * Builder for Active Effects.
+     */
     public static CharacterActiveEffects effectsBuilder(Character characterRef) {
 
         // wrap up character active effects into the effects class
@@ -73,7 +76,7 @@ public class CharacterActiveEffects {
     }
 
     /**
-     * Displays all the active conditions to the player
+     * Displays all the active conditions to the player.
      */
     protected void displayConditions() {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");

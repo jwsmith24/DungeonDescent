@@ -1,9 +1,13 @@
 package dungeon;
 
 import character.PlayerInventory;
-import utility.index.Item;
 
 import java.util.Scanner;
+
+import utility.index.Item;
+
+
+
 
 /**
  * Contains all shop-related functionality.
@@ -34,7 +38,8 @@ public class Shop {
 
         System.out.println("*You decide to approach the shopkeeper*");
 
-        System.out.println("The shopkeeper beckons you closer. 'Only one item', they say in a broken voice");
+        System.out.println("The shopkeeper beckons you closer. 'Only one item', "
+                + "they say in a broken voice");
 
         displayShopInventory();
 
@@ -49,7 +54,7 @@ public class Shop {
         int result;
         boolean playerDeciding = true;
 
-        while (playerDeciding){
+        while (playerDeciding) {
             System.out.println("The Shopkeeper appears!");
             System.out.println("Do you want to approach?");
             System.out.println("1 - Yes | 2 - No");
@@ -57,8 +62,9 @@ public class Shop {
             try {
                 result = scanner.nextInt();
 
-                if(result == 1) {
-                    System.out.println("The shopkeeper beckons you closer. 'Only one item', they say in a broken voice");
+                if (result == 1) {
+                    System.out.println("The shopkeeper beckons you closer. "
+                            + "'Only one item', they say in a broken voice");
                     goShopping(scanner);
                     playerDeciding = false;
 
@@ -90,7 +96,7 @@ public class Shop {
         // Iterate through the list of items and display the shop inventory.
         for (Item item : Item.values()) {
 
-            if(item.getItemValue() == SHOP_PRICE) {
+            if (item.getItemValue() == SHOP_PRICE) {
 
                 System.out.println(index + ": " + item.getItemName() + " | "
                         + item.getItemDescription() + " | " + item.getItemValue() + " gold");
@@ -103,6 +109,9 @@ public class Shop {
         System.out.println("*");
     }
 
+    /**
+     * Handles shopping.
+     */
     public static void goShopping(Scanner scanner) {
 
         displayShopInventory();
@@ -112,7 +121,7 @@ public class Shop {
         boolean playerDeciding = true;
         int result;
 
-        while(playerDeciding) {
+        while (playerDeciding) {
 
             try {
                 result = scanner.nextInt();
@@ -134,12 +143,14 @@ public class Shop {
                     transaction(Item.HAT_OF_STYLE, false);
                     playerDeciding = false;
 
-                }else if (result == 5) {
-                    System.out.println("You begin to leave and realize the shopkeeper is nowhere to be found.");
+                } else if (result == 5) {
+                    System.out.println("You begin to leave and realize the shopkeeper "
+                            + "is nowhere to be found.");
                     playerDeciding = false;
 
-                }else {
-                    System.out.println("Enter a valid number for your item selection. Or press 5 to leave.");
+                } else {
+                    System.out.println("Enter a valid number for your item selection. "
+                            + "Or press 5 to leave.");
                 }
             } catch (Exception e) {
                 System.out.println("Enter a valid selection or press 5 to leave.");
@@ -158,7 +169,8 @@ public class Shop {
             System.out.println("You don't have enough gold!'");
             System.out.println("Current funds: " + PlayerInventory.currentGoldBalance());
 
-            System.out.println("The shopkeeper seemed displeased as you were rummaging through your coins. "
+            System.out.println("The shopkeeper seemed displeased as "
+                    + "you were rummaging through your coins. "
                     + "When you look up, they're nowhere to be seen.");
 
         } else {
@@ -169,7 +181,8 @@ public class Shop {
             // equip new item
             PlayerInventory.equipItem(item.getItemType(), item, dungeonIsScripted);
 
-            System.out.println("You look up from inspecting your new item and the shopkeeper has vanished without a trace...");
+            System.out.println("You look up from inspecting your new item and the shopkeeper"
+                    + " has vanished without a trace...");
 
         }
 

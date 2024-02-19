@@ -14,9 +14,7 @@ import utility.index.PlayerRace;
 
 
 
-
 public class CharacterCreationTest {
-
 
 
     @Test
@@ -67,7 +65,8 @@ public class CharacterCreationTest {
                 "Jeff is not a mage");
         assertEquals(3, jeff.getArcana(),
                 "Arcana bonus not applied");
-        assertEquals(PlayerClass.MAGE.getSpecialAbilityText(), jeff.getPlayerClass().getSpecialAbilityText(),
+        assertEquals(PlayerClass.MAGE.getSpecialAbilityText(),
+                jeff.getPlayerClass().getSpecialAbilityText(),
                 "Wrong special");
         assertEquals(PlayerClass.MAGE.getAttackText(), jeff.getPlayerClass().getAttackText(),
                 "Wrong attack type");
@@ -134,7 +133,8 @@ public class CharacterCreationTest {
         pete = new ClassDecorator(pete, PlayerClass.WARRIOR);
 
         // Pete's latest class was warrior, so his attack should be a warrior attack
-        assertEquals(PlayerClass.WARRIOR.getClassDescription(), pete.getPlayerClass().getClassDescription(),
+        assertEquals(PlayerClass.WARRIOR.getClassDescription(),
+                pete.getPlayerClass().getClassDescription(),
                 "Pete is not a warrior");
 
         // Pete should still have the +2 bonus to lockpicking though
@@ -181,13 +181,15 @@ public class CharacterCreationTest {
 
         assertEquals(3, bucky.getSpeed(), "Speed incorrect");
         assertEquals(12, bucky.getHitPoints(), "HP incorrect");
-        assertEquals(PlayerRace.DEMON.getRacialBonusText(), bucky.getPlayerRace().getRacialBonusText(),
+        assertEquals(PlayerRace.DEMON.getRacialBonusText(),
+                bucky.getPlayerRace().getRacialBonusText(),
                 "Racial ability is incorrect");
     }
 
     @Test
     void testCharacterBuilder() {
-        //todo: need to write the automatic script for chracter building
+        Adventurer player = CharacterBuilder.createScriptedCharacter();
+        assertEquals(PlayerClass.WARRIOR, player.getPlayerClass(), "Wrong class.");
     }
 
 

@@ -17,8 +17,11 @@ public class CharacterInfo {
     private final PlayerClass playerClass;
     private final String characterSheet;
 
-
-    public CharacterInfo(int experience, int level, String name, PlayerRace race, PlayerClass playerClass,
+    /**
+     * CharacterInfo constructor. Encapsulates player info into one object.
+     */
+    public CharacterInfo(int experience, int level, String name,
+                         PlayerRace race, PlayerClass playerClass,
                          String characterSheet) {
 
         this.experience = experience;
@@ -32,7 +35,7 @@ public class CharacterInfo {
     }
 
     /**
-     * Handles construction of the character's information
+     * Handles construction of the character's information.
      *
      * @return characterInfo object
      */
@@ -58,7 +61,7 @@ public class CharacterInfo {
         return experience;
     }
 
-    protected void resetXP() {
+    protected void resetExperience() {
         this.experience = 0;
     }
 
@@ -73,7 +76,7 @@ public class CharacterInfo {
     }
 
     /**
-     * Increment player level by 1
+     * Increment player level by 1.
      */
     protected void gainLevel() {
 

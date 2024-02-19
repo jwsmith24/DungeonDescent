@@ -1,11 +1,17 @@
 package character;
 
+import java.nio.charset.StandardCharsets;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
 import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+
 
 /**
  * Functionality for player inventory management.
@@ -194,7 +200,9 @@ public class PlayerInventory {
     }
 
 
-
+    /**
+     * Displays player inventory to user.
+     */
     public static void displayInventory() {
 
         System.out.println("==================================");
@@ -203,7 +211,8 @@ public class PlayerInventory {
 
         if (inventory != null) {
             for (Map.Entry<EquipmentSlot, Item> entry : inventory.entrySet()) {
-                System.out.println(entry.getKey().getSlotDescription() + entry.getValue().getItemName());
+                System.out.println(entry.getKey().getSlotDescription()
+                        + entry.getValue().getItemName());
             }
         }
 
@@ -265,23 +274,43 @@ public class PlayerInventory {
             }
 
         } else {
-           // if we want to bypass user input for testing
-            removeSlot(slot);
 
+            // if we want to bypass user input for testing
+            removeSlot(slot);
         }
 
     }
 
-
+    /**
+     * Sets a given slot to the NO_X item.
+     * @param slot slot to remove item
+     */
     private static void removeSlot(EquipmentSlot slot) {
+
 
         switch (slot) {
 
-            case ARMOR: inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
-            case HELMET: inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
-            case WEAPON: inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
-            case OFF_HAND: inventory.put(EquipmentSlot.OFF_HAND, Item.NO_OFF_HAND);
-            case POTION: inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
+            case ARMOR:
+
+                inventory.put(EquipmentSlot.ARMOR, Item.NO_ARMOR);
+                break;
+
+            case HELMET:
+
+                inventory.put(EquipmentSlot.HELMET, Item.NO_HELMET);
+                break;
+
+            case WEAPON:
+                inventory.put(EquipmentSlot.WEAPON, Item.NO_WEAPON);
+                break;
+
+            case OFF_HAND:
+                inventory.put(EquipmentSlot.OFF_HAND, Item.NO_OFF_HAND);
+                break;
+
+            case POTION:
+                inventory.put(EquipmentSlot.POTION, Item.NO_POTION);
+                break;
 
             default: System.out.println("Not a valid slot");
 

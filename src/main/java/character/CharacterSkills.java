@@ -12,8 +12,11 @@ public class CharacterSkills {
     private int arcana;
     private int history;
 
-    // Constructor
-    public CharacterSkills(int dungeoneering, int lockPicking, int athletics, int arcana, int history) {
+    /**
+     * Consolidates character skills into an object.
+     */
+    public CharacterSkills(int dungeoneering, int lockPicking,
+                           int athletics, int arcana, int history) {
         this.dungeoneering = dungeoneering;
         this.lockPicking = lockPicking;
         this.athletics = athletics;
@@ -21,6 +24,9 @@ public class CharacterSkills {
         this.history = history;
     }
 
+    /**
+     * Builds character skill object from another character.
+     */
     public static CharacterSkills skillBuilder(Character character) {
 
         return new CharacterSkills(

@@ -1,3 +1,7 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import dungeon.FalseFloorTrap;
 import dungeon.TeleportTrap;
 import dungeon.Trap;
@@ -6,7 +10,7 @@ import utility.DungeonUtil;
 import utility.index.Condition;
 import utility.index.PlayerSkills;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 
 public class TrapTest extends AdventurerTests {
 
@@ -53,7 +57,7 @@ public class TrapTest extends AdventurerTests {
     }
 
     @Test
-    void testCorrectTrapDC() {
+    void testCorrectTrapDifficultyCheck() {
         assertEquals(DungeonUtil.TRAP_DC, teleportTrap.getDifficultyCheck(),
                 "Incorrect trap DC");
 
@@ -62,18 +66,18 @@ public class TrapTest extends AdventurerTests {
     }
 
     @Test
-    void testFailingDC() {
+    void testFailingDifficultyCheck() {
         int result = DungeonUtil.TRAP_DC - 1;
 
-        assertFalse(teleportTrap.doesPlayerBeatAC(result));
+        assertFalse(teleportTrap.doesPlayerBeatArmorClass(result));
 
     }
 
     @Test
-    void testPassingDC() {
+    void testPassingDifficultyCheck() {
         int result = DungeonUtil.TRAP_DC + 1;
 
-        assertTrue(teleportTrap.doesPlayerBeatAC(result));
+        assertTrue(teleportTrap.doesPlayerBeatArmorClass(result));
     }
 
 

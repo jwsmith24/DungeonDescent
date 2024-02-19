@@ -1,9 +1,11 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import character.PlayerInventory;
 import org.junit.jupiter.api.Test;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 
 public class InventoryManagementTest {

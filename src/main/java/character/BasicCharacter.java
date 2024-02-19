@@ -11,11 +11,13 @@ import utility.index.PlayerStats;
 
 
 
+
 /**
- * <p>The basic concrete character class that can be decorated by the race and class decorators.</p>
+ * <p>The basic concrete character class that can be decorated by the race and class
+ * decorators.</p>
  *
  * <p>Functionality for ALL characters can be added here while class or race-specific
- *  functionality will override the applicable methods in the decorator classes.</p>
+ * functionality will override the applicable methods in the decorator classes.</p>
  */
 public class BasicCharacter implements Character {
 
@@ -47,6 +49,7 @@ public class BasicCharacter implements Character {
 
     /**
      * A Player starts with all the base stats plus whatever they're named by the user.
+     *
      * @param name character name
      */
     public BasicCharacter(String name) {
@@ -78,7 +81,7 @@ public class BasicCharacter implements Character {
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      */
     public BasicCharacter(Character characterRef) {
 
@@ -162,7 +165,6 @@ public class BasicCharacter implements Character {
     }
 
 
-
     // Getters for Player Data
 
     @Override
@@ -198,8 +200,6 @@ public class BasicCharacter implements Character {
     public PlayerRace getPlayerRace() {
         return race;
     }
-
-
 
 
     @Override

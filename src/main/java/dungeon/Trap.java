@@ -15,7 +15,11 @@ public abstract class Trap {
     private final String failureText;
     private final String surpriseText;
 
-    public Trap(String name, Condition effectType, int damage, PlayerSkills skillCheckType, String discoveryText,
+    /**
+     * Trap constructor.
+     */
+    public Trap(String name, Condition effectType, int damage,
+                PlayerSkills skillCheckType, String discoveryText,
                 String successText, String failureText, String surpriseText, int difficultyCheck) {
 
         this.name = name;
@@ -29,10 +33,16 @@ public abstract class Trap {
         this.difficultyCheck = difficultyCheck;
     }
 
-    public boolean doesPlayerBeatAC(int result){
+    /**
+     * Checks if player beats the trap DC.
+     */
+    public boolean doesPlayerBeatArmorClass(int result) {
         return result >= difficultyCheck;
     }
 
+    /**
+     * Tells which skill to use for the trap DC.
+     */
     public PlayerSkills getSkillCheckType() {
         return skillCheckType;
     }
@@ -41,7 +51,7 @@ public abstract class Trap {
         return damage;
     }
 
-    public Condition getEffectType(){
+    public Condition getEffectType() {
         return effectType;
     }
 

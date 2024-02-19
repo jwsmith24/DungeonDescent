@@ -7,26 +7,33 @@ public class CharacterStats {
 
     // Core Stats
     private int attack;
-    private int ac;
-    private int currentHP;
+    private int armorClass;
+    private int currentHitPoints;
     private int energy;
     private int speed;
     private int luck;
 
-    private int maxHP;
+    private int maxHitPoints;
 
 
-    public CharacterStats(int attack, int ac, int currentHP, int energy, int speed, int luck) {
+    /**
+     * Encapsulates character stats into one object.
+     */
+    public CharacterStats(int attack, int armorClass, int currentHitPoints,
+                          int energy, int speed, int luck) {
         this.attack = attack;
-        this.ac = ac;
-        this.currentHP = currentHP;
+        this.armorClass = armorClass;
+        this.currentHitPoints = currentHitPoints;
         this.energy = energy;
         this.speed = speed;
         this.luck = luck;
-        this.maxHP = currentHP; // max hp will be equal to starting hit points
+        this.maxHitPoints = currentHitPoints; // max hp will be equal to starting hit points
 
     }
 
+    /**
+     * Builds a character stat object from an existing character.
+     */
     public static CharacterStats statBuilder(Character character) {
         // copy all the character stats and return a new character with the copied stats
         // Ensures complete separation for the adventurer object
@@ -43,16 +50,20 @@ public class CharacterStats {
         return new CharacterStats(atk, def, hp, eng, speed, luck);
 
     }
+
+    /**
+     * Applies the stat boost to the player's stats.
+     */
     public void applyPowerStatBoost() {
 
         this.attack++;
-        this.ac++;
+        this.armorClass++;
         this.energy++;
         this.speed++;
         this.luck++;
 
-        this.maxHP = maxHP + 10;
-        this.currentHP = currentHP + 10;
+        this.maxHitPoints = maxHitPoints + 10;
+        this.currentHitPoints = currentHitPoints + 10;
 
     }
 
@@ -63,29 +74,29 @@ public class CharacterStats {
 
 
 
-    public int getAC() {
-        return this.ac;
+    public int getArmorClass() {
+        return this.armorClass;
     }
 
 
 
-    public int getCurrentHP() {
-        return currentHP;
+    public int getCurrentHitPoints() {
+        return currentHitPoints;
     }
 
 
     /**
      * Zeroizes hp when hp falls below 0.
      */
-    protected void zeroizeHP() {
-        this.currentHP = 0;
+    protected void zeroizeHitPoints() {
+        this.currentHitPoints = 0;
     }
 
-    protected void restoreHP(int amount) {
-        int hpAfterHeal = currentHP + amount;
+    protected void restoreHitPoints(int amount) {
+        int hpAfterHeal = currentHitPoints + amount;
 
         // prevents current hp from ever going over max
-        this.currentHP = Math.min(maxHP, hpAfterHeal);
+        this.currentHitPoints = Math.min(maxHitPoints, hpAfterHeal);
     }
 
     /**
@@ -93,11 +104,11 @@ public class CharacterStats {
      * @param amount of damage taken
      */
     protected void takeDamage(int amount) {
-        this.currentHP -= amount;
+        this.currentHitPoints -= amount;
     }
 
-    public int getMaxHP() {
-        return maxHP;
+    public int getMaxHitPoints() {
+        return maxHitPoints;
     }
 
 
