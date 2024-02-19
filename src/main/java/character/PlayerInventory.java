@@ -1,14 +1,14 @@
 package character;
 
-import utility.DungeonUtil;
-import utility.index.EquipmentSlot;
-import utility.index.Item;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import utility.DungeonUtil;
+import utility.index.EquipmentSlot;
+import utility.index.Item;
 
 
 /**

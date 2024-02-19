@@ -248,7 +248,7 @@ public class AdventurerActionsTest extends AdventurerTests {
     }
 
     @Test
-    void testUIFormatting() {
+    void testDisplayFormatting() {
         DungeonUtil.printSpacer();
         DungeonUtil.printSpecialWrapper();
     }

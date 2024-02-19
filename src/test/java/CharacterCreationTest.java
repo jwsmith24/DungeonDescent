@@ -21,6 +21,8 @@ public class CharacterCreationTest {
     void testPrintCustomizationOptions() {
         CharacterBuilder.printCustomizationOptions();
     }
+
+
     @Test
     void testMakeBasicCharacter() {
 

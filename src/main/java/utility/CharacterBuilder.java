@@ -9,12 +9,14 @@ import character.CharacterSkills;
 import character.CharacterStats;
 import character.ClassDecorator;
 import character.RaceDecorator;
-import utility.index.Condition;
-import utility.index.PlayerClass;
-import utility.index.PlayerRace;
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import utility.index.Condition;
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
 
 
 

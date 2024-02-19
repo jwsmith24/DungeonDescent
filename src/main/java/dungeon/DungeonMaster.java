@@ -118,7 +118,7 @@ public class DungeonMaster {
     }
 
     /**
-     * Logic for running the dungeon loop
+     * Logic for running the dungeon loop.
      */
     private static void gameLoop() {
 
