@@ -14,21 +14,14 @@ import utility.index.PlayerRace;
 
 
 
-
 public class CharacterCreationTest {
 
-    /**
-     * Helper method to spawn in a test Player named "Cloud".
-     * @return Adventurer named Cloud
-     */
-    public static Adventurer spawnCharacter() {
-        // Spawn character
-        Character testPlayer = new BasicCharacter("Cloud");
-        testPlayer = new RaceDecorator(testPlayer, PlayerRace.HUMAN);
-        testPlayer = new ClassDecorator(testPlayer, PlayerClass.WARRIOR);
 
-        return CharacterBuilder.spawnCharacter(testPlayer);
+    @Test
+    void testPrintCustomizationOptions() {
+        CharacterBuilder.printCustomizationOptions();
     }
+
 
     @Test
     void testMakeBasicCharacter() {
@@ -51,15 +44,15 @@ public class CharacterCreationTest {
         jeff = new RaceDecorator(jeff, PlayerRace.ORC);
 
         // Make sure Jeff has his original properties AND orc stuff
-        assertEquals(PlayerRace.ORC.getRaceDescription(), jeff.getPlayerRace(),
+        assertEquals(PlayerRace.ORC, jeff.getPlayerRace(),
                 "Jeff is not an Orc");
-        assertEquals(PlayerRace.ORC.getRacialBonusText(), jeff.getRacialAbility(),
+        assertEquals(PlayerRace.ORC.getRacialBonusText(), jeff.getPlayerRace().getRacialBonusText(),
                 "Wrong racial ability");
         assertEquals("Jeff", jeff.getName(),
                 "Jeff no longer has his name");
         assertEquals(12, jeff.getHitPoints(),
                 "Orc HP bonus not applied");
-        assertEquals(PlayerClass.NO_CLASS.getClassDescription(), jeff.getPlayerClass());
+        assertEquals(PlayerClass.NO_CLASS, jeff.getPlayerClass());
     }
 
 
@@ -74,13 +67,14 @@ public class CharacterCreationTest {
         // Make sure Jeff has original properties AND mage stuff
         assertEquals("Jeff", jeff.getName(),
                 "Jeff no longer has his name");
-        assertEquals(PlayerClass.MAGE.getClassDescription(), jeff.getPlayerClass(),
+        assertEquals(PlayerClass.MAGE, jeff.getPlayerClass(),
                 "Jeff is not a mage");
         assertEquals(3, jeff.getArcana(),
                 "Arcana bonus not applied");
-        assertEquals(PlayerClass.MAGE.getSpecialAbilityText(), jeff.getSpecialAbility(),
+        assertEquals(PlayerClass.MAGE.getSpecialAbilityText(),
+                jeff.getPlayerClass().getSpecialAbilityText(),
                 "Wrong special");
-        assertEquals(PlayerClass.MAGE.getAttackText(), jeff.getAttackType(),
+        assertEquals(PlayerClass.MAGE.getAttackText(), jeff.getPlayerClass().getAttackText(),
                 "Wrong attack type");
 
     }
@@ -94,9 +88,9 @@ public class CharacterCreationTest {
         // Bob is also a Priest
         bob = new ClassDecorator(bob, PlayerClass.PRIEST);
 
-        assertEquals(PlayerClass.PRIEST.getClassDescription(), bob.getPlayerClass(),
+        assertEquals(PlayerClass.PRIEST, bob.getPlayerClass(),
                 "Bob is no longer a priest");
-        assertEquals(PlayerRace.DEMON.getRaceDescription(), bob.getPlayerRace(),
+        assertEquals(PlayerRace.DEMON, bob.getPlayerRace(),
                 "Bob is no longer a demon");
 
         assertEquals("Bob", bob.getName(),
@@ -120,9 +114,9 @@ public class CharacterCreationTest {
         // Steve is also a Warrior
         steve = new ClassDecorator(steve, PlayerClass.WARRIOR);
 
-        assertEquals(PlayerClass.WARRIOR.getClassDescription(), steve.getPlayerClass(),
+        assertEquals(PlayerClass.WARRIOR, steve.getPlayerClass(),
                 "Steve is no longer a Warrior");
-        assertEquals(PlayerRace.HUMAN.getRaceDescription(), steve.getPlayerRace(),
+        assertEquals(PlayerRace.HUMAN, steve.getPlayerRace(),
                 "Wrong race");
         assertEquals("Steve", steve.getName(),
                 "Wrong name");
@@ -145,7 +139,8 @@ public class CharacterCreationTest {
         pete = new ClassDecorator(pete, PlayerClass.WARRIOR);
 
         // Pete's latest class was warrior, so his attack should be a warrior attack
-        assertEquals(PlayerClass.WARRIOR.getAttackText(), pete.getAttackType(),
+        assertEquals(PlayerClass.WARRIOR.getClassDescription(),
+                pete.getPlayerClass().getClassDescription(),
                 "Pete is not a warrior");
 
         // Pete should still have the +2 bonus to lockpicking though
@@ -166,7 +161,7 @@ public class CharacterCreationTest {
         pete = new ClassDecorator(pete, PlayerClass.WARRIOR);
         pete = new ClassDecorator(pete, PlayerClass.THIEF);
 
-        assertEquals(PlayerClass.THIEF.getAttackText(), pete.getAttackType(),
+        assertEquals(PlayerClass.THIEF.getAttackText(), pete.getPlayerClass().getAttackText(),
                 "Pete is not a warrior");
 
         // Pete should still have the +2 bonus to lockpicking
@@ -192,10 +187,29 @@ public class CharacterCreationTest {
 
         assertEquals(3, bucky.getSpeed(), "Speed incorrect");
         assertEquals(12, bucky.getHitPoints(), "HP incorrect");
-        assertEquals(PlayerRace.DEMON.getRacialBonusText(), bucky.getRacialAbility(),
+        assertEquals(PlayerRace.DEMON.getRacialBonusText(),
+                bucky.getPlayerRace().getRacialBonusText(),
                 "Racial ability is incorrect");
     }
 
+    @Test
+    void testCharacterBuilder() {
+        Adventurer player = CharacterBuilder.createScriptedCharacter();
+        assertEquals(PlayerClass.WARRIOR, player.getPlayerClass(), "Wrong class.");
+    }
+
+    @Test
+    void testSpawnCharacter() {
+        Character cloud = new BasicCharacter("Cloud");
+        cloud = new ClassDecorator(cloud, PlayerClass.WARRIOR);
+        cloud = new RaceDecorator(cloud, PlayerRace.ELF);
+
+        Adventurer finalCloud = CharacterBuilder.spawnCharacter(cloud);
+
+        assertEquals(PlayerClass.WARRIOR, finalCloud.getPlayerClass(), "wrong class");
+        assertEquals(PlayerRace.ELF, finalCloud.getPlayerRace(), "wrong race");
+
+    }
 
 
 

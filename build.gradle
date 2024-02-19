@@ -1,3 +1,5 @@
+import com.github.spotbugs.snom.SpotBugsReport
+
 plugins {
     id "com.github.spotbugs" version "5.0.12"
     id "checkstyle"
@@ -51,5 +53,12 @@ spotbugs {
     ignoreFailures = true
     showProgress = true
     effort = 'max'
+
+}
+spotbugsMain {
+    reports(({
+        xml.enabled = false
+        html.enabled = true
+    } as Closure<NamedDomainObjectContainer<? extends SpotBugsReport>>))
 }
 

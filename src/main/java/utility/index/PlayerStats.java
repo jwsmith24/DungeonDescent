@@ -5,7 +5,7 @@ package utility.index;
  */
 public enum PlayerStats {
     ATTACK(1),
-    DEF(1),
+    AC(12),
     HP(10),
     ENERGY(1),
     SPEED(1),

@@ -1,49 +1,81 @@
 package monsters;
 
-import character.Adventurer;
-
 /**
  * Defines monster actions.
  */
 public abstract class Monster {
 
     // Monster attributes
-
-    protected int hp;
-    protected int attackBonus;
-    protected int armorClass;
-
     protected String name;
-    protected int speed;
-    protected int xp;
+    protected MonsterStats stats;
 
 
     /**
-     * Base constructor for all monsters
+     * Base constructor for all monsters.
      */
-    public Monster(String name, int hp, int attackBonus, int armorClass, int speed, int experienceWorth) {
+    public Monster(String name, int hp, int attackBonus, int armorClass,
+                   int speed, int experience) {
         this.name = name;
-        this.hp = hp;
-        this.attackBonus = attackBonus;
-        this.armorClass = armorClass;
-        this.xp = experienceWorth;
-        this.speed = speed;
+        this.stats = MonsterStats.monsterStatBuilder(hp, attackBonus, armorClass,
+                speed, experience);
     }
 
 
-    // Methods for all monsters
+    /**
+     * Abstract method attack to ensure each monster type overrides with their own flavor text.
+     */
+    public void attackText() {
+
+        System.out.println("The monster attacks!");
+    }
 
     /**
-     * Attack a player.
+     * Apply damage to monster. If the damage is fatal, display to player.
+     * @param value amount of damage taken
      */
-    public abstract void attack();
+    public void takeDamage(int value) {
 
-    public abstract String getName();
-    public abstract int getXP();
-    public abstract int getHp();
-    public abstract int getAttackBonus();
-    public abstract int getArmorClass();
-    public abstract int getSpeed();
+        stats.takeDamage(value);
+
+        if (!isAlive()) {
+            System.out.println("The damage is fatal!");
+        }
+
+
+    }
+
+
+    /**
+     * Determines if monster is still alive.
+     */
+    public boolean isAlive() {
+        return stats.getHitPoints() > 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
+    public int getArmorClass() {
+        return stats.getArmorClass();
+    }
+
+    public int getAttackBonus() {
+        return stats.getAttackBonus();
+    }
+
+    public int getHitPoints() {
+        return stats.getHitPoints();
+    }
+
+    public int getSpeed() {
+        return stats.getSpeed();
+    }
+
+    public int getExperience() {
+        return stats.getExperience();
+    }
 
 
 

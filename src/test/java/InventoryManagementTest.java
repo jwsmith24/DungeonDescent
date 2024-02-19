@@ -1,11 +1,13 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import character.PlayerInventory;
-
 import org.junit.jupiter.api.Test;
-
+import utility.DungeonUtil;
 import utility.index.EquipmentSlot;
 import utility.index.Item;
+
+
 
 
 public class InventoryManagementTest {
@@ -36,7 +38,7 @@ public class InventoryManagementTest {
 
         PlayerInventory.initializeInventory();
 
-        PlayerInventory.removeItem(EquipmentSlot.WEAPON);
+        PlayerInventory.removeItem(EquipmentSlot.WEAPON, true);
 
         // Verifying that the right output was displayed to console
 
@@ -64,7 +66,7 @@ public class InventoryManagementTest {
         PlayerInventory.initializeInventory();
 
         // Equip a helmet!
-        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET);
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.IRON_HELMET, true);
 
         // Make sure it's equipped.
         assertEquals(Item.IRON_HELMET, PlayerInventory.getEquippedItem(EquipmentSlot.HELMET));
@@ -75,15 +77,32 @@ public class InventoryManagementTest {
     void testRemoveItemFromEmptySlot() {
         PlayerInventory.initializeInventory();
         // Try to remove the helmet
-        PlayerInventory.removeItem(EquipmentSlot.HELMET);
+        PlayerInventory.removeItem(EquipmentSlot.HELMET, true);
 
 
     }
 
     @Test
     void testRemoveItemFromEquippedSlot() {
-        // Testing removing from equipped slot manually since it relies on user input
 
+        PlayerInventory.initializeInventory();
+
+        // equip helmet of protection
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HELMET_OF_PROTECTION, true);
+
+        // find hat of style and try to equip
+        PlayerInventory.equipItem(EquipmentSlot.HELMET, Item.HAT_OF_STYLE, true);
+
+        PlayerInventory.displayInventory();
+
+
+    }
+
+    @Test
+    void testRollForRandomItem() {
+        int size = 3;
+
+        assertTrue(DungeonUtil.rollRandomItem(size) <= 3);
 
     }
 }

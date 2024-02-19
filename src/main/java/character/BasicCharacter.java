@@ -11,11 +11,13 @@ import utility.index.PlayerStats;
 
 
 
+
 /**
- * <p>The basic concrete character class that can be decorated by the race and class decorators.</p>
+ * <p>The basic concrete character class that can be decorated by the race and class
+ * decorators.</p>
  *
  * <p>Functionality for ALL characters can be added here while class or race-specific
- *  functionality will override the applicable methods in the decorator classes.</p>
+ * functionality will override the applicable methods in the decorator classes.</p>
  */
 public class BasicCharacter implements Character {
 
@@ -37,26 +39,24 @@ public class BasicCharacter implements Character {
 
     // Player Info
     String name;
-    String race;
+    PlayerRace race;
     int experience;
     int level;
     ArrayList<Condition> activeEffects = new ArrayList<>();
 
-    String playerClass;
-    String specialAbility;
-    String racialAbility;
-    String attackType;
+    PlayerClass playerClass;
 
 
     /**
      * A Player starts with all the base stats plus whatever they're named by the user.
+     *
      * @param name character name
      */
     public BasicCharacter(String name) {
 
         // Set base stats
         this.attack = PlayerStats.ATTACK.getBaseValue();
-        this.defence = PlayerStats.DEF.getBaseValue();
+        this.defence = PlayerStats.AC.getBaseValue();
         this.hitPoints = PlayerStats.HP.getBaseValue();
         this.energy = PlayerStats.ENERGY.getBaseValue();
         this.speed = PlayerStats.SPEED.getBaseValue();
@@ -75,12 +75,34 @@ public class BasicCharacter implements Character {
         this.level = 1;
         this.activeEffects.add(Condition.NEUTRAL);
 
-        this.playerClass = PlayerClass.NO_CLASS.getClassDescription();
-        this.attackType = PlayerClass.NO_CLASS.getAttackText();
-        this.specialAbility = PlayerClass.NO_CLASS.getSpecialAbilityText();
+        this.playerClass = PlayerClass.NO_CLASS;
+        this.race = PlayerRace.NEW_CHARACTER;
 
-        this.race = PlayerRace.NEW_CHARACTER.getRaceDescription();
-        this.racialAbility = PlayerRace.NEW_CHARACTER.getRacialBonusText();
+    }
+
+    /**
+     * Copy constructor.
+     */
+    public BasicCharacter(Character characterRef) {
+
+        this.attack = characterRef.getAttack();
+        this.defence = characterRef.getDefense();
+        this.hitPoints = characterRef.getHitPoints();
+        this.energy = characterRef.getEnergy();
+        this.speed = characterRef.getSpeed();
+        this.luck = characterRef.getLuck();
+        this.dungeoneering = characterRef.getDungeoneering();
+        this.lockPicking = characterRef.getLockPicking();
+        this.athletics = characterRef.getAthletics();
+        this.arcana = characterRef.getArcana();
+        this.history = characterRef.getHistory();
+        this.name = characterRef.getName();
+        this.race = characterRef.getPlayerRace();
+        this.experience = characterRef.getExperience();
+        this.level = characterRef.getLevel();
+        this.activeEffects = new ArrayList<>(characterRef.getActiveEffects());
+        this.playerClass = characterRef.getPlayerClass();
+
     }
 
 
@@ -143,7 +165,6 @@ public class BasicCharacter implements Character {
     }
 
 
-
     // Getters for Player Data
 
     @Override
@@ -170,29 +191,14 @@ public class BasicCharacter implements Character {
     }
 
     @Override
-    public String getPlayerClass() {
+    public PlayerClass getPlayerClass() {
         return playerClass;
     }
 
-    @Override
-    public String getAttackType() {
-        return attackType;
-    }
 
     @Override
-    public String getSpecialAbility() {
-        return specialAbility;
-    }
-
-
-    @Override
-    public String getPlayerRace() {
+    public PlayerRace getPlayerRace() {
         return race;
-    }
-
-    @Override
-    public String getRacialAbility() {
-        return racialAbility;
     }
 
 

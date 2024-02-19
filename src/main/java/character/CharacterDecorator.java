@@ -3,7 +3,8 @@ package character;
 import java.util.ArrayList;
 
 import utility.index.Condition;
-
+import utility.index.PlayerClass;
+import utility.index.PlayerRace;
 
 
 /**
@@ -109,29 +110,17 @@ public abstract class CharacterDecorator implements Character {
     }
 
     @Override
-    public String getPlayerClass() {
+    public PlayerClass getPlayerClass() {
         return decoratedCharacter.getPlayerClass();
     }
 
-    @Override
-    public String getAttackType() {
-        return decoratedCharacter.getAttackType();
-    }
 
     @Override
-    public String getSpecialAbility() {
-        return decoratedCharacter.getSpecialAbility();
-    }
-
-    @Override
-    public String getPlayerRace() {
+    public PlayerRace getPlayerRace() {
         return decoratedCharacter.getPlayerRace();
     }
 
-    @Override
-    public String getRacialAbility() {
-        return decoratedCharacter.getRacialAbility();
-    }
+
 
     /**
      * Builds part of the character sheet at each tier of decoration.

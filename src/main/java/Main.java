@@ -1,16 +1,8 @@
-import character.*;
-
-import character.Character;
 import dungeon.DungeonMaster;
-import dungeon.Shop;
-import utility.CharacterBuilder;
-import utility.index.EquipmentSlot;
-import utility.index.Item;
-import utility.index.PlayerClass;
-import utility.index.PlayerRace;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+
+
 
 /**
  * Basic main class to ensure everything is set up properly.
@@ -22,73 +14,69 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        // Utilizing the decorator pattern here for race and class with
-        // corresponding enums to keep things generalized and neat.
-
-        // For building the character sheet, I made a builder class that hides all the print
-        // formatting work behind nice static methods which the character decorator classes use.
-        // It uses the decorator classes to act implicitly as the director to determine how a character sheet is built.
-
-
-
-        decoratorDemo();
-
-        //userCharacterCreationDemo();
-
-
-        //runDungeon();
-
-
-
-        //Shop.goShopping(new Scanner(System.in, StandardCharsets.UTF_8));
-
-
-    }
-    private static void userCharacterCreationDemo() {
-        Adventurer player = CharacterBuilder.createCharacter();
-        System.out.println("Prepare to descend into the dungeon, " + player.getName() + "!");
-
-    }
-    private static void decoratorDemo() {
-        // Let's build a character - Craig and see their character sheet as its built!
-
-        Character craig = new BasicCharacter("Craig");
-
-        System.out.println("Hi, I'm " + craig.getName() + ".\n");
-
-        System.out.println(craig.getCharacterSheet());
-
-        // Craig wants to be a Human Mage
-
-        // First, we make Craig a Human
-        craig = new RaceDecorator(craig, PlayerRace.HUMAN);
-
-        System.out.println("Hi, I'm still " + craig.getName() + " and I'm a "
-                + craig.getPlayerRace() + "!"
-                + "\nIf we were to fight right now, I would use a: " + craig.getAttackType());
-
-        System.out.println(craig.getCharacterSheet());
-
-        // Then, Craig decides to be a Mage:
-        craig = new ClassDecorator(craig, PlayerClass.MAGE);
-
-        System.out.println("\nI'm seriously still " + craig.getName()
-                + " the " + craig.getPlayerRace()
-                + ", but now I'm also a " + craig.getPlayerClass() + "!"
-                + " If we were to fight, I would use a: " + craig.getAttackType());
-
-        System.out.println(craig.getCharacterSheet());
-
-        // You can see the human racial ability (+2 to attack) was applied as well
-    }
-
-    private static void buildInventory() {
-        PlayerInventory.initializeInventory();
+        welcomeScreen();
 
     }
 
+    /**
+     * Displays welcome screen and then updates DungeonMaster to be
+     * in scripted or unscripted mode.
+     */
+    private static void welcomeScreen() {
+
+        Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+
+        displayWelcomeText();
+
+        System.out.println("\nEnter 1 for the Scripted Version "
+                + "| Enter 2 for the Normal Version");
+
+        // Have player choose scripted or unscripted mode
+        boolean playerDeciding = true;
+
+        int result;
+
+        while (playerDeciding) {
+
+            try {
+                result = scanner.nextInt();
+                scanner.nextLine();
+
+                if (result == 1) {
+                    playerDeciding = false;
+                    DungeonMaster.setIsScripted(true);
+                    runDungeon();
+
+                } else if (result == 2) {
+                    playerDeciding = false;
+                    DungeonMaster.setIsScripted(false);
+                    runDungeon();
+                }
+
+            } catch (Exception e) {
+                System.out.println("Enter 1 or 2");
+
+            }
+        }
+    }
+
+    private static void displayWelcomeText() {
+        System.out.println("*******************************************************");
+        System.out.println("*                                                     *");
+        System.out.println("*            Welcome to Dungeon Descent!              *");
+        System.out.println("*                                                     *");
+        System.out.println("*******************************************************");
+
+    }
+
+
+
+    /**
+     * Runs the game.
+     */
     private static void runDungeon() {
-        DungeonMaster dm = new DungeonMaster();
-        dm.runDungeon();
+        DungeonMaster.runDungeon();
     }
+
+
 }

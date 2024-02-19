@@ -24,24 +24,12 @@ public class ClassDecorator extends CharacterDecorator {
      * Returns the new class description.
      */
     @Override
-    public String getPlayerClass() {
+    public PlayerClass getPlayerClass() {
 
-        return playerClass.getClassDescription();
+        return playerClass;
     }
 
-    /**
-     * Returns new class attack text.
-     */
-    @Override
-    public String getAttackType() {
-        return playerClass.getAttackText();
 
-    }
-
-    @Override
-    public String getSpecialAbility() {
-        return playerClass.getSpecialAbilityText();
-    }
 
     @Override
     public String getCharacterSheet() {

@@ -1,17 +1,67 @@
 package utility;
 
-import character.*;
+import character.Adventurer;
+import character.BasicCharacter;
 import character.Character;
+import character.CharacterActiveEffects;
+import character.CharacterInfo;
+import character.CharacterSkills;
+import character.CharacterStats;
+import character.ClassDecorator;
+import character.RaceDecorator;
+
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import utility.index.Condition;
 import utility.index.PlayerClass;
 import utility.index.PlayerRace;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
+
 
 /**
  * Contains methods for character creation and displaying options to the user.
  */
 public class CharacterBuilder {
+
+
+    /**
+     * Creates a pre-built character: Cloud, the Elf Warrior.
+     */
+    public static Adventurer createScriptedCharacter() {
+
+        return new Adventurer(setScriptedInfo(), setScriptedStats(),
+                setScriptedSkills(), setScriptedActiveEffects());
+    }
+
+    private static CharacterSkills setScriptedSkills() {
+        // apply class bonus
+        return new CharacterSkills(1,1,3,1,1);
+    }
+
+
+    private static CharacterStats setScriptedStats() {
+        // apply racial bonus
+        return new CharacterStats(1,1,10,3,1,1);
+    }
+
+    private static CharacterInfo setScriptedInfo() {
+
+        String characterSheet = "test character sheet";
+
+        return new CharacterInfo(0, 1, "Cloud", PlayerRace.ELF,
+                PlayerClass.WARRIOR, characterSheet);
+    }
+
+    private static CharacterActiveEffects setScriptedActiveEffects() {
+        ArrayList<Condition> activeEffects = new ArrayList<>();
+        activeEffects.add(Condition.NEUTRAL);
+
+        return new CharacterActiveEffects(activeEffects);
+
+    }
+
 
 
     /**
@@ -29,6 +79,7 @@ public class CharacterBuilder {
 
     /**
      * Helper method to build a character from user input.
+     *
      * @return finished character
      */
     private static Character manualCharacterCreation() {
@@ -65,7 +116,7 @@ public class CharacterBuilder {
             }
             System.out.println("Restarting character creation!");
         }
-        scanner.close();
+
 
         return player;
     }
@@ -97,7 +148,7 @@ public class CharacterBuilder {
                             classSelection = PlayerClass.MAGE;
                         } else if (choice == 3) {
                             classSelection = PlayerClass.THIEF;
-                        } else{
+                        } else {
                             classSelection = PlayerClass.PRIEST;
                         }
 
@@ -131,10 +182,14 @@ public class CharacterBuilder {
 
         // Print class options
         String classOptions =
-                "Class Options:\n" +
-                        "1. Warrior\n" +
-                        "2. Mage\n" +
-                        "3. Thief\n" +
+                "Class Options:\n"
+                        +
+                        "1. Warrior\n"
+                        +
+                        "2. Mage\n"
+                        +
+                        "3. Thief\n"
+                        +
                         "4. Priest\n";
 
         System.out.println(classOptions);
@@ -156,8 +211,10 @@ public class CharacterBuilder {
             System.out.println("Invalid Entry");
             scanner.nextLine();
         }
+
         return null;
     }
+
     /**
      * Helper method to print out race options.
      */
@@ -168,15 +225,21 @@ public class CharacterBuilder {
         System.out.println("  / \\");
 
         String raceOptions =
-                "Race Options:\n" +
-                        "1. Orc\n" +
-                        "2. Human\n" +
-                        "3. Demon\n" +
-                        "4. Elf\n" +
+                "Race Options:\n"
+                        +
+                        "1. Orc\n"
+                        +
+                        "2. Human\n"
+                        +
+                        "3. Demon\n"
+                        +
+                        "4. Elf\n"
+                        +
                         "5. Gnome";
 
         System.out.println(raceOptions);
     }
+
     /**
      * Helper method to handle getting race selection from user.
      */
@@ -186,9 +249,8 @@ public class CharacterBuilder {
 
         PlayerRace raceSelection;
 
-        boolean playerChoosingRace = true;
 
-        while (playerChoosingRace) {
+        while (true) {
 
             printRaceOptions();
 
@@ -228,49 +290,21 @@ public class CharacterBuilder {
             }
         }
 
-        return null;
     }
 
     /**
-     *  Once character creation is done, we want to capture the state of the object so that
-     *  updating conditions, level, experience, etc. doesn't scale out of control.
+     * Once character creation is done, we want to capture the state of the object so that updating
+     * conditions, level, experience, etc. doesn't scale out of control.
      */
     public static Adventurer spawnCharacter(Character characterRef) {
 
         // Create Adventurer object that captures state of decorated object
-        Adventurer newPlayer = new Adventurer();
+        CharacterStats stats = CharacterStats.statBuilder(characterRef);
+        CharacterSkills skills = CharacterSkills.skillBuilder(characterRef);
+        CharacterInfo info = CharacterInfo.infoBuilder(characterRef);
+        CharacterActiveEffects effects = CharacterActiveEffects.effectsBuilder(characterRef);
 
-        // Extract Stats
-        newPlayer.setAttack(characterRef.getAttack());
-        newPlayer.setDefense(characterRef.getDefense());
-        newPlayer.setHitPoints(characterRef.getHitPoints());
-        newPlayer.setEnergy(characterRef.getEnergy());
-        newPlayer.setSpeed(characterRef.getSpeed());
-        newPlayer.setLuck(characterRef.getLuck());
-
-        // Extract Skills
-        newPlayer.setDungeoneering(characterRef.getDungeoneering());
-        newPlayer.setLockPicking(characterRef.getLockPicking());
-        newPlayer.setAthletics(characterRef.getAthletics());
-        newPlayer.setArcana(characterRef.getArcana());
-        newPlayer.setHistory(characterRef.getHistory());
-
-        // Extract Info
-        newPlayer.setName(characterRef.getName());
-        newPlayer.setCharacterSheet(characterRef.getCharacterSheet());
-        newPlayer.setRace(characterRef.getPlayerRace());
-        newPlayer.setRacialAbility(characterRef.getRacialAbility());
-
-        newPlayer.setPlayerClass(characterRef.getPlayerClass());
-        newPlayer.setSpecialAbility(characterRef.getSpecialAbility());
-        newPlayer.setAttackType(characterRef.getAttackType());
-
-        newPlayer.setExperience(characterRef.getExperience());
-        newPlayer.setLevel(characterRef.getLevel());
-        newPlayer.setActiveEffects(characterRef.getActiveEffects());
-
-
-        return newPlayer;
+        return new Adventurer(info, stats, skills, effects);
     }
 
     /**
@@ -278,5 +312,14 @@ public class CharacterBuilder {
      */
     private CharacterBuilder() {
         // No objects here!
+    }
+
+    /**
+     * Displays character customization options to player.
+     */
+    public static void printCustomizationOptions() {
+        printClassOptions();
+        printRaceOptions();
+
     }
 }
