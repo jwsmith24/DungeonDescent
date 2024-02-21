@@ -34,9 +34,13 @@ public class DungeonUtil {
                 selection = scanner.nextInt();
                 scanner.nextLine();
 
-                if (selection > 0 && selection < numberOfChoices) {
+                if (selection > 0 && selection <= numberOfChoices) {
                     playerDeciding = false;
+                } else {
+                    System.out.println("Enter a valid number between 1 and " + numberOfChoices);
                 }
+
+                
 
             } catch (Exception e) {
                 System.out.println("Enter a valid number between 1 and " + numberOfChoices);
