@@ -2,6 +2,8 @@
 
 ![image info](submissionImages/dungeon-art.jpg)
 
+[View screencast here](https://www.youtube.com/watch?v=p6COEsAnRZs)
+
 Assignment 5 – Design Patterns
 
 SER 316
