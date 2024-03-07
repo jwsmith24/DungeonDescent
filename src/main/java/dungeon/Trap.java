@@ -75,6 +75,10 @@ public abstract class Trap {
         System.out.println(surpriseText);
     }
 
+    public void displayTrapName() {
+        System.out.println(name);
+    }
+
 
 
 }
